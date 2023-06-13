@@ -1,32 +1,32 @@
 .top-container
     .top-container-item(ng-if="mobilePage.isSet(1)")
         .top-container-header
-            .top-container-title Выбор шаблона
+            .top-container-title Вибір шаблону
             .top-container-subtitle(ng-if="!mobilePage.G.global.SelectedTemplateName", data-output="Левое глухое, правое поворотно–откидное"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
             .top-container-subtitle(ng-if="mobilePage.G.global.SelectedTemplateName") {{ mobilePage.G.global.SelectedTemplateName }}
         button.top-container-close(ng-click="mobilePage.closePanelMobile()")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 2")
         .top-container-header
-            .top-container-title Профиль
+            .top-container-title Профіль
             .top-container-subtitle {{ mobilePage.P.product.profile.name  }}
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 3")
         .top-container-header
-            .top-container-title Стелопакет
+            .top-container-title Склопакет
             .top-container-subtitle {{ mobilePage.P.product.glass[0].name }}
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 5")
         .top-container-header
-            .top-container-title Ламинация (в комнате | фасад)
+            .top-container-title Ламінація (у кімнаті | фасад)
             .top-container-subtitle {{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 6")
         .top-container-header
-            .top-container-title Дополнительные элементы
-            .top-container-subtitle Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})
+            .top-container-title Додаткові елементи
+            .top-container-subtitle Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.isSet(4)")
         .top-container-header
-            .top-container-title Корзина
-            .top-container-subtitle Расчёт стоимости и услуги
+            .top-container-title Кошик
+            .top-container-subtitle Розрахунок вартості та послуги
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")

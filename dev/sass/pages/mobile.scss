@@ -162,10 +162,10 @@ body {
     background: $main_white;
     display: inline-flex;
     flex-direction: column;
-    height: 50%;
+    height: 30%;
     justify-content: center;
     left: 15%;
-    padding: 10px;
+    padding: 20px 30px;
     position: absolute;
     top: 15%;
     width: 70%;
@@ -219,8 +219,8 @@ body {
     height: 32rem !important;
     .size-txt-edit {
       @extend .size-txt;
-      stroke: $main_red;
-      fill: $main_red;
+      stroke: $main_white;
+      fill: $main_white;
 
       &.active {
         stroke: $main_white;
@@ -249,7 +249,7 @@ body {
       &.active {
         width: 240px;
         height: 110px;
-        fill: $main_red;
+        fill: $main_deep_green;
         fill-opacity: 1;
       }
     }
@@ -582,7 +582,7 @@ body {
     z-index: 1;
     .common-content-style {
       width: 100%;
-      height: 10vh;
+      height: 100%;
       background: $main_white;
       z-index: 1;
       display: inline-block;
@@ -1271,7 +1271,7 @@ body {
       background-color: $main_dark_blue;
       flex-direction: column;
       justify-content: space-between;
-      height: 100vh;
+      height: 70vh;
       .common-scroll-container-rehau {
         width: 100%;
         min-width: 100%;
@@ -1334,7 +1334,7 @@ body {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 10vh;
+        height: 100%;
         width: 100%;
 
         padding: 8px 16px;
@@ -4442,7 +4442,7 @@ body {
   }
   .size-line {
     stroke-width: 1.2px !important;
-    stroke: $main_red !important;
+    stroke: $main_deep_green !important;
   }
   // rehau styles
   .size-line-rehau {
@@ -4710,7 +4710,7 @@ body {
   }
   .sash_mark {
     fill: none;
-    stroke: $main_red;
+    stroke: $main_deep_green;
     stroke-width: 6;
   }
   .info {

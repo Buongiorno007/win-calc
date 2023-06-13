@@ -2,7 +2,7 @@
 <div class="top-container">
   <div ng-if="mobilePage.isSet(1)" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Выбор шаблона</div>
+      <div class="top-container-title">Вибір шаблону</div>
       <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
       <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
     </div>
@@ -10,36 +10,36 @@
   </div>
   <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Профиль</div>
+      <div class="top-container-title">Профіль</div>
       <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>
   <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Стелопакет</div>
+      <div class="top-container-title">Склопакет</div>
       <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>
   <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+      <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
       <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>
   <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Дополнительные элементы</div>
-      <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+      <div class="top-container-title">Додаткові елементи</div>
+      <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>
   <div ng-if="mobilePage.isSet(4)" class="top-container-item">
     <div class="top-container-header">
-      <div class="top-container-title">Корзина</div>
-      <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+      <div class="top-container-title">Кошик</div>
+      <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>

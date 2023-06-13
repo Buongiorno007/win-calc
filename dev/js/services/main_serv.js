@@ -47,6 +47,8 @@
             }
 
             getOnline();
+            //saving default values for hardwares
+            GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
 
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
@@ -188,7 +190,6 @@
                     case 1:
                         optionsServ.getTemplatesWindow(function (results) {
                             if (results.status) {
-                                
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
@@ -197,7 +198,6 @@
                                 console.log(results);
                             }
                         });
-                        
                         break;
                     case 2:
                         optionsServ.getTemplatesWindowDoor(function (results) {
@@ -251,6 +251,7 @@
                     }
                 }
             }
+          
 
             function downloadProfileDepth(elementId) {
                 var defer = $q.defer();
@@ -272,7 +273,7 @@
                     });
                 return defer.promise;
             }
-
+            
             //-------- set default profile
             function setCurrentProfile(product, id) {
                 var deferred = $q.defer();
@@ -307,7 +308,7 @@
                 needed_data().then(
                     function(data) {
                         try {
-/*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
@@ -422,40 +423,50 @@
                         const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
                         //First looop for first array
                         let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_first) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
+
                         //Second loop for second array
                         let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_second) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
 
                         const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
+                        if (hardware_groups_array_first) {
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
+
+                        if (hardware_groups_array_second) {
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
                         //Block for hardware goups end ***
 
                         //Block for hardware folders start ***
@@ -965,11 +976,43 @@
                                 }
                             }
                         }
-                        //Block for glasses translations end ***
-                        } catch(err) {
-                            // console.log("Not all translations come from the backend, which is why you see this message")
+                        } catch (e) {
+                            console.log(e)
                         }
-                        
+                        //Block for glasses translations end ****************
+                        // Hardware display logic that fits only a certain profile
+
+                        //Download data from backend
+                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+                        //Clearing hardwares arrays
+                        GlobalStor.global.hardwares = []
+                        //Loop for windowHardwareProfileSystem elements 
+                        for (let element of windowHardwareProfileSystem) {
+                            //Get current profile id
+                            let currentProfileId = ProductStor.product.profile.id;
+                            //Check if current profile id equal to element from backend 
+                            if (element.profile_system_id === currentProfileId) {
+                                //Local variables for different manipulation
+                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                    if (filteredHardwares.length) {
+                                        if (!GlobalStor.global.hardwares[index]) {
+                                            GlobalStor.global.hardwares[index] = []
+                                        }
+                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
+                                    }
+                                })
+                            }
+                        }
+                        setCurrentHardware(ProductStor.product);
+                        if (ProductStor.product.profile.id) {
+                            preparePrice(
+                                ProductStor.product.template,
+                                ProductStor.product.profile.id,
+                                ProductStor.product.glass,
+                                ProductStor.product.hardware.id,
+                                ProductStor.product.lamination.lamination_in_id)
+                        } 
                     }
                 )
                
@@ -1298,7 +1341,17 @@
                 } else {
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
-                        product.hardware = GlobalStor.global.hardwares[0][0];
+                        for (let currentHardware of GlobalStor.global.hardwares) {
+                            if (currentHardware) {
+                                if (currentHardware[0].is_default === 1) {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                } else {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                }
+                            }  
+                        }
                     } else {
                         product.hardware = {};
                     }
@@ -1388,103 +1441,19 @@
                 return deff.promise;
             }
 
-            var glassPrices = []
             function setProductPriceTOTAL(Product) {
-                var deliveryCoeff = 
+
+                var deliveryCoeff =
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
                     ],
-                    priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
-                    
+                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+
+
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
-                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
-                It's not so clear and should be refactored some time*/
-                if (ProductStor.product.report.length > 0) {
-                    Product.report.map((element) => {
-                        if (element.element_group_id === 8) {
-                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
-                            }).then(function(result) {
-                                glassPrices = result[0]
-                            })
-                            if (element.element_id === glassPrices.element_id) {
-                                if (glassPrices.col_1_range > 0) {
-                                    if (element.size < glassPrices.col_1_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    } 
-                                } if (glassPrices.col_2_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else  {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_3_range_1 > 0) {
-                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                            
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_4_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                                if (glassPrices.col_5_range > 0) {
-                                    if (element.size > glassPrices.col_5_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                console.log("no Match") 
-                            }
-                        }
-                    })
-                }
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -1492,8 +1461,9 @@
                         deliveryCoeff
                     );
                 }
+
                 GlobalStor.global.tempPrice =
-                    Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
+                    Product.productPriceDis * GlobalStor.global.product_qty;
                 GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
@@ -1576,6 +1546,106 @@
                         priceMargin,
                         doorData,
                         tempDoorItems;
+                        var glassData = null
+                        function glassPricesData() {
+                            var defer = $q.defer();
+                            db.getItem('tables').then(function (value) {
+                                glassPricesData = value;
+                                defer.resolve(glassPricesData);
+                            }).catch(function (err) {
+                                console.log(err);
+                                defer.resolve(0);
+                            });
+                            return defer.promise;
+                        }
+                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
+                        glassPricesData().then(
+                            function(data) {
+                                let glassPricesData = data.glass_prices;
+                                let currentGlassData = ProductStor.product.report;
+                                if (glassPricesData) {
+                                    for(var i = 0; i < glassPricesData.length; i++) {
+                                        for(var y = 0; y < currentGlassData.length; y++) {
+                                            /* checks if ids the same */
+                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
+                                                /* check range */
+                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -1797,9 +1867,6 @@
                     ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
-                    if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
-                    }
                 } else {
                     /** U */
                     ProductStor.product.heat_coef_total =
@@ -1948,15 +2015,6 @@
                             // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
                             /** send analytics data to Server*/
                             //------ profile
-                            $timeout(function () {
-                                AnalyticsServ.sendAnalyticsData(
-                                    UserStor.userInfo.id,
-                                    OrderStor.order.id,
-                                    ProductStor.product.template_id,
-                                    ProductStor.product.profile.id,
-                                    1
-                                );
-                            }, 5000);
                         }
                     } else {
                         deferred.resolve(1);
@@ -2562,14 +2620,8 @@
                                 tempObj = itemArr[itemArrQty];
                             }
                         }
-                    } 
+                    }
                     if (!$.isEmptyObject(tempObj)) {
-                        GlobalStor.global.infoTitle = tempObj;
-                        GlobalStor.global.infoImg = tempObj.img;
-                        GlobalStor.global.infoLink = tempObj.link;
-                        GlobalStor.global.infoDescrip = tempObj.description;
-                        GlobalStor.global.isInfoBox = id;
-                    } else {
                         GlobalStor.global.infoTitle = tempObj.translate;
                         GlobalStor.global.infoImg = tempObj.img;
                         GlobalStor.global.infoLink = tempObj.link;

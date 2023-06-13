@@ -68,13 +68,6 @@
                                 //------ define product price
 
                                 /** send analytics data to Server*/
-                                AnalyticsServ.sendAnalyticsData(
-                                    UserStor.userInfo.id,
-                                    OrderStor.order.id,
-                                    ProductStor.product.template_id,
-                                    ProductStor.product.profile.id,
-                                    1
-                                );
                                 if ($location.path() === "/main") {
                                     if ($location.path() !== "/design") {
                                         $location.path("/design");
@@ -236,18 +229,7 @@
                             GlobalStor.global.activePanel = 0;
                         }, 100);
                     }
-
-                    if (GlobalStor.global.isChangedTemplate) {
-                        //----- если выбран новый шаблон после изменения предыдущего
-                        GeneralServ.confirmAlert(
-                            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-                            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-                            goToNewTemplate
-                        );
-                    } else {
-                        goToNewTemplate()
-                    }
-
+                    goToNewTemplate()
                 }
 
 

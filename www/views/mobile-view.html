@@ -6,19 +6,10 @@
       <svg-template template="designPage.D.design.templateTEMP" template-width="mobilePage.mobWidth" template-height="mobilePage.mobHeight" type-construction="designPage.constants.SVG_ID_EDIT"></svg-template>
     </div>
   </div>
-  <div ng-controller="ConfigMenuCtrl as configMenu" class="mobile-price">
-    <div ng-if="configMenu.U.userInfo.factory_id !== 2" class="mobile-price-block">
-      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
-      <div class="go-to-cart">
-        <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
-        <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
-      </div>
-    </div>
-  </div>
   <div ng-if="!mobilePage.isSet(0)" class="content-container">
     <div ng-if="mobilePage.isSet(1)" class="templates-content">
       <div ng-controller="TemplatesCtrl as templatesPanel" class="box">
-        <div ng-if="templatesPanel.U.userInfo.factory_id !== 2" class="scroll-container">
+        <div class="scroll-container">
           <div class="accept-container">
             <div ng-if="!mobilePage.isSet(1)" class="row">
               <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
@@ -104,7 +95,7 @@
           <div class="top-container">
             <div ng-if="mobilePage.isSet(1)" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Выбор шаблона</div>
+                <div class="top-container-title">Вибір шаблону</div>
                 <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
                 <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
               </div>
@@ -112,36 +103,36 @@
             </div>
             <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Профиль</div>
+                <div class="top-container-title">Профіль</div>
                 <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
               </div>
               <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
             </div>
             <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Стелопакет</div>
+                <div class="top-container-title">Склопакет</div>
                 <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
               </div>
               <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
             </div>
             <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+                <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
                 <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
               </div>
               <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
             </div>
             <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Дополнительные элементы</div>
-                <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+                <div class="top-container-title">Додаткові елементи</div>
+                <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
               </div>
               <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
             </div>
             <div ng-if="mobilePage.isSet(4)" class="top-container-item">
               <div class="top-container-header">
-                <div class="top-container-title">Корзина</div>
-                <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+                <div class="top-container-title">Кошик</div>
+                <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
               </div>
               <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
             </div>
@@ -291,30 +282,30 @@
         <div class="common-scroll-container-rehau">
           <div class="conf-top-item">
             <div class="conf-header">
-              <div class="conf-item-title">Конфигурация</div>
-              <div class="conf-item-subtitle">Задайте параметры вашего окна</div>
+              <div class="conf-item-title">Конфігурація</div>
+              <div class="conf-item-subtitle">Задайте параметри вашого вікна</div>
             </div>
             <button ng-click="mobilePage.closePanelMobile()" class="conf-close"></button>
           </div>
           <div fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item-rehau">
-            <div class="item-title">Выбор шаблона</div>
+            <div class="item-title">Вибір шаблону</div>
             <div ng-if="!configMenu.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="conf-item-text"></div>
             <div ng-if="configMenu.G.global.SelectedTemplateName" class="conf-item-text">{{ configMenu.G.global.SelectedTemplateName }}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item-rehau">
-            <div class="item-title">Профиль</div>
+            <div class="item-title">Профіль</div>
             <div class="conf-item-text">{{ configMenu.P.product.profile.name }}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}" class="conf-item-rehau">
-            <div class="item-title">Стеклопакет</div>
+            <div class="item-title">Склопакет</div>
             <div class="conf-item-text">{{ configMenu.P.product.glass[0].name }}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item-rehau">
-            <div class="item-title">Цвет (В комнате | фасад)</div>
+            <div class="item-title">Колір (У кімнаті | фасад)</div>
             <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_in_name | translate }} | {{ configMenu.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}" class="conf-item-rehau">
-            <div class="item-title">Доп. элементы</div>
+            <div class="item-title">Доп. елементи</div>
             <div class="conf-item-box"></div>
             <div class="additional-items-list-rehau">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
@@ -326,28 +317,28 @@
         </div>
         <div class="bottom-block">
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-            <button class="add-to-basket">Добавить в корзину</button>
+            <button class="add-to-basket">Додати в кошик</button>
             <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
           </div>
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-            <button class="add-to-basket">Добавить в корзину</button>
+            <button class="add-to-basket">Додати в кошик</button>
             <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
           </div>
           <div class="price-and-coeff-block">
-            <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+            <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
               <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
             </div>
             <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
               <div class="expert-mark-row">
                 <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
                 <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+                <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
               </div>
               <div class="price-block">
                 <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -355,8 +346,8 @@
             </div>
           </div>
           <div ng-if="mobilePage.isSet(4)" class="price-total">
-            <div class="total-txt"><span>Итого:</span></div>
-            <div class="price-total-price">  
+            <div class="total-txt"><span>Разом:</span></div>
+            <div class="price-total-price">
               <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
               <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
             </div>
@@ -366,34 +357,34 @@
             <div class="mobile-price-block-rehau">
               <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
                 <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-                <div class="menu-text">Размеры</div>
+                <div class="menu-text">Розміри</div>
               </div>
               <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
                 <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-                <div class="menu-text">Конструкции</div>
+                <div class="menu-text">Конструкції</div>
               </div>
               <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
                 <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-                <div class="menu-text">Параметры</div>
+                <div class="menu-text">Параметри</div>
               </div>
               <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
                 <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                   <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
                 </div>
-                <div class="menu-text">Корзина</div>
+                <div class="menu-text">Кошик</div>
               </div>
               <div class="menu-block for-landing-mobile disabled">
                 <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                   <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
                 </div>
-                <div class="menu-text">Корзина</div>
+                <div class="menu-text">Кошик</div>
               </div>
             </div>
           </div>
           <!--basket-->
           <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-            <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-            <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+            <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+            <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
           </div>
         </div>
       </div>
@@ -421,28 +412,28 @@
   </div>
   <div class="bottom-block">
     <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-      <button class="add-to-basket">Добавить в корзину</button>
+      <button class="add-to-basket">Додати в кошик</button>
       <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
     </div>
     <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-      <button class="add-to-basket">Добавить в корзину</button>
+      <button class="add-to-basket">Додати в кошик</button>
       <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
     </div>
     <div class="price-and-coeff-block">
-      <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+      <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
         <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
       </div>
       <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
         <div class="expert-mark-row">
           <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
           <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
         </div>
         <div class="price-block">
           <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -450,8 +441,8 @@
       </div>
     </div>
     <div ng-if="mobilePage.isSet(4)" class="price-total">
-      <div class="total-txt"><span>Итого:</span></div>
-      <div class="price-total-price">  
+      <div class="total-txt"><span>Разом:</span></div>
+      <div class="price-total-price">
         <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
         <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
       </div>
@@ -461,34 +452,34 @@
       <div class="mobile-price-block-rehau">
         <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
           <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-          <div class="menu-text">Размеры</div>
+          <div class="menu-text">Розміри</div>
         </div>
         <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
           <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-          <div class="menu-text">Конструкции</div>
+          <div class="menu-text">Конструкції</div>
         </div>
         <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
           <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-          <div class="menu-text">Параметры</div>
+          <div class="menu-text">Параметри</div>
         </div>
         <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
           <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
             <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
           </div>
-          <div class="menu-text">Корзина</div>
+          <div class="menu-text">Кошик</div>
         </div>
         <div class="menu-block for-landing-mobile disabled">
           <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
             <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
           </div>
-          <div class="menu-text">Корзина</div>
+          <div class="menu-text">Кошик</div>
         </div>
       </div>
     </div>
     <!--basket-->
     <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-      <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-      <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+      <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+      <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
     </div>
   </div>
   <section ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger-active" class="mobile_disable">
@@ -624,7 +615,7 @@
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Выбор шаблона</div>
+            <div class="top-container-title">Вибір шаблону</div>
             <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
             <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
           </div>
@@ -632,36 +623,36 @@
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Профиль</div>
+            <div class="top-container-title">Профіль</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Стелопакет</div>
+            <div class="top-container-title">Склопакет</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+            <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Дополнительные элементы</div>
-            <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+            <div class="top-container-title">Додаткові елементи</div>
+            <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Корзина</div>
-            <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+            <div class="top-container-title">Кошик</div>
+            <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
@@ -690,28 +681,28 @@
       </div>
       <div class="bottom-block">
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div class="price-and-coeff-block">
-          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
           </div>
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
             <div class="expert-mark-row">
               <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
               <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
             </div>
             <div class="price-block">
               <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -719,8 +710,8 @@
           </div>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="price-total">
-          <div class="total-txt"><span>Итого:</span></div>
-          <div class="price-total-price">  
+          <div class="total-txt"><span>Разом:</span></div>
+          <div class="price-total-price">
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
             <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
           </div>
@@ -730,34 +721,34 @@
           <div class="mobile-price-block-rehau">
             <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-              <div class="menu-text">Размеры</div>
+              <div class="menu-text">Розміри</div>
             </div>
             <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-              <div class="menu-text">Конструкции</div>
+              <div class="menu-text">Конструкції</div>
             </div>
             <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-              <div class="menu-text">Параметры</div>
+              <div class="menu-text">Параметри</div>
             </div>
             <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
             <div class="menu-block for-landing-mobile disabled">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
           </div>
         </div>
         <!--basket-->
         <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-          <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+          <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
         </div>
       </div>
     </div>
@@ -767,7 +758,7 @@
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Выбор шаблона</div>
+            <div class="top-container-title">Вибір шаблону</div>
             <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
             <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
           </div>
@@ -775,36 +766,36 @@
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Профиль</div>
+            <div class="top-container-title">Профіль</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Стелопакет</div>
+            <div class="top-container-title">Склопакет</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+            <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Дополнительные элементы</div>
-            <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+            <div class="top-container-title">Додаткові елементи</div>
+            <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Корзина</div>
-            <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+            <div class="top-container-title">Кошик</div>
+            <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
@@ -858,28 +849,28 @@
       </div>
       <div class="bottom-block">
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div class="price-and-coeff-block">
-          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
           </div>
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
             <div class="expert-mark-row">
               <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
               <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
             </div>
             <div class="price-block">
               <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -887,8 +878,8 @@
           </div>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="price-total">
-          <div class="total-txt"><span>Итого:</span></div>
-          <div class="price-total-price">  
+          <div class="total-txt"><span>Разом:</span></div>
+          <div class="price-total-price">
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
             <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
           </div>
@@ -898,34 +889,34 @@
           <div class="mobile-price-block-rehau">
             <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-              <div class="menu-text">Размеры</div>
+              <div class="menu-text">Розміри</div>
             </div>
             <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-              <div class="menu-text">Конструкции</div>
+              <div class="menu-text">Конструкції</div>
             </div>
             <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-              <div class="menu-text">Параметры</div>
+              <div class="menu-text">Параметри</div>
             </div>
             <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
             <div class="menu-block for-landing-mobile disabled">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
           </div>
         </div>
         <!--basket-->
         <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-          <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+          <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
         </div>
       </div>
     </div>
@@ -1086,7 +1077,7 @@
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Выбор шаблона</div>
+            <div class="top-container-title">Вибір шаблону</div>
             <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
             <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
           </div>
@@ -1094,36 +1085,36 @@
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Профиль</div>
+            <div class="top-container-title">Профіль</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Стелопакет</div>
+            <div class="top-container-title">Склопакет</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+            <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Дополнительные элементы</div>
-            <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+            <div class="top-container-title">Додаткові елементи</div>
+            <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Корзина</div>
-            <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+            <div class="top-container-title">Кошик</div>
+            <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
@@ -1154,28 +1145,28 @@
       </div>
       <div class="bottom-block">
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div class="price-and-coeff-block">
-          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
           </div>
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
             <div class="expert-mark-row">
               <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
               <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
             </div>
             <div class="price-block">
               <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -1183,8 +1174,8 @@
           </div>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="price-total">
-          <div class="total-txt"><span>Итого:</span></div>
-          <div class="price-total-price">  
+          <div class="total-txt"><span>Разом:</span></div>
+          <div class="price-total-price">
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
             <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
           </div>
@@ -1194,34 +1185,34 @@
           <div class="mobile-price-block-rehau">
             <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-              <div class="menu-text">Размеры</div>
+              <div class="menu-text">Розміри</div>
             </div>
             <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-              <div class="menu-text">Конструкции</div>
+              <div class="menu-text">Конструкції</div>
             </div>
             <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-              <div class="menu-text">Параметры</div>
+              <div class="menu-text">Параметри</div>
             </div>
             <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
             <div class="menu-block for-landing-mobile disabled">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
           </div>
         </div>
         <!--basket-->
         <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-          <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+          <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
         </div>
       </div>
     </div>
@@ -1231,7 +1222,7 @@
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Выбор шаблона</div>
+            <div class="top-container-title">Вибір шаблону</div>
             <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
             <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
           </div>
@@ -1239,36 +1230,36 @@
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Профиль</div>
+            <div class="top-container-title">Профіль</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Стелопакет</div>
+            <div class="top-container-title">Склопакет</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+            <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Дополнительные элементы</div>
-            <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+            <div class="top-container-title">Додаткові елементи</div>
+            <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Корзина</div>
-            <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+            <div class="top-container-title">Кошик</div>
+            <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
@@ -1343,28 +1334,28 @@
       </div>
       <div class="bottom-block">
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-          <button class="add-to-basket">Добавить в корзину</button>
+          <button class="add-to-basket">Додати в кошик</button>
           <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
         </div>
         <div class="price-and-coeff-block">
-          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+          <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
           </div>
           <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
             <div class="expert-mark-row">
               <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
               <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+              <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
             </div>
             <div class="price-block">
               <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -1372,8 +1363,8 @@
           </div>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="price-total">
-          <div class="total-txt"><span>Итого:</span></div>
-          <div class="price-total-price">  
+          <div class="total-txt"><span>Разом:</span></div>
+          <div class="price-total-price">
             <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
             <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
           </div>
@@ -1383,34 +1374,34 @@
           <div class="mobile-price-block-rehau">
             <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-              <div class="menu-text">Размеры</div>
+              <div class="menu-text">Розміри</div>
             </div>
             <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-              <div class="menu-text">Конструкции</div>
+              <div class="menu-text">Конструкції</div>
             </div>
             <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
               <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-              <div class="menu-text">Параметры</div>
+              <div class="menu-text">Параметри</div>
             </div>
             <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
             <div class="menu-block for-landing-mobile disabled">
               <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
                 <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
               </div>
-              <div class="menu-text">Корзина</div>
+              <div class="menu-text">Кошик</div>
             </div>
           </div>
         </div>
         <!--basket-->
         <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-          <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+          <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+          <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
         </div>
       </div>
     </div>
@@ -1536,7 +1527,7 @@
           <div class="phone-input">
             <div class="input-label">Ваш номер телефона</div>
             <div class="input-field-mobile">
-              <input placeholder="+7(___) ___-__-__" type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" ng-class="{'error': orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required}" required class="user-field-phone">
+              <input placeholder="+(380)__-__-____" type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" ng-class="{'error': orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required}" required class="user-field-phone">
             </div>
           </div>
           <div class="comment-input">
@@ -1642,37 +1633,6 @@
     </div>
   </div>
   <div class="main-info-box">
-    <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id !== 2" class="info_container">
-      <div class="info_box">
-        <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-          <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_title">{{infoBox.G.global.infoTitle.en}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_title">{{infoBox.G.global.infoTitle.ru}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_title">{{infoBox.G.global.infoTitle.ua}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_title">{{infoBox.G.global.infoTitle.pl}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_title">{{infoBox.G.global.infoTitle.de}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_title">{{infoBox.G.global.infoTitle.bg}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_title">{{infoBox.G.global.infoTitle.it}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_title">{{infoBox.G.global.infoTitle.es}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_title">{{infoBox.G.global.infoTitle.ro}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_descrip">{{infoBox.G.global.infoDescrip.en}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_descrip">{{infoBox.G.global.infoDescrip.ru}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_descrip">{{infoBox.G.global.infoDescrip.ua}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_descrip">{{infoBox.G.global.infoDescrip.pl}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_descrip">{{infoBox.G.global.infoDescrip.es}}</div>
-          <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_descrip">{{infoBox.G.global.infoDescrip.ro}}</div>
-          <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}" target="_blank") {{infoBox.G.global.infoLink}}-->
-        </div>
-        <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>
-        <div ng-show="infoBox.G.global.showApply === 1" class="isApply-container">
-          <div fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" class="isApply">
-            <p>{{::infoBox.ASKING_PRICE}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
     <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container-rehau">
       <div class="info_box-rehau">
         <div class="info_box_inner">
@@ -1772,7 +1732,7 @@
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Выбор шаблона</div>
+            <div class="top-container-title">Вибір шаблону</div>
             <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
             <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
           </div>
@@ -1780,36 +1740,36 @@
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Профиль</div>
+            <div class="top-container-title">Профіль</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Стелопакет</div>
+            <div class="top-container-title">Склопакет</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+            <div class="top-container-title">Ламінація (у кімнаті | фасад)</div>
             <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Дополнительные элементы</div>
-            <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
+            <div class="top-container-title">Додаткові елементи</div>
+            <div class="top-container-subtitle">Загальна ціна додаткових елементів ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
         <div ng-if="mobilePage.isSet(4)" class="top-container-item">
           <div class="top-container-header">
-            <div class="top-container-title">Корзина</div>
-            <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+            <div class="top-container-title">Кошик</div>
+            <div class="top-container-subtitle">Розрахунок вартості та послуги</div>
           </div>
           <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
         </div>
@@ -2162,28 +2122,28 @@
     </div>
     <div class="bottom-block">
       <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
-        <button class="add-to-basket">Добавить в корзину</button>
+        <button class="add-to-basket">Додати в кошик</button>
         <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
       </div>
       <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
-        <button class="add-to-basket">Добавить в корзину</button>
+        <button class="add-to-basket">Додати в кошик</button>
         <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
       </div>
       <div class="price-and-coeff-block">
-        <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
+        <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оцінка енергоефективності</span>
           <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
         </div>
         <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
           <div class="expert-mark-row">
             <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконів</span></div>
             <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Нормально</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Достаточно хорошо!</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Хорошо!</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Очень хорошо!</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Отлично!</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Превосходно!</span></div>
-            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Досить добре!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Добре!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Дуже добре!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Чудово!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Прекрасно!</span></div>
+            <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Найкращий вибір!</span></div>
           </div>
           <div class="price-block">
             <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
@@ -2191,8 +2151,8 @@
         </div>
       </div>
       <div ng-if="mobilePage.isSet(4)" class="price-total">
-        <div class="total-txt"><span>Итого:</span></div>
-        <div class="price-total-price">  
+        <div class="total-txt"><span>Разом:</span></div>
+        <div class="price-total-price">
           <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
           <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
         </div>
@@ -2202,34 +2162,34 @@
         <div class="mobile-price-block-rehau">
           <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
             <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
-            <div class="menu-text">Размеры</div>
+            <div class="menu-text">Розміри</div>
           </div>
           <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
             <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
-            <div class="menu-text">Конструкции</div>
+            <div class="menu-text">Конструкції</div>
           </div>
           <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
             <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
-            <div class="menu-text">Параметры</div>
+            <div class="menu-text">Параметри</div>
           </div>
           <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
             <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
               <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
             </div>
-            <div class="menu-text">Корзина</div>
+            <div class="menu-text">Кошик</div>
           </div>
           <div class="menu-block for-landing-mobile disabled">
             <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
               <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
             </div>
-            <div class="menu-text">Корзина</div>
+            <div class="menu-text">Кошик</div>
           </div>
         </div>
       </div>
       <!--basket-->
       <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
-        <button ng-click="mobilePage.openOrderDialog()" class="spec">Оставить заявку</button>
-        <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Добавить окно</button>
+        <button ng-click="mobilePage.openOrderDialog()" class="spec">Залишити заявку</button>
+        <button ng-click="cartPage.addNewProductInOrder()" class="add-product-rehau">Додати вікно</button>
       </div>
     </div>
   </div>

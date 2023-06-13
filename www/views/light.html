@@ -66,9 +66,6 @@
         <section ng-if="lightPage.G.global.showCart == 0" class="construction-page">
           <section class="construction-container">
             <div class="construction-block">
-              <div class="help-block">
-                <div ng-click="lightPage.helpModal()" class="tooltip"><img src="img/rehau-img/modal-help-icon.svg" alt=""><span class="tooltiptext">Как работает калькулятор</span></div>
-              </div>
               <div ng-click="lightPage.G.global.activePanel=0" class="construction-scrollbox">
                 <svg-template template="lightPage.D.design.templateTEMP" template-width="lightPage.constants.svgTemplateWidth" template-height="lightPage.constants.svgTemplateHeight" type-construction="lightPage.constants.SVG_ID_EDIT"></svg-template>
               </div>
@@ -318,74 +315,6 @@
               </div>
             </div>
             <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
-              <div ng-if="glassPanel.U.userInfo.factory_id !== 2" class="glass-container">
-                <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
-                  <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
-                  <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
-                    <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info folder-info">
-                      <label>i</label>
-                    </div>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.en" class="title">{{glassPanel.G.global.glassTypes[$index].translate.en}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ru" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ru}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ua" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ua}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.pl" class="title">{{glassPanel.G.global.glassTypes[$index].translate.pl}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].translate.de}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].translate.bg}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].translate.it}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].translate.es}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ro}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.en" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ru" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ua" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.pl" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                    <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
-                  </div>
-                  <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
-                    <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" class="glass-item">
-                      <div class="glass-width">
-                        <label>{{glass.glass_width}} {{glassPanel.MM}}</label>
-                      </div>
-                      <div ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="title">
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'en'">{{glass.translate.en}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ru'">{{glass.translate.ru}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'uk'">{{glass.translate.ua}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'pl'">{{glass.translate.pl}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'de'">{{glass.translate.de}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'bg'">{{glass.translate.bg}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'it'">{{glass.translate.it}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'es'">{{glass.translate.es}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ro'">{{glass.translate.ro}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glass.translate.pl">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glass.translate.es">{{glass.sku}}</label>
-                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glass.translate.ro">{{glass.sku}}</label>
-                      </div>
-                      <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
-                        <label>i</label>
-                      </div>
-                      <div ng-if="!(glass.img.length &amp;&amp; glass.description.en)" class="blank-div"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
-                <div class="dialog-inner">
-                  <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
-                </div>
-                <div fs-click="glassPanel.confirmGlass()" class="set-glass-btn">{{glassPanel.APPLY}}</div>
-                <div fs-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
-              </div>
-              <div ng-if="glassPanel.G.global.showGlassSelectorDialog" class="backDarkView"></div>
               <div class="glass-container-rehau">
                 <div ng-click="glassPanel.closeButton(3)" class="close-screen-button"></div>
                 <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
@@ -817,174 +746,6 @@
           </section>
         </section>
         <section ng-if="lightPage.G.global.showCart === 1" class="cart-page">
-          <section ng-class="{'discount': lightPage.C.cart.isShowDiscount}" class="cart-container full-view">
-            <div class="scroll-hor-container">
-              <div class="order-block">
-                <div ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index" class="order">
-                  <button fs-click="lightPage.clickDeleteProduct($index)" class="order-delete"></button><img ng-src="img/cart/copy_edit.svg" fs-click="lightPage.box($index, 'product')" class="imgg">
-                  <div ng-click="lightPage.showCartTemplte($index)" class="order-header">
-                    <div class="order-template">
-                      <svg-template template="product.templateIcon" template-width="lightPage.constants.svgTemplateIconWidthCart" template-height="lightPage.constants.svgTemplateIconHeightCart" type-construction="lightPage.constants.SVG_CLASS_ICON"></svg-template>
-                    </div>
-                    <div ng-if="!lightPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; lightPage.O.order.heat_coef_min}" class="order-u-coeff">
-                      <div>U = {{ product.heat_coef_total }}</div>
-                      <div>{{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C</div>
-                    </div>
-                  </div>
-                  <div class="order-content">
-                    <div ng-if="lightPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="order-u-coeff">
-                      <div class="R-MInfo">
-                        <p class="number">{{ $index+1+"."+"\u00A0"}}</p>
-                      </div>
-                      <div class="R-MInfo">{{ product.heat_coef_total +"\u00A0"+"\u00A0"}}</div>
-                      <div class="R-MInfo">{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::lightPage.HEATCOEF_VAL +"\u00A0" }}</div>
-                      <div class="inner-text">{{lightPage.HEAT_TRANSFER}}</div>
-                    </div>
-                    <ul class="order-list">
-                      <li class="order-item">
-                        <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="order-value">{{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}</div>
-                        <div ng-if="lightPage.U.userInfo.factory_id===1966" class="order-value">{{ product.template_width *0.0393701 | number : 0}} {{ ::lightPage.INCH +"\u00A0 *\u00A0"}}</div>
-                        <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="order-value">{{ product.template_height }} {{ ::lightPage.MM }}</div>
-                        <div ng-if="lightPage.U.userInfo.factory_id===1966" class="order-value">{{ product.template_height *0.0393701 | number : 0}} {{ ::lightPage.INCH }}</div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_SIZING }}</div>
-                      </li>
-                      <li class="order-item">
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.profile.translate.en }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ru'" class="order-value">{{ product.profile.translate.ru }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'uk'" class="order-value">{{ product.profile.translate.ua }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'pl'" class="order-value">{{ product.profile.translate.pl }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.profile.translate.de }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.profile.translate.bg }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.profile.translate.it }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'es'" class="order-value">{{ product.profile.translate.es }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ro'" class="order-value">{{ product.profile.translate.ro }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.profile.translate.en" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.profile.translate.ru" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.profile.translate.ua" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'pl' &amp;&amp; !product.profile.translate.pl" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.profile.translate.de" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.profile.translate.bg" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.profile.translate.it" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'es' &amp;&amp; !product.profile.translate.es" class="order-value">{{ product.profile.name }}</div>
-                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ro' &amp;&amp; !product.profile.translate.ro" class="order-value">{{ product.profile.name }}</div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_PROFILE }}</div>
-                      </li>
-                      <li ng-if="product.glass.length &gt; 1" class="order-item">
-                        <div class="order-value">{{ product.glass[0].sku + ', ...' }}</div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                      </li>
-                      <li ng-if="product.glass.length &lt;= 1" class="order-item">
-                        <div class="order-value">{{ product.glass[0].sku }}</div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                      </li>
-                      <li class="order-item">
-                        <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
-                        <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_HARDWARE }}</div>
-                      </li>
-                      <li class="order-item">
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_LAMINATION_TYPE }}</div>
-                        <div class="order-value"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
-                      </li>
-                      <li fs-click="lightPage.showAddElementDetail($index)" class="order-item addelements-btn">
-                        <div class="order-value">{{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
-                          <ng-pluralize count="lightPage.C.cart.allAddElements[$index].length" when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}"></ng-pluralize>
-                        </div>
-                        <div class="order-label">{{ ::lightPage.CONFIGMENU_ADDITIONAL }}</div>
-                      </li>
-                    </ul>
-                    <div class="order-qty">
-                      <button fs-click="lightPage.decreaseProductQty($index)" class="order-tool">-</button>
-                      <div class="order-value">{{ product.product_qty }}</div>
-                      <button fs-click="lightPage.increaseProductQty($index)" class="order-tool">+</button>
-                      <div class="order-label qty-label">{{ ::lightPage.PRODUCT_QTY }}</div>
-                    </div>
-                  </div>
-                  <div class="order-footer">
-                    <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
-                    <div ng-if="product.comment.length" ng-class="{'active': lightPage.config.isProductComment === $index+1}" fs-click="lightPage.switchProductComment($index)" class="order-comment-btn"></div>
-                  </div>
-                  <div ng-class="{'active': lightPage.config.isProductComment === $index+1}" class="order-comment">
-                    <div class="order-comment-box">
-                      <div class="order-comment-title">{{ ::lightPage.ORDER_COMMENT }}</div>
-                      <div class="order-comment-content">{{ lightPage.O.order.comment }}</div>
-                    </div>
-                  </div>
-                </div>
-                <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product order">
-                  <div class="add-img">+</div>
-                  <div class="title">{{lightPage.ADD_ORDER}}</div>
-                  <div class="order-footer"></div>
-                </div>
-              </div>
-            </div>
-            <div ng-if="lightPage.C.cart.showCurrentTemp" class="template-window">
-              <button ng-click="lightPage.C.cart.showCurrentTemp=0" class="close-cur-window"></button><img ng-src="img/copy_edit.png" ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')" class="edit-cur-window">
-              <svg-template template="lightPage.O.order.products[lightPage.C.cart.curProd].template" template-width="630" template-height="630" type-construction="lightPage.constants.SVG_ID_GLASS"></svg-template>
-            </div>
-            <div class="discount-container">
-              <div class="discount-box selected">
-                <div class="discount-data">
-                  <label id="disc-input-main" class="disc-input noPreventDefault">{{lightPage.C.cart.averageDisc | number : 2}}</label>
-                  <label>%</label>
-                </div>
-                <div ng-click="lightPage.toggleDiscount()" class="discount-txt-arrow">
-                  <div class="discounts-label">{{lightPage.DISCOUNT}}</div>
-                  <div ng-if="!lightPage.G.global.toggleDiscount" class="discounts-icon-down"></div>
-                  <div ng-if="lightPage.G.global.toggleDiscount" class="discounts-icon-up"></div>
-                </div>
-              </div>
-              <div ng-if="lightPage.G.global.toggleDiscount" class="disc">
-                <div class="discount-box selected">
-                  <div ng-keyup="lightPage.enterKeyPrice(event)" class="discount-data">
-                    <div ng-show="lightPage.C.cart.tempConstructDisc &gt; lightPage.U.userInfo.discountConstrMax" class="disc-max">{{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%</div>
-                    <input id="disc-input" type="number" value="0" ng-model="lightPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">%
-                  </div>
-                  <div ng-click="lightPage.approveNewDisc(0)" class="discount-txt">
-                    <div class="discounts-label">{{ ::lightPage.DISCOUNT_WINDOW }}</div>
-                  </div>
-                </div>
-                <div class="discount-box selected">
-                  <div ng-keyup="lightPage.enterKeyDop(event)" class="discount-data">
-                    <div ng-show="lightPage.C.cart.tempAddelemDisc &gt; lightPage.U.userInfo.discountAddElemMax" class="disc-max">{{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%</div>
-                    <input id="disc-input-add" type="number" value="0" ng-model="lightPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">%
-                  </div>
-                  <div ng-click="lightPage.approveNewDisc(1)" class="discount-txt">
-                    <div class="discounts-label">{{ ::lightPage.DISCOUNT_ADDELEM }}</div>
-                  </div>
-                </div>
-                <div class="discount-box selected">
-                  <div ng-keyup="lightPage.enterKeyDopService(event)" class="discount-data">
-                    <div ng-show="lightPage.U.userInfo.discount_service &gt; 100" class="disc-max">{{ ::lightPage.MAX }} {{'100'}}%</div>
-                    <input id="disc-input-service" type="number" ng-model="lightPage.C.cart.discount_service" class="disc-input noPreventDefault">%
-                  </div>
-                  <div ng-click="lightPage.approveNewDisc(2)" class="discount-txt">
-                    <div class="discounts-label">{{lightPage.DISCOUNT_SERVICE}}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="discount-container">
-              <div class="discount-title">{{ ::lightPage.DISCOUNT }}</div>
-              <div class="discount-price-container">
-                <div class="discount-price-box">
-                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT_WITHOUT }}</div>
-                  <div class="discount-price">{{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}</div>
-                </div>
-                <div class="discount-price-box">
-                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT_WITH }}</div>
-                  <div class="discount-price">{{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}</div>
-                </div>
-                <div class="discount-price-box">
-                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT }}</div>
-                  <div class="discount-price">{{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}</div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-        <section ng-if="lightPage.G.global.showCart === 1" class="cart-page">
           <section ng-class="{'discount': lightPage.C.cart.isShowDiscount}" class="cart-container-rehau full-view">
             <div class="scroll-hor-container-rehau">
               <div class="order-block">
@@ -1042,10 +803,10 @@
                   </div>
                   <div class="order-footer-rehau">
                     <div class="order-footer-warmcoef">
-                      <h3>Оценка энергоэффективности</h3>
+                      <h3>Оцінка енергоефективності</h3>
                       <h2>{{product.heat_coef_expert_mark}}<h2>
                     </div>
-                    <div class="order-footer-price-rehau"><h3>Стоимость позиции</h3>
+                    <div class="order-footer-price-rehau"><h3>Вартість позиції</h3>
                       <div ng-if="lightPage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{product.product_price.toFixed(0)}} </span><span class="price-discount-percentage">-{{lightPage.U.userInfo.discountConstr}}%  </span></div>
                       <div price-fixed="{{product.productPriceDis.toFixed(0)}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
                     </div>
@@ -1381,7 +1142,7 @@
         </section>
       </section>
       <div ng-controller="ConfigMenuCtrl as configMenu" class="config-menu">
-        <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" ng-show="elementsMenu.U.userInfo.factory_id !== 2" class="elements-list-container">
+        <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
           <div class="elements-menu">
             <header class="menu-header">
               <div class="tip">{{ ::elementsMenu.TIP }}</div>
@@ -2051,7 +1812,7 @@
                 </div>
                 <div ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }" class="input-field">
                   <div class="input-name">Ваш номер телефона</div>
-                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-phone">
+                  <input id="phone" placeholder="+(380)___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-phone">
                 </div>
                 <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
@@ -2181,37 +1942,6 @@
   </section>
 </div>
 <div class="main-info-box">
-  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id !== 2" class="info_container">
-    <div class="info_box">
-      <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-        <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_title">{{infoBox.G.global.infoTitle.en}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_title">{{infoBox.G.global.infoTitle.ru}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_title">{{infoBox.G.global.infoTitle.ua}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_title">{{infoBox.G.global.infoTitle.pl}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_title">{{infoBox.G.global.infoTitle.de}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_title">{{infoBox.G.global.infoTitle.bg}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_title">{{infoBox.G.global.infoTitle.it}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_title">{{infoBox.G.global.infoTitle.es}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_title">{{infoBox.G.global.infoTitle.ro}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_descrip">{{infoBox.G.global.infoDescrip.en}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_descrip">{{infoBox.G.global.infoDescrip.ru}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_descrip">{{infoBox.G.global.infoDescrip.ua}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_descrip">{{infoBox.G.global.infoDescrip.pl}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_descrip">{{infoBox.G.global.infoDescrip.es}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_descrip">{{infoBox.G.global.infoDescrip.ro}}</div>
-        <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}" target="_blank") {{infoBox.G.global.infoLink}}-->
-      </div>
-      <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>
-      <div ng-show="infoBox.G.global.showApply === 1" class="isApply-container">
-        <div fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" class="isApply">
-          <p>{{::infoBox.ASKING_PRICE}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container-rehau">
     <div class="info_box-rehau">
       <div class="info_box_inner">

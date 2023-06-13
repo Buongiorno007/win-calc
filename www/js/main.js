@@ -4819,9 +4819,6 @@ let portrait = false;
                         CartStor.cart.isOrderDialog = 1;
                     }
                 }
-                setTimeout(() => {
-                    $(".user-field-phone").mask("+7(999) 999-99-99");
-                }, 200);
             }
 
             function helpModalMobile() {
@@ -6511,7 +6508,6 @@ if (window.location.hostname !== 'localhost') {
                     MainServ.setProfileByLaminat(id).then(function () {
                         //------ save analytics data
                         /** send analytics data to Server*/
-                        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
                         GlobalStor.global.laminats.forEach((item) => {
                             if (item.lamination_type_id === thisCtrl.type_id) {
                                 item.isActive = 1;
@@ -10255,7 +10251,7 @@ if (window.location.hostname !== 'localhost') {
                         if (typeof price === 'string') {
                             priceByDigit = price.split('');
                         } else {
-                            if (price > 1) {
+                            if (price >  99999) {
                                 priceByDigit = price.toFixed(0).split('');
                             } else {
                                 priceByDigit = price.toFixed(2).split('');
@@ -10291,7 +10287,7 @@ if (window.location.hostname !== 'localhost') {
                     for (i = MAX_DIGITS; i > 0; i -= 1) {
                         $digitCell = $(digitCells[n]);
 
-                        if (i > priceByDigit?.length) {
+                        if (i > priceByDigit.length) {
                             changePrice.revertDigitState();
                         } else {
                             changePrice.initDigit();
@@ -10302,39 +10298,7 @@ if (window.location.hostname !== 'localhost') {
                     }
                 }
 
-                if (globalConstants.serverIP === "https://admin.rehauselected.baueffect.com") {
-                    return {
-                        restrict: 'E',
-                        replace: true,
-                        transclude: true,
-                        scope: {
-                            priceValue: '=',
-                            priceCurrency: '='
-                        },
-                        template: '<div class="price-rehau clearfix" data-output="priceValue">' +
-                        '<div id="price" class="price-value">' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit"></div></div>' +
-                        '</div>' +
-                        '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
-                        '</div>',
-                        link: function (scope, elem, attrs) {
-                            scope.$watchCollection(attrs.output, function (price) {
-                                if(UserStor.userInfo.currencies === '$') {
-                                    changePrice(price / GlobalStor.global.currencies[0].value, elem);
-                                } else if(UserStor.userInfo.currencies === '€') {
-                                    changePrice(price / GlobalStor.global.currencies[2].value, elem);
-                                } else {
-                                    changePrice(price, elem )
-                                }
-                            });
-                        }
-                    };
-                }
+
                 return {
                     restrict: 'E',
                     replace: true,
@@ -10345,9 +10309,6 @@ if (window.location.hostname !== 'localhost') {
                     },
                     template: '<div class="price clearfix" data-output="priceValue">' +
                     '<div id="price" class="price-value">' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
@@ -10374,10 +10335,10 @@ if (window.location.hostname !== 'localhost') {
                         });
                     }
                 };
+
                 // event.srcEvent.stopPropagation();
             });
 })();
-
 
 
 // directives/show_delay.js
@@ -10453,7 +10414,7 @@ if (window.location.hostname !== 'localhost') {
 
                         function zooming() {
                             d3.select('#main_group')
-                                .attr("transform", "translate(" +1 + ")scale(" + 1.5 + ")");
+                                .attr("transform", "translate(" + d3.event.translate - 50 + ")scale(" + d3.event.scale - 50 + ")");
                         }
 
                         function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
@@ -11471,15 +11432,16 @@ if (window.location.hostname !== 'localhost') {
                                         'block_id': dim.blockId,
                                         'axis': dim.axis
                                     });
+
                                 dimBlock.append('path')
-                                    .classed('size-line-rehau', true)
+                                    .classed('size-line', true)
                                     .attr('d', lineCreator(lineSideR));
                                 dimBlock.append('path')
-                                    .classed('size-line-rehau', true)
+                                    .classed('size-line', true)
                                     .attr('d', lineCreator(lineSideL));
 
                                 dimBlock.append('path')
-                                    .classed('size-line-rehau', true)
+                                    .classed('size-line', true)
                                     .attr({
                                         'd': lineCreator(lineCenter),
                                         'marker-start': function () {
@@ -11491,70 +11453,39 @@ if (window.location.hostname !== 'localhost') {
                                     });
 
                                 sizeBox = dimBlock.append('g')
-                                .classed('size-box', true);
-                                sizeBox.append('rect')
-                                    .classed('size-rect-rehau', true)
-                                    .attr({
-                                        'x': function () {
-                                            if ($location.path() === "/mobile") {
-                                                if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
-                                                }
-                                                // if (dim.dimId === "fp11" ) {
-                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                // }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 60) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
-                                            }
-                                            if (dim.dimId === "fp7") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
-                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                        },
-
-
-                                        'y': function () {
-                                            if ($location.path() === "/mobile") {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
-                                            }
-                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                        },
-                                        'rx': sizeBoxRadius,
-                                        'ry': sizeBoxRadius,
-                                        "height": 46,
-                                        "width": 160
-                                    });
+                                    .classed('size-box', true);
                                 if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                     sizeBox.append('rect')
-                                    .classed('size-rect', true)
-                                    .attr({
-                                        'x': function () {
-                                            if ($location.path() === "/mobile") {
-                                                if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                        .classed('size-rect', true)
+                                        .attr({
+                                            'x': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    if (dim.dimId === "fp7") {
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                    }
+                                                    // if (dim.dimId === "fp11" ) {
+                                                    //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                    // }
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
-                                                // if (dim.dimId === "fp11" ) {
-                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                // }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
-                                            }
-                                            if (dim.dimId === "fp7") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
-                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                        },
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
 
 
-                                        'y': function () {
-                                            if ($location.path() === "/mobile") {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
-                                            }
-                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                        },
-                                        'rx': sizeBoxRadius,
-                                        'ry': sizeBoxRadius,
-                                        "height": 46,
-                                        "width": 160
-                                    });
+                                            'y': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                                                }
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'rx': sizeBoxRadius,
+                                            'ry': sizeBoxRadius,
+                                            "height": 46,
+                                            "width": 160
+                                        });
                                 }
 
                                 if (UserStor.userInfo.factory_id === 1966) {
@@ -11583,54 +11514,43 @@ if (window.location.hostname !== 'localhost') {
                                             'axis': dim.axis,
                                             'level': dim.level
                                         });
-                                }
-                                sizeBox.append('text')
-                                    .text(dim.text)
-                                    .attr({
-                                        'class': function () {
-                                            return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit-rehau' : 'size-txt-rehau';
-                                        },
-                                        'x': function () {
-                                            if ($location.path() === "/mobile") {
-                                                let move_left = 60;
+                                } else {
+                                    sizeBox.append('text')
+                                        .text(dim.text)
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                            },
+                                            'x': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    let move_left = 40;
+                                                    if (dim.dimId === "fp7") {
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    }
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                }
                                                 if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                 }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
-                                            }
-                                            if (dim.dimId === "fp7") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
-                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 25) : (dim.from + dim.to - sizeBoxWidth + 45) / 2;
-                                        },
-                                        'y': function () {
-                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                        },
-                                        'dx': function () {
-                                            if ($location.path() === "/mobile") {
-                                                return 110
-                                            } else {
-                                                return 80
-                                            }
-                                        },
-                                        'dy': function () {
-                                            if ($location.path() === "/mobile") {
-                                                return 25
-                                                } else {
-                                                    return 40
-                                                }
-                                        },
-                                        'type': 'line',
-                                        'block_id': dim.blockId,
-                                        'size_val': dim.text,
-                                        'min_val': dim.minLimit,
-                                        'max_val': dim.maxLimit,
-                                        'dim_id': dim.dimId,
-                                        'from_point': dim.from,
-                                        'to_point': dim.to,
-                                        'axis': dim.axis,
-                                        'level': dim.level
-                                    });
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                }
 
                             }
                         }
@@ -12282,11 +12202,12 @@ if (window.location.hostname !== 'localhost') {
                                 } else if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                                     padding = 0.6;
                                 }
+
                                 mainSVG = d3.select(container).append('svg').attr({
                                     'width': widthSVG,
                                     'height': heightSVG
                                 });
-
+                                
                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                     mainSVG.attr('class', scope.typeConstruction);
                                 } else {
@@ -12316,22 +12237,11 @@ if (window.location.hostname !== 'localhost') {
                                     }
 
                                 }
-                                if((self.innerWidth < 470 ) && (ProductStor.product.template_id < 10)) {
-                                    mainGroup = mainSVG.append("g").attr({
-                                        'id': 'main_group',
-                                        'transform': 'translate(' + (position.x + 30) + ', ' + position.y + ') scale(' + (scale - 0.03) + ',' + scale + ')'
-                                    });
-                                } else if ((self.innerWidth < 470 ) && (ProductStor.product.template_id > 9 && ProductStor.product.template_id < 16)) {
-                                    mainGroup = mainSVG.append("g").attr({
-                                        'id': 'main_group',
-                                        'transform': 'translate(' + (position.x - 40) + ', ' + position.y + ') scale(' + (scale + 0.027) + ',' + (scale + 0.027) + ')'
-                                    });
-                                } else {
-                                    mainGroup = mainSVG.append("g").attr({
-                                        'id': 'main_group',
-                                        'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
-                                    });
-                                }
+
+                                mainGroup = mainSVG.append("g").attr({
+                                    'id': 'main_group',
+                                    'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
+                                });
 
                                 if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                     //disable scrolling and displacement
@@ -12570,7 +12480,7 @@ if (window.location.hostname !== 'localhost') {
                                         //   .attr('width', 150)
                                         //   .attr('height', 100);
                                     }
-                                    
+
                                     if (GlobalStor.global.imgLink) {
                                         defs.append('pattern')
                                             .attr('id', 'background')
@@ -12621,13 +12531,11 @@ if (window.location.hostname !== 'localhost') {
                                     // setMarker(defs, 'hingeU', '-1 0 9 4', -16.5,  5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     // setMarker(defs, 'hingeD', '-1 0 9 4', 21.5,   5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     //----- horizontal marker arrow
-                                    setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
-                                    setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
-
+                                    setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+                                    setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
                                     //------- vertical marker arrow
-                                    setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
-                                    setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
-
+                                    setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+                                    setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
                                     setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
                                     setGradient(defs);
@@ -12636,6 +12544,7 @@ if (window.location.hostname !== 'localhost') {
 
 
                                 /** soffits */
+
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var scl = scale * 4.4;
                                     if (ProductStor.product.construction_type === 1) {
@@ -12708,7 +12617,7 @@ if (window.location.hostname !== 'localhost') {
                                 dimGroup = mainGroup.append("g").attr({
                                     'id': 'dim_group'
                                 });
-                                
+
                                 blocksQty = template.details.length;
                                 for (i = 1; i < blocksQty; i += 1) {
                                     let indexFrame = 0;
@@ -13080,13 +12989,12 @@ if (window.location.hostname !== 'localhost') {
 
                                     if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                                         /** sash open direction */
-                                        // rehau logic
                                         if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
-                                            elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[i].id)
+                                            elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
                                                 .data(template.details[i].sashOpenDir)
                                                 .enter()
                                                 .append('path')
-                                                .classed('sash_mark-rehau', true)
+                                                .classed('sash_mark', true)
                                                 .attr({
                                                     'd': function (d) {
                                                         return lineCreator(d.points);
@@ -13101,7 +13009,7 @@ if (window.location.hostname !== 'localhost') {
                                                     },
                                                     'marker-end': function (d) {
                                                         return setSashFittings(0, d, template.details[i]);
-                                                    },
+                                                    }
                                                 });
                                         } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
                                             GlobalStor.global.createHandle.push(i)
@@ -13109,11 +13017,11 @@ if (window.location.hostname !== 'localhost') {
                                         if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0) {
                                             var h = GlobalStor.global.createHandle;
                                             for (var z = 0; z < h.length; z += 1) {
-                                                elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[h[z]].id)
+                                                elementsGroup.selectAll('path.sash_mark.' + template.details[h[z]].id)
                                                     .data(template.details[h[z]].sashOpenDir)
                                                     .enter()
                                                     .append('path')
-                                                    .classed('sash_mark-rehau', true)
+                                                    .classed('sash_mark', true)
                                                     .attr({
                                                         'd': function (d) {
                                                             return lineCreator(d.points);
@@ -13133,7 +13041,6 @@ if (window.location.hostname !== 'localhost') {
                                                     });
                                             }
                                         }
-                                        // rehau logic ends
                                         //---- corner markers
                                         if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                             if (template.details[i].level === 1) {
@@ -13161,7 +13068,7 @@ if (window.location.hostname !== 'localhost') {
                                                     });
                                             }
                                         }
-                                        
+
                                         /** type Glass names */
                                         if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                                             if (!template.details[i].children.length) {
@@ -15006,53 +14913,11 @@ function ErrorResult(code, message) {
          });
          }
          */
-        function sendAnalyticsData(userId, orderId, templateId, elementId, elementType) {
-          var analyticsObj = {
-              user_id: userId,
-              order_id: orderId,
-              calculation_id: templateId,
-              element_id: elementId,
-              date: new Date()
-            },
-            tableName = '';
-          switch (elementType) {
-            case 1: //----- profiles
-              tableName = 'profile_analytics';
-              break;
-            case 2: //----- glass
-              break;
-            case 3: //----- hardware
-              tableName = 'hardware_analytics';
-              break;
-            case 4: //----- lamination
-              break;
-            case 5: //----- doors profiles
-              tableName = 'doors_analytics';
-              break;
-          }
-          //----- send Analytics Data to Server
-          if (GlobalStor.global.onlineMode && navigator.onLine){
-            localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
-          }else {
-            var analitics = {
-              userPhone: UserStor.userInfo.phone,
-              deviceCode: UserStor.userInfo.device_code,
-              tableName: tableName,
-              analyticsObj: analyticsObj
-            };
-            GlobalStor.global.analitics_storage.push(analitics);
-            // localforage.setItem("analitics", GlobalStor.global.analitics_storage, function (err, value) { });
-            //console.log("analitics",GlobalStor.global.analitics_storage);
-
-          }
-
-        }
 
 
         /**========== FINISH ==========*/
 
         thisFactory.publicObj = {
-          sendAnalyticsData: sendAnalyticsData//,
           //      saveAnalyticDB: insertAnalyticsDB,
           //      sendAnalyticsDB: sendAnalyticsDB
         };
@@ -16724,6 +16589,7 @@ function ErrorResult(code, message) {
           deselectAllDimension();
           GlobalStor.global.isSizeCalculator = 0;
           DesignStor.design.openVoiceHelper = 0;
+
         }
 
 
@@ -17108,8 +16974,6 @@ function ErrorResult(code, message) {
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                          //We have call this function to recalculate price with glass ranges
-                          MainServ.setProductPriceTOTAL(ProductStor.product)
                         });
                       });
                     }, 250);
@@ -17241,145 +17105,7 @@ function ErrorResult(code, message) {
         }
 
 
-        function recalculate() {
-          if (GlobalStor.global.checkDoors === 0) {
-              var isSashesInTemplate;
-              GlobalStor.global.isLoader = 1;
-              closeSizeCaclulator(1).then(function () {
-                  /** check sizes of all glass */
-                  MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
-                  if (DesignStor.design.extraGlass.length) {
-                      /** expose Alert */
-                      GlobalStor.global.isLoader = 0;
-                      DesignStor.design.isGlassExtra = 1;
-                  } else {
-                      /** if sash was added/removed in template */
-                      isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
-                      if (isSashesInTemplate) {
-                          /** set first hardware if sash were not existed before */
-                          if ((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
-                              GlobalStor.global.isSashesInTemplate = 1;
-                              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-                          }
-                          /** check sizes of all hardware in sashes */
-                          MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
-
-                      } else {
-                          /** sashes were removed */
-                          ProductStor.product.hardware = {};
-                          ProductStor.product.hardware.id = 0;
-                          GlobalStor.global.isSashesInTemplate = 0;
-                          //------ clean Extra Hardware
-                          DesignStor.design.extraHardware.length = 0;
-                      }
-
-                      if (DesignStor.design.extraHardware.length) {
-                          /** expose Alert */
-                          GlobalStor.global.isLoader = 0;
-                          DesignStor.design.isHardwareExtra = 1;
-                      } else {
-                          /** save new template in product ***** */
-                          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-                          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-                          /** rebuild glasses */
-                          MainServ.setGlassfilter();
-                          if (ProductStor.product.construction_type !== 4) {
-                              // MainServ.setCurrentGlass(ProductStor.product, 1);
-                              MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
-                                  next();
-                              });
-                          } else {
-                              next();
-                          }
-
-                          //noinspection JSAnnotator
-                          function next() {
-                              /** create template icon */
-                              SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-                                  .then(function (result) {
-                                      ProductStor.product.templateIcon = angular.copy(result);
-                                  });
-                              /** save new template in templates Array */
-                              GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
-                                  ProductStor.product.template_source
-                              );
-                              /** check grids */
-                                  // console.log(ProductStor.product);
-                              var isChanged = updateGrids();
-                              if (isChanged) {
-                                  //------ get new grids price
-                                  var sumMosq = 0;
-                                  var sumMosqDis = 0;
-                                  ProductStor.product.chosenAddElements[0].forEach(function (entry) {
-                                      sumMosq += entry.element_price;
-                                      sumMosqDis += entry.elementPriceDis;
-                                  });
-
-                                  ProductStor.product.addelem_price -= sumMosq;
-                                  ProductStor.product.addelemPriceDis -= sumMosqDis;
-
-                                  loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]).then(function () {
-                                      sumMosq = 0;
-                                      sumMosqDis = 0;
-                                      ProductStor.product.chosenAddElements[0].forEach(function (entry) {
-                                          sumMosq += entry.element_price;
-                                          sumMosqDis += entry.elementPriceDis;
-                                      });
-                                      ProductStor.product.addelem_price += sumMosq;
-                                      ProductStor.product.addelemPriceDis += sumMosqDis;
-                                  });
-
-
-                              }
-                              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
-                                  ProductStor.product.template = angular.copy(result);
-                                  /** refresh price of new template */
-                                  MainServ.preparePrice(
-                                      ProductStor.product.template,
-                                      ProductStor.product.profile.id,
-                                      ProductStor.product.glass,
-                                      ProductStor.product.hardware.id,
-                                      ProductStor.product.lamination.lamination_in_id
-                                  ).then(function () {
-                                      //-------- template was changed
-                                      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
-                                          ProductStor.product.template = angular.copy(result);
-                                          DesignStor.design.templateTEMP = angular.copy(result);
-                                      });
-                                  });
-                              });
-                          }
-                      }
-                  }
-              });
-          }
-          setTimeout(() => {
-            MainServ.setProductPriceTOTAL(ProductStor.product)
-          }, 1);
-        }
-        function deactivMenu() {
-          DesignStor.design.activeMenuItem = 0;
-          DesignStor.design.activeSubMenuItem = 0;
-          DesignStor.design.isDropSubMenu = 0;
-          setTimeout(() => {
-              recalculate();
-          }, 500)
-      }
-
-      function positionAxisAuto() {
-          GlobalStor.global.isChangedTemplate = 1;
-          deactivMenu();
-          positionAxises();
-      }
-
         function pressCulculator(keyEvent) {
-          const maxLimitValue = $('.calc-value-limit.max').text();
-          if (maxLimitValue === '3200' && keyEvent.which === 13) {
-            setTimeout(() => {
-              positionAxisAuto()
-            }, 1);
-          }
           var newValue;
           //--------- Enter
           if (keyEvent.which === 13) {
@@ -17475,59 +17201,115 @@ function ErrorResult(code, message) {
 
         //------- set click to all Dimensions
         function initAllDimension() {
-          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
-          .each(function () {
-            var size = d3.select(this);
-            size.on(clickEvent, function () {
-              var sizeRect = size.select('.size-rect-rehau'),
-                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
-              if (DesignStor.design.tempSize.length) {
-                /** save new Size when click another size */
-                closeSizeCaclulator();
-                cleanTempSize();
-              } else {
-                if (isActive) {
-                  hideSizeTools();
+          if (UserStor.userInfo.factory_id === 2) {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect-rehau'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
                 } else {
-                  deselectAllDimension();
-                  sizeRect.classed('active', true);
-                  var dim = size.select('.size-txt-edit-rehau');
-                  dim.classed('active', true);
-                  DesignStor.design.oldSize = dim[0][0];
-                  DesignStor.design.prevSize = dim[0][0].textContent;
-                  // Internet Explorer 6-11
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit-rehau');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
 
-                  if (isEdge) {
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
-                  } else {
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
                   }
-                  //------- show caclulator or voice helper
-                  if (GlobalStor.global.isVoiceHelper) {
-                    DesignStor.design.openVoiceHelper = 1;
-                    startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-                  } else {
-                    GlobalStor.global.isSizeCalculator = 1;
-                    DesignStor.design.isMinSizeRestriction = 0;
-                    DesignStor.design.isMaxSizeRestriction = 0;
-                    DesignStor.design.isDimExtra = 0;
-                    DesignStor.design.isSquareExtra = 0;
-                  }
+                  $rootScope.$apply();
                 }
-                $rootScope.$apply();
-              }
+              });
             });
-          });
 
-          /** switch on keyboard */
-          d3.select(window)
-            .on('keydown', function () {
-              if (GlobalStor.global.isSizeCalculator) {
-                pressCulculator(d3.event);
-              }
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          } else {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
+                } else {
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
+
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
+                  }
+                  $rootScope.$apply();
+                }
+              });
             });
+
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          }
         }
 
 
@@ -19889,6 +19671,7 @@ function ErrorResult(code, message) {
                         x: blocksSource[b].impost.impostAxis[0].x
                       };
                       impostInd.push(tempImpost);
+                      //console.info('impost', blocksSource[b].impost.impostAxis, tempImpost);
                     }
                   }
                 }
@@ -20215,14 +19998,12 @@ function ErrorResult(code, message) {
               isSashesInTemplate;
             GlobalStor.global.isLoader = 1;
             closeSizeCaclulator(1).then(function () {
-
               /** check sizes of all glass */
               MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
               if (DesignStor.design.extraGlass.length) {
                 /** expose Alert */
                 GlobalStor.global.isLoader = 0;
                 DesignStor.design.isGlassExtra = 1;
-                
               } else {
                 /** if sash was added/removed in template */
                 isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
@@ -20328,10 +20109,6 @@ function ErrorResult(code, message) {
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
-          // Calculating the sum of construction
-          setTimeout(() => {
-            MainServ.setProductPriceTOTAL(ProductStor.product)
-          }, 100);
         }
 
 
@@ -20420,7 +20197,6 @@ function ErrorResult(code, message) {
 
       });
 })();
-
 
 
 // services/door_config_serv.js
@@ -21644,13 +21420,6 @@ function ErrorResult(code, message) {
               //------ save analytics data
 //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
               /** send analytics data to Server*/
-              AnalyticsServ.sendAnalyticsData(
-                UserStor.userInfo.id,
-                OrderStor.order.id,
-                ProductStor.product.template_id,
-                newId,
-                3
-              );
             }
           }
         }
@@ -30139,6 +29908,8 @@ function ErrorResult(code, message) {
             }
 
             getOnline();
+            //saving default values for hardwares
+            GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
 
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
@@ -30280,7 +30051,6 @@ function ErrorResult(code, message) {
                     case 1:
                         optionsServ.getTemplatesWindow(function (results) {
                             if (results.status) {
-                                
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
@@ -30289,7 +30059,6 @@ function ErrorResult(code, message) {
                                 console.log(results);
                             }
                         });
-                        
                         break;
                     case 2:
                         optionsServ.getTemplatesWindowDoor(function (results) {
@@ -30343,6 +30112,7 @@ function ErrorResult(code, message) {
                     }
                 }
             }
+          
 
             function downloadProfileDepth(elementId) {
                 var defer = $q.defer();
@@ -30364,7 +30134,7 @@ function ErrorResult(code, message) {
                     });
                 return defer.promise;
             }
-
+            
             //-------- set default profile
             function setCurrentProfile(product, id) {
                 var deferred = $q.defer();
@@ -30399,7 +30169,7 @@ function ErrorResult(code, message) {
                 needed_data().then(
                     function(data) {
                         try {
-/*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
@@ -30514,40 +30284,50 @@ function ErrorResult(code, message) {
                         const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
                         //First looop for first array
                         let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_first) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
+
                         //Second loop for second array
                         let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_second) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
 
                         const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
+                        if (hardware_groups_array_first) {
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
+
+                        if (hardware_groups_array_second) {
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
                         //Block for hardware goups end ***
 
                         //Block for hardware folders start ***
@@ -31057,11 +30837,43 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-                        //Block for glasses translations end ***
-                        } catch(err) {
-                            // console.log("Not all translations come from the backend, which is why you see this message")
+                        } catch (e) {
+                            console.log(e)
                         }
-                        
+                        //Block for glasses translations end ****************
+                        // Hardware display logic that fits only a certain profile
+
+                        //Download data from backend
+                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+                        //Clearing hardwares arrays
+                        GlobalStor.global.hardwares = []
+                        //Loop for windowHardwareProfileSystem elements 
+                        for (let element of windowHardwareProfileSystem) {
+                            //Get current profile id
+                            let currentProfileId = ProductStor.product.profile.id;
+                            //Check if current profile id equal to element from backend 
+                            if (element.profile_system_id === currentProfileId) {
+                                //Local variables for different manipulation
+                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                    if (filteredHardwares.length) {
+                                        if (!GlobalStor.global.hardwares[index]) {
+                                            GlobalStor.global.hardwares[index] = []
+                                        }
+                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
+                                    }
+                                })
+                            }
+                        }
+                        setCurrentHardware(ProductStor.product);
+                        if (ProductStor.product.profile.id) {
+                            preparePrice(
+                                ProductStor.product.template,
+                                ProductStor.product.profile.id,
+                                ProductStor.product.glass,
+                                ProductStor.product.hardware.id,
+                                ProductStor.product.lamination.lamination_in_id)
+                        } 
                     }
                 )
                
@@ -31390,7 +31202,17 @@ function ErrorResult(code, message) {
                 } else {
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
-                        product.hardware = GlobalStor.global.hardwares[0][0];
+                        for (let currentHardware of GlobalStor.global.hardwares) {
+                            if (currentHardware) {
+                                if (currentHardware[0].is_default === 1) {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                } else {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                }
+                            }  
+                        }
                     } else {
                         product.hardware = {};
                     }
@@ -31480,103 +31302,19 @@ function ErrorResult(code, message) {
                 return deff.promise;
             }
 
-            var glassPrices = []
             function setProductPriceTOTAL(Product) {
-                var deliveryCoeff = 
+
+                var deliveryCoeff =
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
                     ],
-                    priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
-                    
+                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+
+
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
-                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
-                It's not so clear and should be refactored some time*/
-                if (ProductStor.product.report.length > 0) {
-                    Product.report.map((element) => {
-                        if (element.element_group_id === 8) {
-                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
-                            }).then(function(result) {
-                                glassPrices = result[0]
-                            })
-                            if (element.element_id === glassPrices.element_id) {
-                                if (glassPrices.col_1_range > 0) {
-                                    if (element.size < glassPrices.col_1_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    } 
-                                } if (glassPrices.col_2_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else  {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_3_range_1 > 0) {
-                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                            
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_4_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                                if (glassPrices.col_5_range > 0) {
-                                    if (element.size > glassPrices.col_5_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                console.log("no Match") 
-                            }
-                        }
-                    })
-                }
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -31584,8 +31322,9 @@ function ErrorResult(code, message) {
                         deliveryCoeff
                     );
                 }
+
                 GlobalStor.global.tempPrice =
-                    Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
+                    Product.productPriceDis * GlobalStor.global.product_qty;
                 GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
@@ -31668,6 +31407,106 @@ function ErrorResult(code, message) {
                         priceMargin,
                         doorData,
                         tempDoorItems;
+                        var glassData = null
+                        function glassPricesData() {
+                            var defer = $q.defer();
+                            db.getItem('tables').then(function (value) {
+                                glassPricesData = value;
+                                defer.resolve(glassPricesData);
+                            }).catch(function (err) {
+                                console.log(err);
+                                defer.resolve(0);
+                            });
+                            return defer.promise;
+                        }
+                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
+                        glassPricesData().then(
+                            function(data) {
+                                let glassPricesData = data.glass_prices;
+                                let currentGlassData = ProductStor.product.report;
+                                if (glassPricesData) {
+                                    for(var i = 0; i < glassPricesData.length; i++) {
+                                        for(var y = 0; y < currentGlassData.length; y++) {
+                                            /* checks if ids the same */
+                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
+                                                /* check range */
+                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -31889,9 +31728,6 @@ function ErrorResult(code, message) {
                     ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
-                    if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
-                    }
                 } else {
                     /** U */
                     ProductStor.product.heat_coef_total =
@@ -32040,15 +31876,6 @@ function ErrorResult(code, message) {
                             // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
                             /** send analytics data to Server*/
                             //------ profile
-                            $timeout(function () {
-                                AnalyticsServ.sendAnalyticsData(
-                                    UserStor.userInfo.id,
-                                    OrderStor.order.id,
-                                    ProductStor.product.template_id,
-                                    ProductStor.product.profile.id,
-                                    1
-                                );
-                            }, 5000);
                         }
                     } else {
                         deferred.resolve(1);
@@ -32654,14 +32481,8 @@ function ErrorResult(code, message) {
                                 tempObj = itemArr[itemArrQty];
                             }
                         }
-                    } 
+                    }
                     if (!$.isEmptyObject(tempObj)) {
-                        GlobalStor.global.infoTitle = tempObj;
-                        GlobalStor.global.infoImg = tempObj.img;
-                        GlobalStor.global.infoLink = tempObj.link;
-                        GlobalStor.global.infoDescrip = tempObj.description;
-                        GlobalStor.global.isInfoBox = id;
-                    } else {
                         GlobalStor.global.infoTitle = tempObj.translate;
                         GlobalStor.global.infoImg = tempObj.img;
                         GlobalStor.global.infoLink = tempObj.link;
@@ -33409,7 +33230,6 @@ function ErrorResult(code, message) {
             return thisFactory.publicObj;
         });
 })();
-
 
 
 // services/nav_menu_serv.js
@@ -38490,9 +38310,6 @@ function ErrorResult(code, message) {
                     /** change lamination groups as of new profile */
                     MainServ.laminatFiltering();
                     /** send analytics data to Server*/
-                    AnalyticsServ.sendAnalyticsData(
-                      UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
-                    );
                   });
                 });
               }
@@ -42476,13 +42293,6 @@ function ErrorResult(code, message) {
                                 //------ define product price
 
                                 /** send analytics data to Server*/
-                                AnalyticsServ.sendAnalyticsData(
-                                    UserStor.userInfo.id,
-                                    OrderStor.order.id,
-                                    ProductStor.product.template_id,
-                                    ProductStor.product.profile.id,
-                                    1
-                                );
                                 if ($location.path() === "/main") {
                                     if ($location.path() !== "/design") {
                                         $location.path("/design");
@@ -42644,18 +42454,7 @@ function ErrorResult(code, message) {
                             GlobalStor.global.activePanel = 0;
                         }, 100);
                     }
-
-                    if (GlobalStor.global.isChangedTemplate) {
-                        //----- если выбран новый шаблон после изменения предыдущего
-                        GeneralServ.confirmAlert(
-                            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-                            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-                            goToNewTemplate
-                        );
-                    } else {
-                        goToNewTemplate()
-                    }
-
+                    goToNewTemplate()
                 }
 
 

@@ -1755,7 +1755,7 @@
                                               id: 1,
                                               lamination_type_id: 1,
                                               isActive: 0,
-                                              name: "mainpage.WHITE_LAMINATION"
+                                              name: "Білий"
                                             });
                                             /** download lamination couples */
                                             downloadLamCouples().then(

@@ -47,13 +47,6 @@
               //------ save analytics data
 //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
               /** send analytics data to Server*/
-              AnalyticsServ.sendAnalyticsData(
-                UserStor.userInfo.id,
-                OrderStor.order.id,
-                ProductStor.product.template_id,
-                newId,
-                3
-              );
             }
           }
         }

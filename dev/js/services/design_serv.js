@@ -79,6 +79,7 @@
           deselectAllDimension();
           GlobalStor.global.isSizeCalculator = 0;
           DesignStor.design.openVoiceHelper = 0;
+
         }
 
 
@@ -463,8 +464,6 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                          //We have call this function to recalculate price with glass ranges
-                          MainServ.setProductPriceTOTAL(ProductStor.product)
                         });
                       });
                     }, 250);
@@ -596,145 +595,7 @@
         }
 
 
-        function recalculate() {
-          if (GlobalStor.global.checkDoors === 0) {
-              var isSashesInTemplate;
-              GlobalStor.global.isLoader = 1;
-              closeSizeCaclulator(1).then(function () {
-                  /** check sizes of all glass */
-                  MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
-                  if (DesignStor.design.extraGlass.length) {
-                      /** expose Alert */
-                      GlobalStor.global.isLoader = 0;
-                      DesignStor.design.isGlassExtra = 1;
-                  } else {
-                      /** if sash was added/removed in template */
-                      isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
-                      if (isSashesInTemplate) {
-                          /** set first hardware if sash were not existed before */
-                          if ((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
-                              GlobalStor.global.isSashesInTemplate = 1;
-                              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-                          }
-                          /** check sizes of all hardware in sashes */
-                          MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
-
-                      } else {
-                          /** sashes were removed */
-                          ProductStor.product.hardware = {};
-                          ProductStor.product.hardware.id = 0;
-                          GlobalStor.global.isSashesInTemplate = 0;
-                          //------ clean Extra Hardware
-                          DesignStor.design.extraHardware.length = 0;
-                      }
-
-                      if (DesignStor.design.extraHardware.length) {
-                          /** expose Alert */
-                          GlobalStor.global.isLoader = 0;
-                          DesignStor.design.isHardwareExtra = 1;
-                      } else {
-                          /** save new template in product ***** */
-                          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-                          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-                          /** rebuild glasses */
-                          MainServ.setGlassfilter();
-                          if (ProductStor.product.construction_type !== 4) {
-                              // MainServ.setCurrentGlass(ProductStor.product, 1);
-                              MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
-                                  next();
-                              });
-                          } else {
-                              next();
-                          }
-
-                          //noinspection JSAnnotator
-                          function next() {
-                              /** create template icon */
-                              SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-                                  .then(function (result) {
-                                      ProductStor.product.templateIcon = angular.copy(result);
-                                  });
-                              /** save new template in templates Array */
-                              GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
-                                  ProductStor.product.template_source
-                              );
-                              /** check grids */
-                                  // console.log(ProductStor.product);
-                              var isChanged = updateGrids();
-                              if (isChanged) {
-                                  //------ get new grids price
-                                  var sumMosq = 0;
-                                  var sumMosqDis = 0;
-                                  ProductStor.product.chosenAddElements[0].forEach(function (entry) {
-                                      sumMosq += entry.element_price;
-                                      sumMosqDis += entry.elementPriceDis;
-                                  });
-
-                                  ProductStor.product.addelem_price -= sumMosq;
-                                  ProductStor.product.addelemPriceDis -= sumMosqDis;
-
-                                  loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]).then(function () {
-                                      sumMosq = 0;
-                                      sumMosqDis = 0;
-                                      ProductStor.product.chosenAddElements[0].forEach(function (entry) {
-                                          sumMosq += entry.element_price;
-                                          sumMosqDis += entry.elementPriceDis;
-                                      });
-                                      ProductStor.product.addelem_price += sumMosq;
-                                      ProductStor.product.addelemPriceDis += sumMosqDis;
-                                  });
-
-
-                              }
-                              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
-                                  ProductStor.product.template = angular.copy(result);
-                                  /** refresh price of new template */
-                                  MainServ.preparePrice(
-                                      ProductStor.product.template,
-                                      ProductStor.product.profile.id,
-                                      ProductStor.product.glass,
-                                      ProductStor.product.hardware.id,
-                                      ProductStor.product.lamination.lamination_in_id
-                                  ).then(function () {
-                                      //-------- template was changed
-                                      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
-                                          ProductStor.product.template = angular.copy(result);
-                                          DesignStor.design.templateTEMP = angular.copy(result);
-                                      });
-                                  });
-                              });
-                          }
-                      }
-                  }
-              });
-          }
-          setTimeout(() => {
-            MainServ.setProductPriceTOTAL(ProductStor.product)
-          }, 1);
-        }
-        function deactivMenu() {
-          DesignStor.design.activeMenuItem = 0;
-          DesignStor.design.activeSubMenuItem = 0;
-          DesignStor.design.isDropSubMenu = 0;
-          setTimeout(() => {
-              recalculate();
-          }, 500)
-      }
-
-      function positionAxisAuto() {
-          GlobalStor.global.isChangedTemplate = 1;
-          deactivMenu();
-          positionAxises();
-      }
-
         function pressCulculator(keyEvent) {
-          const maxLimitValue = $('.calc-value-limit.max').text();
-          if (maxLimitValue === '3200' && keyEvent.which === 13) {
-            setTimeout(() => {
-              positionAxisAuto()
-            }, 1);
-          }
           var newValue;
           //--------- Enter
           if (keyEvent.which === 13) {
@@ -830,59 +691,115 @@
 
         //------- set click to all Dimensions
         function initAllDimension() {
-          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
-          .each(function () {
-            var size = d3.select(this);
-            size.on(clickEvent, function () {
-              var sizeRect = size.select('.size-rect-rehau'),
-                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
-              if (DesignStor.design.tempSize.length) {
-                /** save new Size when click another size */
-                closeSizeCaclulator();
-                cleanTempSize();
-              } else {
-                if (isActive) {
-                  hideSizeTools();
+          if (UserStor.userInfo.factory_id === 2) {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect-rehau'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
                 } else {
-                  deselectAllDimension();
-                  sizeRect.classed('active', true);
-                  var dim = size.select('.size-txt-edit-rehau');
-                  dim.classed('active', true);
-                  DesignStor.design.oldSize = dim[0][0];
-                  DesignStor.design.prevSize = dim[0][0].textContent;
-                  // Internet Explorer 6-11
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit-rehau');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
 
-                  if (isEdge) {
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
-                  } else {
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
                   }
-                  //------- show caclulator or voice helper
-                  if (GlobalStor.global.isVoiceHelper) {
-                    DesignStor.design.openVoiceHelper = 1;
-                    startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-                  } else {
-                    GlobalStor.global.isSizeCalculator = 1;
-                    DesignStor.design.isMinSizeRestriction = 0;
-                    DesignStor.design.isMaxSizeRestriction = 0;
-                    DesignStor.design.isDimExtra = 0;
-                    DesignStor.design.isSquareExtra = 0;
-                  }
+                  $rootScope.$apply();
                 }
-                $rootScope.$apply();
-              }
+              });
             });
-          });
 
-          /** switch on keyboard */
-          d3.select(window)
-            .on('keydown', function () {
-              if (GlobalStor.global.isSizeCalculator) {
-                pressCulculator(d3.event);
-              }
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          } else {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
+                } else {
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
+
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
+                  }
+                  $rootScope.$apply();
+                }
+              });
             });
+
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          }
         }
 
 
@@ -3244,6 +3161,7 @@
                         x: blocksSource[b].impost.impostAxis[0].x
                       };
                       impostInd.push(tempImpost);
+                      //console.info('impost', blocksSource[b].impost.impostAxis, tempImpost);
                     }
                   }
                 }
@@ -3570,14 +3488,12 @@
               isSashesInTemplate;
             GlobalStor.global.isLoader = 1;
             closeSizeCaclulator(1).then(function () {
-
               /** check sizes of all glass */
               MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
               if (DesignStor.design.extraGlass.length) {
                 /** expose Alert */
                 GlobalStor.global.isLoader = 0;
                 DesignStor.design.isGlassExtra = 1;
-                
               } else {
                 /** if sash was added/removed in template */
                 isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
@@ -3683,10 +3599,6 @@
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
-          // Calculating the sum of construction
-          setTimeout(() => {
-            MainServ.setProductPriceTOTAL(ProductStor.product)
-          }, 100);
         }
 
 

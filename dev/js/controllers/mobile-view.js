@@ -253,9 +253,6 @@
                         CartStor.cart.isOrderDialog = 1;
                     }
                 }
-                setTimeout(() => {
-                    $(".user-field-phone").mask("+7(999) 999-99-99");
-                }, 200);
             }
 
             function helpModalMobile() {

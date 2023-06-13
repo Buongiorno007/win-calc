@@ -338,74 +338,6 @@
       </div>
       <div ng-if="mainPage.G.global.activePanel == 3" class="panel-inner">
         <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
-          <div ng-if="glassPanel.U.userInfo.factory_id !== 2" class="glass-container">
-            <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
-              <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
-              <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
-                <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info folder-info">
-                  <label>i</label>
-                </div>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.en" class="title">{{glassPanel.G.global.glassTypes[$index].translate.en}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ru" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ru}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ua" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ua}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.pl" class="title">{{glassPanel.G.global.glassTypes[$index].translate.pl}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].translate.de}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].translate.bg}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].translate.it}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].translate.es}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ro}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.en" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ru" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ua" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.pl" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
-                <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
-              </div>
-              <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
-                <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" class="glass-item">
-                  <div class="glass-width">
-                    <label>{{glass.glass_width}} {{glassPanel.MM}}</label>
-                  </div>
-                  <div ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="title">
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'en'">{{glass.translate.en}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'ru'">{{glass.translate.ru}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'uk'">{{glass.translate.ua}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'pl'">{{glass.translate.pl}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'de'">{{glass.translate.de}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'bg'">{{glass.translate.bg}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'it'">{{glass.translate.it}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'es'">{{glass.translate.es}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'ro'">{{glass.translate.ro}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glass.translate.pl">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glass.translate.es">{{glass.sku}}</label>
-                    <label ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glass.translate.ro">{{glass.sku}}</label>
-                  </div>
-                  <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
-                    <label>i</label>
-                  </div>
-                  <div ng-if="!(glass.img.length &amp;&amp; glass.description.en)" class="blank-div"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
-            <div class="dialog-inner">
-              <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
-            </div>
-            <div fs-click="glassPanel.confirmGlass()" class="set-glass-btn">{{glassPanel.APPLY}}</div>
-            <div fs-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
-          </div>
-          <div ng-if="glassPanel.G.global.showGlassSelectorDialog" class="backDarkView"></div>
           <div class="glass-container-rehau">
             <div ng-click="glassPanel.closeButton(3)" class="close-screen-button"></div>
             <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
@@ -876,7 +808,7 @@
           <div class="close_menu_tooltip"></div>
         </div>
       </div>
-      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" ng-show="elementsMenu.U.userInfo.factory_id !== 2" class="elements-list-container">
+      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
         <div class="elements-menu">
           <header class="menu-header">
             <div class="tip">{{ ::elementsMenu.TIP }}</div>
@@ -1342,37 +1274,6 @@
   </div>
 </div>
 <div class="main-info-box">
-  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id !== 2" class="info_container">
-    <div class="info_box">
-      <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-        <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_title">{{infoBox.G.global.infoTitle.en}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_title">{{infoBox.G.global.infoTitle.ru}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_title">{{infoBox.G.global.infoTitle.ua}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_title">{{infoBox.G.global.infoTitle.pl}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_title">{{infoBox.G.global.infoTitle.de}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_title">{{infoBox.G.global.infoTitle.bg}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_title">{{infoBox.G.global.infoTitle.it}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_title">{{infoBox.G.global.infoTitle.es}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_title">{{infoBox.G.global.infoTitle.ro}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_descrip">{{infoBox.G.global.infoDescrip.en}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_descrip">{{infoBox.G.global.infoDescrip.ru}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_descrip">{{infoBox.G.global.infoDescrip.ua}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_descrip">{{infoBox.G.global.infoDescrip.pl}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_descrip">{{infoBox.G.global.infoDescrip.es}}</div>
-        <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_descrip">{{infoBox.G.global.infoDescrip.ro}}</div>
-        <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}" target="_blank") {{infoBox.G.global.infoLink}}-->
-      </div>
-      <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>
-      <div ng-show="infoBox.G.global.showApply === 1" class="isApply-container">
-        <div fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" class="isApply">
-          <p>{{::infoBox.ASKING_PRICE}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container-rehau">
     <div class="info_box-rehau">
       <div class="info_box_inner">

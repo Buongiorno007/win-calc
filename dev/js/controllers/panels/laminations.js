@@ -87,7 +87,6 @@
                     MainServ.setProfileByLaminat(id).then(function () {
                         //------ save analytics data
                         /** send analytics data to Server*/
-                        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
                         GlobalStor.global.laminats.forEach((item) => {
                             if (item.lamination_type_id === thisCtrl.type_id) {
                                 item.isActive = 1;

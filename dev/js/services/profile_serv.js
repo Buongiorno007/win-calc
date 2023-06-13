@@ -83,9 +83,6 @@
                     /** change lamination groups as of new profile */
                     MainServ.laminatFiltering();
                     /** send analytics data to Server*/
-                    AnalyticsServ.sendAnalyticsData(
-                      UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
-                    );
                   });
                 });
               }

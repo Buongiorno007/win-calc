@@ -1,5 +1,5 @@
 .box(ng-controller="TemplatesCtrl as templatesPanel")
-  .scroll-container(ng-if="templatesPanel.U.userInfo.factory_id !== 2")
+  .scroll-container
       include accept-container
       .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
           .button

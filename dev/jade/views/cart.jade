@@ -3,9 +3,6 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
         include menus/_navigation-menu
     section.right-side
         section.main-content
-
-            section.cart-page
-
                 section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}")
                     .cart-header
                         include parts/_user-info

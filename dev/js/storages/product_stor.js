@@ -49,8 +49,8 @@
               id: 0,
               lamination_in_id: 1,
               lamination_out_id: 1,
-              laminat_in_name: 'mainpage.WHITE_LAMINATION',
-              laminat_out_name: 'mainpage.WHITE_LAMINATION',
+              laminat_in_name: 'Білий',
+              laminat_out_name: 'Білий',
               img_in_id: 1,
               img_out_id: 1
             },
