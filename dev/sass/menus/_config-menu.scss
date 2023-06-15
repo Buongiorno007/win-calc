@@ -1,6 +1,77 @@
 .config-menu {
   @extend .menu-right-general;
   height: 100%;
+
+  .price {
+    margin-left: -9rem;
+    margin-bottom: 1rem;
+  }
+
+
+  .alert-overlay-config {
+    @extend .backDarkView;
+    opacity: 1.08;
+    z-index: 10000;
+    width: 100vw;
+    left: -110rem;
+  }
+  .alert-block-config {
+    @include roboto-lt(2.25rem);
+    display: block;
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    width: 40rem;
+    margin-top: -20rem;
+    padding: 3rem;
+    border-radius: $radius_room-box_dialog;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+    z-index: 99999;
+  }
+
+  .alert-sign-config {
+    @include font-icon(10rem);
+    @extend .icon-setting;
+    @extend .splash;
+    &:after {
+      -webkit-text-fill-color: $error_color;
+      color: $error_color;
+      content: $notification;
+    }
+  }
+  .alert-title-config {
+    @include roboto-bd(2rem);
+  }
+  .alert-descr-config {
+    margin: 2rem 0;
+  }
+  .alert-btns-config {
+    @include display-flex();
+    @include justify-content(space-around);
+    button {
+      @extend .middle-button;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      color: white;
+    }
+  }
+  .alert-no-config {
+    background-color: #858181;
+  }
+  .alert-yes-config {
+    background-color: $main_orange;
+  }
+  .thisAlert {
+    left: 86%;
+    top: 5%;
+    width: 10%;
+    height: 10%;
+    position: absolute;
+  }
+
   .get-price-btn {
     @include transition(all 1s linear);
     background-color: $main_orange;
@@ -13,6 +84,10 @@
     &.active {
       width : 100%;
       margin: 0;
+    }
+
+    &.disable {
+      background-color: #F9800034;
     }
 
     .get-price-btn-p {
@@ -127,11 +202,8 @@
     width: auto;
     //top: 18rem;
     //left: 3rem;
-    position: absolute;
-    top: 76rem;
-    left: 10rem;
-    margin: 0;
-    text-align: center;
+    position: relative;
+    top: 1rem;
     background-color: transparent;
     color: $main_green;
     z-index: 2;
@@ -261,7 +333,15 @@
       position : relative;
       top : -.1rem;
     }
-
+    &.active{
+      transition: all 1s ease;
+      left : 0;
+    }
+    &.disable {
+      background-color: #F9800034;
+      transition: all 1s ease;
+      left : -4;
+    }
   }
   .go-to-cart {
     width: 25%;

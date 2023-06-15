@@ -2,6 +2,58 @@
   //*!!!!!!!!!!!!!!!!!!!!!!*//
   background: white;
   background-size: cover;
+
+  .alert-overlay-light {
+    @extend .backDarkView;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1.08;
+    z-index: 10000;
+    width: 128rem;
+    left: 96rem;
+  }
+  .alert-block-light {
+    @include roboto-lt(2.25rem);
+    display: block;
+    position: absolute;
+    width: 40rem;
+    padding: 3rem;
+    border-radius: $radius_room-box_dialog;
+    overflow: hidden;
+    background-color: white;
+    text-align: center;
+    z-index: 99999;
+  }
+
+  .alert-sign-light {
+    @include font-icon(10rem);
+    @extend .icon-setting;
+    @extend .splash;
+    &:after {
+      -webkit-text-fill-color: $error_color;
+      color: $error_color;
+      content: $notification;
+    }
+  }
+  .alert-title-light {
+    @include roboto-bd(2rem);
+  }
+  .alert-descr-light {
+    margin: 2rem 0;
+  }
+  .alert-btns-light {
+    @include display-flex();
+    @include justify-content(space-around);
+    button {
+      @extend .middle-button;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      color: white;
+    }
+  }
+
   #tamlateSVG {
     position: relative;
     left: -11rem;

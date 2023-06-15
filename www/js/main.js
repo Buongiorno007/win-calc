@@ -1976,6 +1976,7 @@ let portrait = false;
       thisCtrl.HEIGHT_LABEL = $filter("translate")("add_elements.HEIGHT_LABEL");
       thisCtrl.MM = $filter("translate")("mainpage.MM");
       thisCtrl.INCH = $filter('translate')('mainpage.INCH');
+        thisCtrl.isError = false
       // $( "*" ).click(function() {
       //
       // });
@@ -2000,6 +2001,10 @@ let portrait = false;
         DesignServ.initAllGlassXGlass();
       }, 50);
 
+        function closeModal() {
+            thisCtrl.isError = false;
+        }
+
       function closeAttantion() {
         GlobalStor.global.isTest = 0;
         GlobalStor.global.isDesignError = 0;
@@ -2009,6 +2014,18 @@ let portrait = false;
 
       function saveProduct() {
         LightServ.designSaved();
+      }
+
+
+
+      function getPriceLocal() {
+          GlobalStor.global.isLoader = 1;
+          LightServ.getPrice().then((resp) => {
+              GlobalStor.global.isLoader = 0;
+              if(!resp) {
+                  thisCtrl.isError = true;
+              }
+          });
       }
 
       function goToCart() {
@@ -2133,41 +2150,49 @@ let portrait = false;
       }
 
       function checkForAddElem() {
-        if (!GlobalStor.global.isChangedTemplate) {
-          GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
-        }
-        if (!GlobalStor.global.isZeroPriceList.length) {
-          if (!ProductStor.product.is_addelem_only) {
-            alert();
-            if (GlobalStor.global.dangerAlert < 1) {
-              if (ProductStor.product.beadsData.length > 0) {
-                if (OrderStor.order.products.length === 0) {
-                  saveProduct();
-                } else if (GlobalStor.global.isNewTemplate === 1) {
-                  saveProduct();
-                } else if (GlobalStor.global.isChangedTemplate === 0) {
-                  //  ALERT
-                  GlobalStor.global.isNoChangedProduct = 1;
-                } else {
-                  saveProduct();
-                }
+          GlobalStor.global.isLoader = 1;
+          getPriceLocal().then(() => {
+              if (thisCtrl.isError) {
+                  GlobalStor.global.isLoader = 0;
+                  if (!GlobalStor.global.isChangedTemplate) {
+                      GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
+                  }
+                  if (!GlobalStor.global.isZeroPriceList.length) {
+                      if (!ProductStor.product.is_addelem_only) {
+                          alert();
+                          if (GlobalStor.global.dangerAlert < 1) {
+                              if (ProductStor.product.beadsData.length > 0) {
+                                  if (OrderStor.order.products.length === 0) {
+                                      saveProduct();
+                                  } else if (GlobalStor.global.isNewTemplate === 1) {
+                                      saveProduct();
+                                  } else if (GlobalStor.global.isChangedTemplate === 0) {
+                                      //  ALERT
+                                      GlobalStor.global.isNoChangedProduct = 1;
+                                  } else {
+                                      saveProduct();
+                                  }
+                              } else {
+                                  GeneralServ.isErrorProd(
+                                      $filter("translate")("common_words.ERROR_PROD_BEADS")
+                                  );
+                              }
+                          }
+                      } else {
+                          saveAddElems();
+                      }
+                  } else {
+                      var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                      GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                          msg += " " + ZeroElem + "\n";
+                      });
+                      msg += " \n" + thisCtrl.ATENTION_MSG2;
+                      GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
+                  }
               } else {
-                GeneralServ.isErrorProd(
-                  $filter("translate")("common_words.ERROR_PROD_BEADS")
-                );
+                  GlobalStor.global.isLoader = 0;
               }
-            }
-          } else {
-            saveAddElems();
-          }
-        } else {
-          var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-          GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-            msg += " " + ZeroElem + "\n";
           });
-          msg += " \n" + thisCtrl.ATENTION_MSG2;
-          GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
-        }
       }
 
       function coutNull(arr) {
@@ -2209,6 +2234,7 @@ let portrait = false;
       /**========== FINISH ==========*/
       thisCtrl.closeAttantion = closeAttantion;
       thisCtrl.saveProduct = saveProduct;
+      thisCtrl.getPrice = getPriceLocal;
       thisCtrl.showCartTemplte = showCartTemplte;
       thisCtrl.showAddElementDetail = showAddElementDetail;
       thisCtrl.closeAddElementDetail = closeAddElementDetail;
@@ -2242,6 +2268,7 @@ let portrait = false;
       thisCtrl.selectHandle = DesignServ.selectHandle;
       thisCtrl.selectLock = DesignServ.selectLock;
       thisCtrl.stepBack = DesignServ.stepBack;
+      thisCtrl.closeModal = closeModal;
 
       $("#main-frame").removeClass("main-frame-mobView");
       $("#app-container").removeClass("app-container-mobView");
@@ -4088,7 +4115,7 @@ let portrait = false;
         .module('MainModule')
         .controller('ConfigMenuCtrl',
 
-            function ($location,
+            function ($q, $http, $location,
                       $filter,
                       $timeout,
                       $scope,
@@ -4152,11 +4179,24 @@ let portrait = false;
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
                 thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
                 thisCtrl.ATENTION_MSG1 = $filter('translate')('natification.ATENTION_MSG1');
+                thisCtrl.isError = false;
                 thisCtrl.ATENTION_MSG2 = $filter('translate')('natification.ATENTION_MSG2');
 
 
                 /**============ METHODS ================*/
+                function getPriceLocal() {
+                    GlobalStor.global.isLoader = 1;
+                    LightServ.getPrice().then((resp) => {
+                        GlobalStor.global.isLoader = 0;
+                        if(!resp) {
+                            thisCtrl.isError = true;
+                        }
+                    });
+                }
 
+                function closeModal() {
+                    thisCtrl.isError = false;
+                }
 
                 //------- Select menu item
 
@@ -4238,49 +4278,53 @@ let portrait = false;
                 }
 
                 function checkForAddElem() {
-                    // console.log("ProductStor.product", ProductStor.product);
-                    if (!GlobalStor.global.isZeroPriceList.length) {
-                        if (!ProductStor.product.is_addelem_only) {
-                            alert();
-                            if (GlobalStor.global.dangerAlert < 1) {
-                                if (ProductStor.product.beadsData.length > 0) {
-                                    if (!OrderStor.order.products.length) {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
-                                    } else if (GlobalStor.global.isNewTemplate) {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
-                                    } else if (!GlobalStor.global.isChangedTemplate) {
-                                        //  ALERT
-                                        GlobalStor.global.isNoChangedProduct = 1;
-                                    } else {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
+                    GlobalStor.global.isLoader = 1;
+                    getPriceLocal().then(() => {
+                        GlobalStor.global.isLoader = 0;
+                        if (thisCtrl.isError) {
+                            if (!GlobalStor.global.isZeroPriceList.length) {
+                                if (!ProductStor.product.is_addelem_only) {
+                                    alert();
+                                    if (GlobalStor.global.dangerAlert < 1) {
+                                        if (ProductStor.product.beadsData.length > 0) {
+                                            if (!OrderStor.order.products.length) {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            } else if (GlobalStor.global.isNewTemplate) {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            } else if (!GlobalStor.global.isChangedTemplate) {
+                                                //  ALERT
+                                                GlobalStor.global.isNoChangedProduct = 1;
+                                            } else {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            }
+                                        } else {
+                                            GeneralServ.isErrorProd(
+                                                $filter('translate')('common_words.ERROR_PROD_BEADS')
+                                            );
+                                        }
                                     }
                                 } else {
-                                    GeneralServ.isErrorProd(
-                                        $filter('translate')('common_words.ERROR_PROD_BEADS')
-                                    );
+                                    saveProduct();
                                 }
+                            } else {
+                                var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                                GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                                    msg += " " + ZeroElem + "\n";
+                                });
+                                msg += " \n" + thisCtrl.ATENTION_MSG2;
+                                GeneralServ.infoAlert(
+                                    thisCtrl.ATENTION,
+                                    msg
+                                );
                             }
-                        } else {
-                            saveProduct();
                         }
-                    } else {
-                        var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-                        GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-                            msg += " " + ZeroElem + "\n";
-                        });
-                        msg += " \n" + thisCtrl.ATENTION_MSG2;
-                        GeneralServ.infoAlert(
-                            thisCtrl.ATENTION,
-                            msg
-                        );
-                    }
-
+                    });
                 }
 
                 function showNextTip() {
@@ -4401,6 +4445,8 @@ let portrait = false;
                 thisCtrl.showNextTip = showNextTip;
                 thisCtrl.alert = alert;
                 thisCtrl.checkForAddElem = checkForAddElem;
+                thisCtrl.getPrice = getPriceLocal;
+                thisCtrl.closeModal = closeModal;
                 thisCtrl.checkSavingProduct = checkSavingProduct;
 
                 thisCtrl.addProdQty = LightServ.addProdQty;
@@ -21226,7 +21272,8 @@ function ErrorResult(code, message) {
     .module('LightModule')
     .factory('LightServ',
 
-      function ($filter,
+      function ($http, $filter,
+                globalConstants,
         $q,
         GlobalStor,
         DesignStor,
@@ -21241,6 +21288,81 @@ function ErrorResult(code, message) {
         SVGServ) {
         /*jshint validthis:true */
         var thisFactory = this;
+
+        function getStatusPrice(link) {
+          window.localStorage.setItem('link', link)
+          var defer = $q.defer();
+          $http.get(link).then(
+              function (result) {
+                GlobalStor.global.isLoader = 0;
+                if (result.data.cost) {
+                  ProductStor.product.product_price = result.data.cost
+                  ProductStor.product.productPriceDis =  result.data.cost
+                  GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                  window.localStorage.removeItem('link')
+                  defer.resolve(result.data);
+                } else {
+                  defer.resolve(false);
+                }
+              },
+              function (err) {
+                GlobalStor.global.isLoader = 0;
+                console.log(err)
+                defer.resolve(false);
+              }
+          );
+          return defer.promise;
+        }
+
+        function getPrice() {
+          var defer = $q.defer();
+          const link = window.localStorage.getItem('link');
+          const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
+          const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
+          const tempalteSource = {
+            beads: ProductStor.product.beadsData,
+            ...ProductStor.product.template_source,
+          }
+
+            const orderObj = {
+              "profile_id": ProductStor.product.profile.id,
+              "glass_id": ProductStor.product.glass[0].id.toString(),
+              "hardware_id": ProductStor.product.hardware.id,
+              "lamination_in_id": ProductStor.product.lamination.lamination_in_id,
+              "lamination_out_id": ProductStor.product.lamination.lamination_out_id,
+              "template_height": ProductStor.product.template_height,
+              "template_width": ProductStor.product.template_width,
+              "template_source": tempalteSource
+            }
+          if (link) {
+            getStatusPrice(link).then((resp) => {
+              defer.resolve(resp)
+            });
+          } else {
+            GlobalStor.global.isLoader = 1;
+            $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                 function (result) {
+                  if (result.data.errors.length) {
+                    getStatusPrice(result.data.status_link).then((resp) => {
+                      defer.resolve(resp)
+                    });
+                  } else {
+                    GlobalStor.global.isLoader = 0;
+                    ProductStor.product.product_price = result.cost
+                    ProductStor.product.productPriceDis = result.cost;
+                    GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                    defer.resolve(result.data);
+                  }
+                },
+                function (err) {
+                  console.log(err)
+                  defer.resolve(false);
+                }
+            );
+          }
+          return defer.promise;
+        }
+
 
         function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
           var deferred = $q.defer();
@@ -21680,8 +21802,8 @@ function ErrorResult(code, message) {
           subtractProdQty: subtractProdQty,
           closeSizeCaclulator: closeSizeCaclulator,
           deleteLastNumber: deleteLastNumber,
-          setValueQty: setValueQty
-
+          setValueQty: setValueQty,
+          getPrice: getPrice,
         };
 
         return thisFactory.publicObj;
@@ -24880,6 +25002,8 @@ function ErrorResult(code, message) {
             /** CONSTRUCTION PRICE **/
 
             function calculationPrice(construction) {
+                ProductStor.product.product_price = 0;
+                GlobalStor.global.tempPrice = ProductStor.product.product_price;
                 // console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
                 var deffMain = $q.defer(),
                     priceObj = {},
@@ -29098,28 +29222,24 @@ function ErrorResult(code, message) {
             }
 
             function setProductPriceTOTAL(Product) {
+                console.log(Product, 'Product')
+                // var deliveryCoeff =
+                //     GlobalStor.global.deliveryCoeff.percents[
+                //     GlobalStor.global.deliveryCoeff.standart_time
+                //     ],
+                //     priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
 
-                var deliveryCoeff =
-                    GlobalStor.global.deliveryCoeff.percents[
-                    GlobalStor.global.deliveryCoeff.standart_time
-                    ],
-                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
 
-
-                Product.product_price = GeneralServ.roundingValue(
-                    Product.template_price + Product.addelem_price + Product.service_price
-                );
-                Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
                 //------ add Discount of standart delivery day of Plant
-                if (deliveryCoeff) {
-                    Product.productPriceDis = GeneralServ.setPriceDis(
-                        Product.productPriceDis,
-                        deliveryCoeff
-                    );
-                }
+                // if (deliveryCoeff) {
+                //     Product.productPriceDis = GeneralServ.setPriceDis(
+                //         Product.productPriceDis,
+                //         deliveryCoeff
+                //     );
+                // }
 
-                GlobalStor.global.tempPrice =
-                    Product.productPriceDis * GlobalStor.global.product_qty;
+                // GlobalStor.global.tempPrice =
+                //     Product.productPriceDis * GlobalStor.global.product_qty;
                 GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
@@ -31028,7 +31148,7 @@ function ErrorResult(code, message) {
                 calculationPrice: calculationPrice,
                 calculateCoeffs: calculateCoeffs,
                 setBeadId: setBeadId,
-                prepareReport: prepareReport
+                prepareReport: prepareReport,
             };
 
             return thisFactory.publicObj;

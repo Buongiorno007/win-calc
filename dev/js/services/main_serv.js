@@ -1446,28 +1446,24 @@
             }
 
             function setProductPriceTOTAL(Product) {
+                console.log(Product, 'Product')
+                // var deliveryCoeff =
+                //     GlobalStor.global.deliveryCoeff.percents[
+                //     GlobalStor.global.deliveryCoeff.standart_time
+                //     ],
+                //     priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
 
-                var deliveryCoeff =
-                    GlobalStor.global.deliveryCoeff.percents[
-                    GlobalStor.global.deliveryCoeff.standart_time
-                    ],
-                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
 
-
-                Product.product_price = GeneralServ.roundingValue(
-                    Product.template_price + Product.addelem_price + Product.service_price
-                );
-                Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
                 //------ add Discount of standart delivery day of Plant
-                if (deliveryCoeff) {
-                    Product.productPriceDis = GeneralServ.setPriceDis(
-                        Product.productPriceDis,
-                        deliveryCoeff
-                    );
-                }
+                // if (deliveryCoeff) {
+                //     Product.productPriceDis = GeneralServ.setPriceDis(
+                //         Product.productPriceDis,
+                //         deliveryCoeff
+                //     );
+                // }
 
-                GlobalStor.global.tempPrice =
-                    Product.productPriceDis * GlobalStor.global.product_qty;
+                // GlobalStor.global.tempPrice =
+                //     Product.productPriceDis * GlobalStor.global.product_qty;
                 GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
@@ -3376,7 +3372,7 @@
                 calculationPrice: calculationPrice,
                 calculateCoeffs: calculateCoeffs,
                 setBeadId: setBeadId,
-                prepareReport: prepareReport
+                prepareReport: prepareReport,
             };
 
             return thisFactory.publicObj;

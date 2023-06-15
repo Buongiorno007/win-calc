@@ -1,4 +1,10 @@
 .light-v(ng-class="{'active': lightPage.G.global.showCart == 1}")
+  .alert-overlay(ng-show='lightPage.isError' ng-click="lightPage.closeModal()")
+    .alert-block
+      .alert-sign
+      .alert-title {{'ВНИМАНИЕ'}}
+      .alert-descr {{'Завод в данный момент перегружен'}}
+      .alert-btns
   section.page-container(ng-class="{ 'swiped': !lightPage.G.global.isNavMenu }")
     section.left-side
       include menus/_navigation-menu
@@ -595,7 +601,8 @@
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
           //- .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price
-            button {{lightPage.GET_PRICE}}
+            price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency" ng-if="lightPage.G.global.tempPrice")
+            button(ng-click="lightPage.getPrice()") {{lightPage.GET_PRICE}}
           .save-block#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
           

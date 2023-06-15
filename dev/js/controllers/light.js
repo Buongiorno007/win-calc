@@ -184,6 +184,7 @@
       thisCtrl.HEIGHT_LABEL = $filter("translate")("add_elements.HEIGHT_LABEL");
       thisCtrl.MM = $filter("translate")("mainpage.MM");
       thisCtrl.INCH = $filter('translate')('mainpage.INCH');
+        thisCtrl.isError = false
       // $( "*" ).click(function() {
       //
       // });
@@ -208,6 +209,10 @@
         DesignServ.initAllGlassXGlass();
       }, 50);
 
+        function closeModal() {
+            thisCtrl.isError = false;
+        }
+
       function closeAttantion() {
         GlobalStor.global.isTest = 0;
         GlobalStor.global.isDesignError = 0;
@@ -217,6 +222,18 @@
 
       function saveProduct() {
         LightServ.designSaved();
+      }
+
+
+
+      function getPriceLocal() {
+          GlobalStor.global.isLoader = 1;
+          LightServ.getPrice().then((resp) => {
+              GlobalStor.global.isLoader = 0;
+              if(!resp) {
+                  thisCtrl.isError = true;
+              }
+          });
       }
 
       function goToCart() {
@@ -341,41 +358,49 @@
       }
 
       function checkForAddElem() {
-        if (!GlobalStor.global.isChangedTemplate) {
-          GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
-        }
-        if (!GlobalStor.global.isZeroPriceList.length) {
-          if (!ProductStor.product.is_addelem_only) {
-            alert();
-            if (GlobalStor.global.dangerAlert < 1) {
-              if (ProductStor.product.beadsData.length > 0) {
-                if (OrderStor.order.products.length === 0) {
-                  saveProduct();
-                } else if (GlobalStor.global.isNewTemplate === 1) {
-                  saveProduct();
-                } else if (GlobalStor.global.isChangedTemplate === 0) {
-                  //  ALERT
-                  GlobalStor.global.isNoChangedProduct = 1;
-                } else {
-                  saveProduct();
-                }
+          GlobalStor.global.isLoader = 1;
+          getPriceLocal().then(() => {
+              if (thisCtrl.isError) {
+                  GlobalStor.global.isLoader = 0;
+                  if (!GlobalStor.global.isChangedTemplate) {
+                      GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
+                  }
+                  if (!GlobalStor.global.isZeroPriceList.length) {
+                      if (!ProductStor.product.is_addelem_only) {
+                          alert();
+                          if (GlobalStor.global.dangerAlert < 1) {
+                              if (ProductStor.product.beadsData.length > 0) {
+                                  if (OrderStor.order.products.length === 0) {
+                                      saveProduct();
+                                  } else if (GlobalStor.global.isNewTemplate === 1) {
+                                      saveProduct();
+                                  } else if (GlobalStor.global.isChangedTemplate === 0) {
+                                      //  ALERT
+                                      GlobalStor.global.isNoChangedProduct = 1;
+                                  } else {
+                                      saveProduct();
+                                  }
+                              } else {
+                                  GeneralServ.isErrorProd(
+                                      $filter("translate")("common_words.ERROR_PROD_BEADS")
+                                  );
+                              }
+                          }
+                      } else {
+                          saveAddElems();
+                      }
+                  } else {
+                      var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                      GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                          msg += " " + ZeroElem + "\n";
+                      });
+                      msg += " \n" + thisCtrl.ATENTION_MSG2;
+                      GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
+                  }
               } else {
-                GeneralServ.isErrorProd(
-                  $filter("translate")("common_words.ERROR_PROD_BEADS")
-                );
+                  GlobalStor.global.isLoader = 0;
               }
-            }
-          } else {
-            saveAddElems();
-          }
-        } else {
-          var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-          GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-            msg += " " + ZeroElem + "\n";
           });
-          msg += " \n" + thisCtrl.ATENTION_MSG2;
-          GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
-        }
       }
 
       function coutNull(arr) {
@@ -417,6 +442,7 @@
       /**========== FINISH ==========*/
       thisCtrl.closeAttantion = closeAttantion;
       thisCtrl.saveProduct = saveProduct;
+      thisCtrl.getPrice = getPriceLocal;
       thisCtrl.showCartTemplte = showCartTemplte;
       thisCtrl.showAddElementDetail = showAddElementDetail;
       thisCtrl.closeAddElementDetail = closeAddElementDetail;
@@ -450,6 +476,7 @@
       thisCtrl.selectHandle = DesignServ.selectHandle;
       thisCtrl.selectLock = DesignServ.selectLock;
       thisCtrl.stepBack = DesignServ.stepBack;
+      thisCtrl.closeModal = closeModal;
 
       $("#main-frame").removeClass("main-frame-mobView");
       $("#app-container").removeClass("app-container-mobView");

@@ -127,15 +127,19 @@
       .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
         div U = {{ configMenu.P.product.heat_coef_total | number :2 }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
 
-
+  .alert-overlay-config(ng-show='configMenu.isError' ng-click="configMenu.closeModal()")
+    .alert-block-config
+      .alert-sign-config
+      .alert-title-config {{configMenu.ATENTION}}
+      .alert-descr-config {{'Завод в данный момент перегружен'}}
+      .alert-btns-config
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
-    .get-price-btn(ng-class="{'active': configMenu.O.order.products.length}")
-        p.get-price-btn-p {{configMenu.GET_PRICE}}
-    //- price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency")
-    //price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
+    price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-if="configMenu.G.global.tempPrice")
+    .get-price-btn(ng-class="{'active': configMenu.O.order.products.length, 'disable': configMenu.G.global.tempPrice}" ng-click="configMenu.getPrice()")
+      p.get-price-btn-p {{configMenu.GET_PRICE}}
     .cart-btns(ng-class="{'active': configMenu.O.order.products.length}")
-      .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.O.order.products.length}")
+      .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.G.global.tempPrice}")
         img(src="./img/config-menu/arrow.svg")
         p.save-to-cart-p {{configMenu.SAVE}}
       .go-to-cart(ng-click="configMenu.checkSavingProduct()" ,ng-class="{'active': configMenu.O.order.products.length}")
@@ -143,7 +147,6 @@
       .qty#qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.G.global.construction_count }}
 
   //  div
-
 
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
 
