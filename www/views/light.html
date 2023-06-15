@@ -1,5 +1,13 @@
 
 <div ng-class="{'active': lightPage.G.global.showCart == 1}" class="light-v">
+  <div ng-show="lightPage.isError" ng-click="lightPage.closeModal()" class="alert-overlay">
+    <div class="alert-block">
+      <div class="alert-sign"></div>
+      <div class="alert-title">{{'ВНИМАНИЕ'}}</div>
+      <div class="alert-descr">{{'Завод в данный момент перегружен'}}</div>
+      <div class="alert-btns"></div>
+    </div>
+  </div>
   <section ng-class="{ 'swiped': !lightPage.G.global.isNavMenu }" class="page-container">
     <section class="left-side">
       <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
@@ -1826,7 +1834,8 @@
         </div>
         <div ng-if="configMenu.G.global.showCart == 0" class="discount-block">
           <div class="discount-price">
-            <button>{{lightPage.GET_PRICE}}</button>
+            <price price-value="lightPage.G.global.tempPrice" price-currency="lightPage.U.userInfo.currency" ng-if="lightPage.G.global.tempPrice"></price>
+            <button ng-click="lightPage.getPrice()">{{lightPage.GET_PRICE}}</button>
           </div>
           <div id="save-block" ng-click="lightPage.checkForAddElem()" class="save-block">
             <p>{{lightPage.CONFIGMENU_IN_CART}}</p>

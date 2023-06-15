@@ -5,7 +5,7 @@
         .module('MainModule')
         .controller('ConfigMenuCtrl',
 
-            function ($location,
+            function ($q, $http, $location,
                       $filter,
                       $timeout,
                       $scope,
@@ -69,12 +69,11 @@
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
                 thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
                 thisCtrl.ATENTION_MSG1 = $filter('translate')('natification.ATENTION_MSG1');
+                thisCtrl.isError = false;
                 thisCtrl.ATENTION_MSG2 = $filter('translate')('natification.ATENTION_MSG2');
 
 
                 /**============ METHODS ================*/
-
-
                 //------- Select menu item
 
 
@@ -117,6 +116,20 @@
 
                 }
 
+                function getPriceLocal() {
+                    GlobalStor.global.isLoader = 1;
+                    LightServ.getPrice().then((resp) => {
+                        GlobalStor.global.isLoader = 0;
+                        if(!resp) {
+                            thisCtrl.isError = true;
+                        }
+                    });
+                }
+
+                function closeModal() {
+                    thisCtrl.isError = false;
+                }
+
 
                 function alert() {
                     GlobalStor.global.nameAddElem = [];
@@ -155,49 +168,57 @@
                 }
 
                 function checkForAddElem() {
-                    // console.log("ProductStor.product", ProductStor.product);
-                    if (!GlobalStor.global.isZeroPriceList.length) {
-                        if (!ProductStor.product.is_addelem_only) {
-                            alert();
-                            if (GlobalStor.global.dangerAlert < 1) {
-                                if (ProductStor.product.beadsData.length > 0) {
-                                    if (!OrderStor.order.products.length) {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
-                                    } else if (GlobalStor.global.isNewTemplate) {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
-                                    } else if (!GlobalStor.global.isChangedTemplate) {
-                                        //  ALERT
-                                        GlobalStor.global.isNoChangedProduct = 1;
-                                    } else {
-                                        $('#qty').hide().show(0);
-                                        $('#qty-mobile').hide().show(0);
-                                        saveProduct();
+                    GlobalStor.global.isLoader = 1;
+                    LightServ.getPrice().then((resp) => {
+                        GlobalStor.global.isLoader = 0;
+                        if(!resp) {
+                            thisCtrl.isError = true;
+                        }
+                        GlobalStor.global.isLoader = 0;
+                        if (!thisCtrl.isError) {
+                            if (!GlobalStor.global.isZeroPriceList.length) {
+                                if (!ProductStor.product.is_addelem_only) {
+                                    alert();
+                                    if (GlobalStor.global.dangerAlert < 1) {
+                                        if (ProductStor.product.beadsData.length > 0) {
+                                            if (!OrderStor.order.products.length) {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            } else if (GlobalStor.global.isNewTemplate) {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            } else if (!GlobalStor.global.isChangedTemplate) {
+                                                //  ALERT
+                                                GlobalStor.global.isNoChangedProduct = 1;
+                                            } else {
+                                                $('#qty').hide().show(0);
+                                                $('#qty-mobile').hide().show(0);
+                                                saveProduct();
+                                            }
+                                        } else {
+                                            GeneralServ.isErrorProd(
+                                                $filter('translate')('common_words.ERROR_PROD_BEADS')
+                                            );
+                                        }
                                     }
                                 } else {
-                                    GeneralServ.isErrorProd(
-                                        $filter('translate')('common_words.ERROR_PROD_BEADS')
-                                    );
+                                    saveProduct();
                                 }
+                            } else {
+                                var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                                GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                                    msg += " " + ZeroElem + "\n";
+                                });
+                                msg += " \n" + thisCtrl.ATENTION_MSG2;
+                                GeneralServ.infoAlert(
+                                    thisCtrl.ATENTION,
+                                    msg
+                                );
                             }
-                        } else {
-                            saveProduct();
                         }
-                    } else {
-                        var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-                        GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-                            msg += " " + ZeroElem + "\n";
-                        });
-                        msg += " \n" + thisCtrl.ATENTION_MSG2;
-                        GeneralServ.infoAlert(
-                            thisCtrl.ATENTION,
-                            msg
-                        );
-                    }
-
+                    });
                 }
 
                 function showNextTip() {
@@ -318,6 +339,8 @@
                 thisCtrl.showNextTip = showNextTip;
                 thisCtrl.alert = alert;
                 thisCtrl.checkForAddElem = checkForAddElem;
+                thisCtrl.getPrice = getPriceLocal;
+                thisCtrl.closeModal = closeModal;
                 thisCtrl.checkSavingProduct = checkSavingProduct;
 
                 thisCtrl.addProdQty = LightServ.addProdQty;

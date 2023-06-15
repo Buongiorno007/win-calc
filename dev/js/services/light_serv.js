@@ -5,7 +5,8 @@
     .module('LightModule')
     .factory('LightServ',
 
-      function ($filter,
+      function ($http, $filter,
+                globalConstants,
         $q,
         GlobalStor,
         DesignStor,
@@ -20,6 +21,83 @@
         SVGServ) {
         /*jshint validthis:true */
         var thisFactory = this;
+
+        function getStatusPrice(link) {
+          window.localStorage.setItem('link', link)
+          var defer = $q.defer();
+          $http.get(link).then(
+              function (result) {
+                GlobalStor.global.isLoader = 0;
+                if (result.data.cost) {
+                  ProductStor.product.product_price = result.data.cost
+                  ProductStor.product.productPriceDis =  result.data.cost
+                  GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                  window.localStorage.removeItem('link')
+                  defer.resolve(result.data);
+                } else {
+                  defer.resolve(false);
+                }
+              },
+              function (err) {
+                GlobalStor.global.isLoader = 0;
+                console.log(err)
+                defer.resolve(false);
+              }
+          );
+          return defer.promise;
+        }
+
+        function getPrice() {
+          var defer = $q.defer();
+          const link = window.localStorage.getItem('link');
+          const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
+          const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
+          console.log(ProductStor.product.template_source);
+          const templateSource = {
+            beads: ProductStor.product.beadsData,
+          }
+          
+          const orderData = Object.assign(templateSource, ProductStor.product.template_source);
+
+            const orderObj = {
+              "profile_id": ProductStor.product.profile.id,
+              "glass_id": ProductStor.product.glass[0].id.toString(),
+              "hardware_id": ProductStor.product.hardware.id,
+              "lamination_in_id": ProductStor.product.lamination.lamination_in_id,
+              "lamination_out_id": ProductStor.product.lamination.lamination_out_id,
+              "template_height": ProductStor.product.template_height,
+              "template_width": ProductStor.product.template_width,
+              "template_source": orderData
+            }
+          if (link) {
+            getStatusPrice(link).then((resp) => {
+              defer.resolve(resp)
+            });
+          } else {
+            GlobalStor.global.isLoader = 1;
+            $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                 function (result) {
+                  if (result.data.errors.length) {
+                    getStatusPrice(result.data.status_link).then((resp) => {
+                      defer.resolve(resp)
+                    });
+                  } else {
+                    GlobalStor.global.isLoader = 0;
+                    ProductStor.product.product_price = result.data.cost
+                    ProductStor.product.productPriceDis = result.data.cost;
+                    GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                    defer.resolve(result.data);
+                  }
+                },
+                function (err) {
+                  console.log(err)
+                  defer.resolve(false);
+                }
+            );
+          }
+          return defer.promise;
+        }
+
 
         function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
           var deferred = $q.defer();
@@ -459,8 +537,8 @@
           subtractProdQty: subtractProdQty,
           closeSizeCaclulator: closeSizeCaclulator,
           deleteLastNumber: deleteLastNumber,
-          setValueQty: setValueQty
-
+          setValueQty: setValueQty,
+          getPrice: getPrice,
         };
 
         return thisFactory.publicObj;

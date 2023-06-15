@@ -868,13 +868,21 @@
             </div>
           </li>
         </ul>
+        <div ng-show="configMenu.isError" ng-click="configMenu.closeModal()" class="alert-overlay-config">
+          <div class="alert-block-config">
+            <div class="alert-sign-config"></div>
+            <div class="alert-title-config">{{configMenu.ATENTION}}</div>
+            <div class="alert-descr-config">{{'Завод в данный момент перегружен'}}</div>
+            <div class="alert-btns-config"></div>
+          </div>
+        </div>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <div ng-class="{'active': configMenu.O.order.products.length}" class="get-price-btn">
+          <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-if="configMenu.G.global.tempPrice"></price>
+          <div ng-class="{'active': configMenu.O.order.products.length, 'disable': configMenu.G.global.tempPrice}" ng-click="configMenu.getPrice()" class="get-price-btn">
             <p class="get-price-btn-p">{{configMenu.GET_PRICE}}</p>
           </div>
-          <!--price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")-->
           <div ng-class="{'active': configMenu.O.order.products.length}" class="cart-btns">
-            <div ng-click="configMenu.checkForAddElem()" ng-class="{'active': configMenu.O.order.products.length}" class="save-to-cart"><img src="./img/config-menu/arrow.svg">
+            <div ng-click="configMenu.checkForAddElem()" ng-class="{'active': configMenu.G.global.tempPrice}" class="save-to-cart"><img src="./img/config-menu/arrow.svg">
               <p class="save-to-cart-p">{{configMenu.SAVE}}</p>
             </div>
             <div ng-click="configMenu.checkSavingProduct()" ng-class="{'active': configMenu.O.order.products.length}" class="go-to-cart"><img src="./img/config-menu/cart_green.svg"></div>
@@ -882,7 +890,6 @@
           </div>
         </footer>
         <!--  div-->
-        
         <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
         <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu &amp;&amp; !configMenu.G.global.productEditNumber" fs-click="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           <div class="close_menu_tooltip"></div>
