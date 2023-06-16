@@ -71,6 +71,7 @@
                 thisCtrl.ATENTION_MSG1 = $filter('translate')('natification.ATENTION_MSG1');
                 thisCtrl.isError = false;
                 thisCtrl.ATENTION_MSG2 = $filter('translate')('natification.ATENTION_MSG2');
+                thisCtrl.ErrosArray = [];
 
 
                 /**============ METHODS ================*/
@@ -121,6 +122,7 @@
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
                         }
                     });
@@ -172,6 +174,7 @@
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
                         }
                         GlobalStor.global.isLoader = 0;

@@ -3186,7 +3186,8 @@
             function calculationPrice(construction) {
                 ProductStor.product.product_price = 0;
                 GlobalStor.global.tempPrice = ProductStor.product.product_price;
-                // console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
+                window.localStorage.removeItem('link')
+                window.localStorage.removeItem('errors')
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};

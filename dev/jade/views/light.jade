@@ -3,7 +3,7 @@
     .alert-block
       .alert-sign
       .alert-title {{'ВНИМАНИЕ'}}
-      .alert-descr {{'Завод в данный момент перегружен'}}
+      .alert-descr {{ lightPage.ErrosArray }}
       .alert-btns
   section.page-container(ng-class="{ 'swiped': !lightPage.G.global.isNavMenu }")
     section.left-side

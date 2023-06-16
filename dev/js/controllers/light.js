@@ -184,7 +184,8 @@
       thisCtrl.HEIGHT_LABEL = $filter("translate")("add_elements.HEIGHT_LABEL");
       thisCtrl.MM = $filter("translate")("mainpage.MM");
       thisCtrl.INCH = $filter('translate')('mainpage.INCH');
-      thisCtrl.isError = false
+      thisCtrl.isError = false;
+      thisCtrl.ErrosArray = [];
       // $( "*" ).click(function() {
       //
       // });
@@ -231,6 +232,7 @@
           LightServ.getPrice().then((resp) => {
               GlobalStor.global.isLoader = 0;
               if(!resp) {
+                  thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                   thisCtrl.isError = true;
               }
           });
@@ -362,7 +364,9 @@
           LightServ.getPrice().then((resp) => {
               GlobalStor.global.isLoader = 0;
               if(!resp) {
+                  thisCtrl.ErrosArray = window.localStorage.getItem('errors').join(' | ')
                   thisCtrl.isError = true;
+                  console.log(thisCtrl.ErrosArray)
               }
               if (!thisCtrl.isError) {
                   GlobalStor.global.isLoader = 0;

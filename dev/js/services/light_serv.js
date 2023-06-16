@@ -22,6 +22,10 @@
         /*jshint validthis:true */
         var thisFactory = this;
 
+        function errorHandler(errors) {
+          window.localStorage.setItem('errors', errors)
+        }
+
         function getStatusPrice(link) {
           window.localStorage.setItem('link', link)
           var defer = $q.defer();
@@ -33,6 +37,7 @@
                   ProductStor.product.productPriceDis =  result.data.cost
                   GlobalStor.global.tempPrice = ProductStor.product.product_price;
                   window.localStorage.removeItem('link')
+                  window.localStorage.removeItem('errors')
                   defer.resolve(result.data);
                 } else {
                   defer.resolve(false);
@@ -52,7 +57,6 @@
           const link = window.localStorage.getItem('link');
           const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
           const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
-          console.log(ProductStor.product.template_source);
           const templateSource = {
             beads: ProductStor.product.beadsData,
           }
@@ -77,6 +81,7 @@
             GlobalStor.global.isLoader = 1;
             $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
                  function (result) {
+                   errorHandler(result.data.errors);
                   if (result.data.errors.length) {
                     getStatusPrice(result.data.status_link).then((resp) => {
                       defer.resolve(resp)

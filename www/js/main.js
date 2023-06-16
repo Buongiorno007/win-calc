@@ -1976,7 +1976,8 @@ let portrait = false;
       thisCtrl.HEIGHT_LABEL = $filter("translate")("add_elements.HEIGHT_LABEL");
       thisCtrl.MM = $filter("translate")("mainpage.MM");
       thisCtrl.INCH = $filter('translate')('mainpage.INCH');
-      thisCtrl.isError = false
+      thisCtrl.isError = false;
+      thisCtrl.ErrosArray = [];
       // $( "*" ).click(function() {
       //
       // });
@@ -2023,6 +2024,7 @@ let portrait = false;
           LightServ.getPrice().then((resp) => {
               GlobalStor.global.isLoader = 0;
               if(!resp) {
+                  thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                   thisCtrl.isError = true;
               }
           });
@@ -2154,7 +2156,9 @@ let portrait = false;
           LightServ.getPrice().then((resp) => {
               GlobalStor.global.isLoader = 0;
               if(!resp) {
+                  thisCtrl.ErrosArray = window.localStorage.getItem('errors').join(' | ')
                   thisCtrl.isError = true;
+                  console.log(thisCtrl.ErrosArray)
               }
               if (!thisCtrl.isError) {
                   GlobalStor.global.isLoader = 0;
@@ -4185,6 +4189,7 @@ let portrait = false;
                 thisCtrl.ATENTION_MSG1 = $filter('translate')('natification.ATENTION_MSG1');
                 thisCtrl.isError = false;
                 thisCtrl.ATENTION_MSG2 = $filter('translate')('natification.ATENTION_MSG2');
+                thisCtrl.ErrosArray = [];
 
 
                 /**============ METHODS ================*/
@@ -4235,6 +4240,7 @@ let portrait = false;
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
                         }
                     });
@@ -4286,6 +4292,7 @@ let portrait = false;
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
                         }
                         GlobalStor.global.isLoader = 0;
@@ -21297,6 +21304,10 @@ function ErrorResult(code, message) {
         /*jshint validthis:true */
         var thisFactory = this;
 
+        function errorHandler(errors) {
+          window.localStorage.setItem('errors', errors)
+        }
+
         function getStatusPrice(link) {
           window.localStorage.setItem('link', link)
           var defer = $q.defer();
@@ -21308,6 +21319,7 @@ function ErrorResult(code, message) {
                   ProductStor.product.productPriceDis =  result.data.cost
                   GlobalStor.global.tempPrice = ProductStor.product.product_price;
                   window.localStorage.removeItem('link')
+                  window.localStorage.removeItem('errors')
                   defer.resolve(result.data);
                 } else {
                   defer.resolve(false);
@@ -21327,7 +21339,6 @@ function ErrorResult(code, message) {
           const link = window.localStorage.getItem('link');
           const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
           const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
-          console.log(ProductStor.product.template_source);
           const templateSource = {
             beads: ProductStor.product.beadsData,
           }
@@ -21352,6 +21363,7 @@ function ErrorResult(code, message) {
             GlobalStor.global.isLoader = 1;
             $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
                  function (result) {
+                   errorHandler(result.data.errors);
                   if (result.data.errors.length) {
                     getStatusPrice(result.data.status_link).then((resp) => {
                       defer.resolve(resp)
@@ -25014,7 +25026,8 @@ function ErrorResult(code, message) {
             function calculationPrice(construction) {
                 ProductStor.product.product_price = 0;
                 GlobalStor.global.tempPrice = ProductStor.product.product_price;
-                // console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
+                window.localStorage.removeItem('link')
+                window.localStorage.removeItem('errors')
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};
