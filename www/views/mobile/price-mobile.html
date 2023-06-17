@@ -1,8 +1,21 @@
 
 <div ng-controller="ConfigMenuCtrl as configMenu" class="mobile-price">
-  <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
-  <div class="go-to-cart">
-    <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
-    <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
+  <div class="center-item">
+    <div class="go-to-cart">
+      <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
+    </div>
+    <div class="add-to-basket-img"><img src="img/basket-icon-2.svg" alt=""></div>
+  </div>
+  <div class="flex-item">
+    <div class="energy-coeff-and-discoint-price">
+      <div class="energy-coeff-title">Оценка энергоэффективности</div>
+      <div class="price-without-discount">
+        <div class="gray-price">{{ configMenu.G.global.tempPrice + configMenu.U.userInfo.discountConstr }}</div><span>-{{ configMenu.U.userInfo.discountConstr }}%</span>
+      </div>
+    </div>
+    <div class="energy-mark-and-price">
+      <div class="energy-mark-title">Для балконов - 0</div>
+      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+    </div>
   </div>
 </div>

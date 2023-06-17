@@ -113,7 +113,7 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background: white;
+  background: #1b1e23;
   .price {
     @include display-flex();
     @include justify-content(center);
@@ -227,43 +227,99 @@ body {
   }
   .mobile-price {
     position: absolute;
-    bottom: calc(10vh + 65px);
+    bottom: calc(10vh + 100px);
     height: 50px;
     width: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
-    .go-to-cart {
-      width: 165px;
-      height: 45px;
-      background: $main_red;
-      border-radius: 50px;
-      display: inline-flex;
-      flex-direction: row;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    .center-item {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .flex-item {
+      display: flex;
       justify-content: space-between;
+      flex-direction: column;
+      padding: 5px 18px;
+
+      .energy-coeff-and-discoint-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .energy-coeff-title {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          color: #fff;
+        }
+
+        .price-without-discount {
+          display: flex;
+          align-items: center;
+          color: $main_red;
+          font-weight: bold;
+          font-size: 18px;
+
+          .gray-price {
+            font-size: 14px;
+            color: gray;
+            text-decoration: line-through;
+            margin-right: 8px;
+          }
+        }
+      }
+      .energy-mark-and-price {
+        display: flex;
+        justify-content: space-between;
+        .energy-mark-title {
+          font-weight: bold;
+          font-size: 18px;
+          color: #fff;
+        }
+      }
+
+    }
+    .add-to-basket-img {
+      align-items: center;
+      background-color: #424242;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      width: 50px;
+
+      img {
+        width: 30px;
+        height: 30px;
+        filter: invert(1);
+      }
+    }
+    .go-to-cart {
+      display: flex;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      padding: 8px 20px;
+      background-color: #20695d;
+      color: #fff;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border: none;
+      max-width: 200px;
+      transition: .3s linear;
+
       .go-to-cart-title {
         color: white;
         -webkit-text-fill-color: white;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
         1);
-        margin-left: 15px;
         height: 100%;
         display: inline-flex;
         align-items: center;
-      }
-      .product-counter {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 43px;
-        width: 43px;
-        background: white;
-        border-radius: 50px;
-        @extend .red-color;
-        @include roboto-rg(rem($price_container-height-mobile - 4px),
-        1);
-        margin-right: 1px;
       }
     }
   }
@@ -274,13 +330,12 @@ body {
   .control-buttons-container {
     position: absolute;
     bottom: 0;
-    height: 60px;
+    height: 80px;
     width: 100%;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    border-top: 1px solid $main_gray_light;
-    background: #f9f9f9;
+    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.2);
     .control-button {
       display: inline-flex;
       flex-direction: column;
@@ -288,42 +343,40 @@ body {
       width: 25%;
       height: 100%;
       justify-content: space-between;
-      padding-top: 10px;
+      padding-top: 15px;
+      color: #fff;
+      background-color: #101215;
+      z-index: 10000;
+      &.active {
+        background-color: $main_deep_green;
+      }
       .img-common {
         width: 30px;
         height: 30px;
       }
       .cart-img {
-        background: url("../img/config-menu/cart.svg") no-repeat center;
+        background: url("../img/basket-icon.svg") no-repeat center;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(79deg) brightness(104%) contrast(102%);
         background-size: contain;
-        &.active {
-          background: url("../img/config-menu/cart_active.svg") no-repeat center;
-          background-size: contain;
-        }
       }
       .config-img {
-        background: url("../img/config-menu/conf.svg") no-repeat center;
+        background: url("../img/configs-icon.svg") no-repeat center;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(79deg) brightness(104%) contrast(102%);
         background-size: contain;
-        &.active {
-          background: url("../img/config-menu/conf_active.svg") no-repeat center;
-          background-size: contain;
-        }
       }
       .karkas-img {
-        background: url("../img/config-menu/karkas.svg") no-repeat center;
+        background: url("../img/hammer-icon.svg") no-repeat center;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(79deg) brightness(104%) contrast(102%);
         background-size: contain;
-        &.active {
-          background: url("../img/config-menu/karkas_active.svg") no-repeat center;
-          background-size: contain;
-        }
       }
       .templates-img {
-        background: url("../img/config-menu/template.svg") no-repeat center;
+        background: url("../img/templates-icon.svg") no-repeat center;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(79deg) brightness(104%) contrast(102%);
         background-size: contain;
-        &.active {
-          background: url("../img/config-menu/template_active.svg") no-repeat center;
-          background-size: contain;
-        }
+      }
+      p {
+        font-weight: bold;
+        font-size: 14px;
       }
       .qty-mobile {
         @extend .splash;
@@ -333,7 +386,6 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: white;
         height: 20px;
         width: 20px;
         background: $main_red;
@@ -356,7 +408,7 @@ body {
     height: auto;
     width: 100%;
     position: absolute;
-    bottom: 60px;
+    top: 0;
     background: white;
     .common-content-style {
       width: 100%;
@@ -628,15 +680,18 @@ body {
       }
     }
     .config-content {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: white;
+      width: 100%;
+      height: calc(100% - 100px);
+      z-index: 1;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding-top: 100px;
+      box-sizing: content-box;
       .conf-item {
-        position: relative;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        flex: 0 0 auto;
-        height: 10vh;
-        width: 19vw;
         &.active {
           background: white;
           border-bottom-right-radius: 5px;
@@ -651,6 +706,9 @@ body {
         }
       }
       .configs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
         .profile {
           background: url("../img/config-menu/profile.svg") no-repeat center;
           background-size: contain;
@@ -758,6 +816,7 @@ body {
     height: 100px;
     z-index: 3;
     @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
+    background-color: #424242;
     .row {
       width: 100%;
       height: auto;
@@ -768,8 +827,8 @@ body {
       .accept-button {
         width: 40vw;
         height: 40px;
-        background: $main_red;
-        border-radius: 50px;
+        background: $main_deep_green;
+        border-radius: 4px;
         display: inline-flex;
         flex-direction: row;
         align-items: center;

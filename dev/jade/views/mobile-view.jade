@@ -13,17 +13,17 @@
             include mobile/config-mobile
 
     .control-buttons-container
-        .templates.control-button(ng-click="mobilePage.setTab(1)")
-            .img-common.templates-img(ng-class="{ active: mobilePage.isSet(1) }")
+        .templates.control-button(ng-click="mobilePage.setTab(1)" ng-class="{ active: mobilePage.isSet(1) }")
+            .img-common.templates-img
             p {{mobilePage.ROOM_SELECTION}}
-        .karkas.control-button(ng-click="mobilePage.setTab(2)")
-            .img-common.karkas-img(ng-class="{ active: mobilePage.isSet(2) }")
+        .karkas.control-button(ng-click="mobilePage.setTab(2)" ng-class="{ active: mobilePage.isSet(2) }")
+            .img-common.karkas-img
             p {{mobilePage.KARKAS}}
-        .config.control-button(ng-click="mobilePage.setTab(3)")
-            .img-common.config-img(ng-class="{ active: mobilePage.isSet(3) }")
+        .config.control-button(ng-click="mobilePage.setTab(3)" ng-class="{ active: mobilePage.isSet(3) }")
+            .img-common.config-img
             p {{mobilePage.KONFIG}}
-        .cart.control-button(ng-click="mobilePage.setTab(4)")
-            .img-common.cart-img(ng-class="{ active: mobilePage.isSet(4) }")
+        .cart.control-button(ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }")
+            .img-common.cart-img
                 .qty-mobile#qty-mobile
                     span {{ mobilePage.G.global.construction_count }}
             p {{mobilePage.CART}}

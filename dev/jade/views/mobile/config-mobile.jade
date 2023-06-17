@@ -1,5 +1,5 @@
 .config-content(ng-controller="ConfigMenuCtrl as configMenu")
-  .common-scroll-container.configs-list
+  .configs-list
     .conf-item(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
       .configuration.profile
       .conf-item-text {{ ::configMenu.CONFIGMENU_PROFILE }}

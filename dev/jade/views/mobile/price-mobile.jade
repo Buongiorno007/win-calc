@@ -1,5 +1,15 @@
 .mobile-price(ng-controller="ConfigMenuCtrl as configMenu")
-    price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()' )
-    .go-to-cart
-        .go-to-cart-title#checkForAddElem(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
-        .product-counter(ng-click="configMenu.showCalck()") {{configMenu.G.global.product_qty}}
+    .center-item
+        .go-to-cart
+            .go-to-cart-title#checkForAddElem(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
+        .add-to-basket-img
+            img(src="img/basket-icon-2.svg", alt="")
+    .flex-item
+        .energy-coeff-and-discoint-price
+            .energy-coeff-title Оценка энергоэффективности
+            .price-without-discount
+                .gray-price {{ configMenu.G.global.tempPrice + configMenu.U.userInfo.discountConstr }}
+                span -{{ configMenu.U.userInfo.discountConstr }}%
+        .energy-mark-and-price
+            .energy-mark-title Для балконов - 0
+            price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()' )

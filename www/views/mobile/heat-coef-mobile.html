@@ -1,16 +1,4 @@
 
-<div ng-click="mobilePage.showCoefInfoBlock()" class="heat-coef-block-mobile">
-  <div class="title">
-    <p>{{::mobilePage.HEAT_TRANSFER}}</p>
-  </div>
-  <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-    <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::profilesPanel.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
-  </div>
-  <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-    <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
-  </div>
-  <!--.info-->
-</div>
 <div ng-if="mobilePage.G.global.showCoefInfoBlock" class="coeff-info-block">
   <div class="coeff-info-block-inner">
     <div class="heat-transfer-info_hr">{{ ::mobilePage.HEAT_TRANSFER_INFO_3 }}</div>

@@ -7,10 +7,23 @@
     </div>
   </div>
   <div ng-controller="ConfigMenuCtrl as configMenu" class="mobile-price">
-    <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
-    <div class="go-to-cart">
-      <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
-      <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
+    <div class="center-item">
+      <div class="go-to-cart">
+        <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
+      </div>
+      <div class="add-to-basket-img"><img src="img/basket-icon-2.svg" alt=""></div>
+    </div>
+    <div class="flex-item">
+      <div class="energy-coeff-and-discoint-price">
+        <div class="energy-coeff-title">Оценка энергоэффективности</div>
+        <div class="price-without-discount">
+          <div class="gray-price">{{ configMenu.G.global.tempPrice + configMenu.U.userInfo.discountConstr }}</div><span>-{{ configMenu.U.userInfo.discountConstr }}%</span>
+        </div>
+      </div>
+      <div class="energy-mark-and-price">
+        <div class="energy-mark-title">Для балконов - 0</div>
+        <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+      </div>
     </div>
   </div>
   <div ng-if="!mobilePage.isSet(0)" class="content-container">
@@ -171,7 +184,7 @@
     </div>
     <div ng-if="mobilePage.isSet(3)" class="common-content-style config-content">
       <div ng-controller="ConfigMenuCtrl as configMenu" class="config-content">
-        <div class="common-scroll-container configs-list">
+        <div class="configs-list">
           <div fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item">
             <div class="configuration profile"></div>
             <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_PROFILE }}</div>
@@ -197,20 +210,20 @@
     </div>
   </div>
   <div class="control-buttons-container">
-    <div ng-click="mobilePage.setTab(1)" class="templates control-button">
-      <div ng-class="{ active: mobilePage.isSet(1) }" class="img-common templates-img"></div>
+    <div ng-click="mobilePage.setTab(1)" ng-class="{ active: mobilePage.isSet(1) }" class="templates control-button">
+      <div class="img-common templates-img"></div>
       <p>{{mobilePage.ROOM_SELECTION}}</p>
     </div>
-    <div ng-click="mobilePage.setTab(2)" class="karkas control-button">
-      <div ng-class="{ active: mobilePage.isSet(2) }" class="img-common karkas-img"></div>
+    <div ng-click="mobilePage.setTab(2)" ng-class="{ active: mobilePage.isSet(2) }" class="karkas control-button">
+      <div class="img-common karkas-img"></div>
       <p>{{mobilePage.KARKAS}}</p>
     </div>
-    <div ng-click="mobilePage.setTab(3)" class="config control-button">
-      <div ng-class="{ active: mobilePage.isSet(3) }" class="img-common config-img"></div>
+    <div ng-click="mobilePage.setTab(3)" ng-class="{ active: mobilePage.isSet(3) }" class="config control-button">
+      <div class="img-common config-img"></div>
       <p>{{mobilePage.KONFIG}}</p>
     </div>
-    <div ng-click="mobilePage.setTab(4)" class="cart control-button">
-      <div ng-class="{ active: mobilePage.isSet(4) }" class="img-common cart-img">
+    <div ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }" class="cart control-button">
+      <div class="img-common cart-img">
         <div id="qty-mobile" class="qty-mobile"><span>{{ mobilePage.G.global.construction_count }}</span></div>
       </div>
       <p>{{mobilePage.CART}}</p>
@@ -333,18 +346,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div ng-click="mobilePage.showCoefInfoBlock()" class="heat-coef-block-mobile">
-    <div class="title">
-      <p>{{::mobilePage.HEAT_TRANSFER}}</p>
-    </div>
-    <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-      <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::profilesPanel.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
-    </div>
-    <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-      <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
-    </div>
-    <!--.info-->
   </div>
   <div ng-if="mobilePage.G.global.showCoefInfoBlock" class="coeff-info-block">
     <div class="coeff-info-block-inner">
