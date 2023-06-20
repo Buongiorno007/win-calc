@@ -33,8 +33,8 @@
               function (result) {
                 GlobalStor.global.isLoader = 0;
                 if (result.data.cost) {
-                  ProductStor.product.product_price = result.data.cost
-                  ProductStor.product.productPriceDis =  result.data.cost
+                  ProductStor.product.product_price = result.data.cost;
+                  ProductStor.product.productPriceDis =  result.data.cost;
                   GlobalStor.global.tempPrice = ProductStor.product.product_price;
                   window.localStorage.removeItem('link')
                   window.localStorage.removeItem('errors')

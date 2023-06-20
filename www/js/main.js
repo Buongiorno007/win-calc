@@ -4240,8 +4240,11 @@ let portrait = false;
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
-                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors');
+                            GlobalStor.global.alertTitle = "Внимание";
+                            GlobalStor.global.alertDescr = thisCtrl.ErrosArray;
                             thisCtrl.isError = true;
+                            GlobalStor.global.isAlertInfo = true;
                         }
                     });
                 }
@@ -4294,6 +4297,7 @@ let portrait = false;
                         if(!resp) {
                             thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
+                            GlobalStor.global.isAlertInfo = true;
                         }
                         GlobalStor.global.isLoader = 0;
                         if (!thisCtrl.isError) {
@@ -21315,8 +21319,8 @@ function ErrorResult(code, message) {
               function (result) {
                 GlobalStor.global.isLoader = 0;
                 if (result.data.cost) {
-                  ProductStor.product.product_price = result.data.cost
-                  ProductStor.product.productPriceDis =  result.data.cost
+                  ProductStor.product.product_price = result.data.cost;
+                  ProductStor.product.productPriceDis =  result.data.cost;
                   GlobalStor.global.tempPrice = ProductStor.product.product_price;
                   window.localStorage.removeItem('link')
                   window.localStorage.removeItem('errors')

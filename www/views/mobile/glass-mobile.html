@@ -2,12 +2,10 @@
 <div ng-if="mobilePage.G.global.activePanel === 3" ng-controller="GlassesCtrl as glassPanel" class="mobile-glass mobile-common-panel">
   <div class="accept-container">
     <div ng-if="!mobilePage.isSet(1)" class="row">
-      <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
-        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
-      </div>
-      <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
-        <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
-      </div>
+      <!--.curr-price(ng-if="mobilePage.G.global.activePanel !== 6")-->
+      <!--    price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency")-->
+      <!--.curr-price(ng-if="mobilePage.G.global.activePanel === 6")-->
+      <!--    price(price-value="mobilePage.P.product.addelemPriceDis", price-currency="mobilePage.U.userInfo.currency")-->
       <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
     </div>
     <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">

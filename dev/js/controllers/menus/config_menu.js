@@ -122,8 +122,11 @@
                     LightServ.getPrice().then((resp) => {
                         GlobalStor.global.isLoader = 0;
                         if(!resp) {
-                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
+                            thisCtrl.ErrosArray = window.localStorage.getItem('errors');
+                            GlobalStor.global.alertTitle = "Внимание";
+                            GlobalStor.global.alertDescr = thisCtrl.ErrosArray;
                             thisCtrl.isError = true;
+                            GlobalStor.global.isAlertInfo = true;
                         }
                     });
                 }
@@ -176,6 +179,7 @@
                         if(!resp) {
                             thisCtrl.ErrosArray = window.localStorage.getItem('errors')
                             thisCtrl.isError = true;
+                            GlobalStor.global.isAlertInfo = true;
                         }
                         GlobalStor.global.isLoader = 0;
                         if (!thisCtrl.isError) {

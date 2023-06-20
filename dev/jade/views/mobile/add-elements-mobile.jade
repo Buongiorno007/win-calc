@@ -53,9 +53,9 @@
                 span {{mobPage.LENGTH_LABEL}}
             .item-val(fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 3, mobPage.SelectedElement)" ng-keyup="elementsPanel.pressCulculator($event)")
                 span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_height + ' ' + mobPage.MM}}
-        .add-elem-price
-            span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty | number : 2}}
-            span.curr {{mobPage.U.userInfo.currency}}
+        //.add-elem-price
+        //    span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty | number : 2}}
+        //    span.curr {{mobPage.U.userInfo.currency}}
         .controls
             .alert-no(ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.SelectedElement)')
                 p {{mobPage.DELETE}}

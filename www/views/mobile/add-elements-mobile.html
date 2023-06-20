@@ -2,12 +2,10 @@
 <div ng-controller="MobileAddElementsCtrl as mobPage" ng-if="mobilePage.G.global.activePanel === 6" class="add-elements-mobile mobile-common-panel">
   <div class="accept-container">
     <div ng-if="!mobilePage.isSet(1)" class="row">
-      <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
-        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
-      </div>
-      <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
-        <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
-      </div>
+      <!--.curr-price(ng-if="mobilePage.G.global.activePanel !== 6")-->
+      <!--    price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency")-->
+      <!--.curr-price(ng-if="mobilePage.G.global.activePanel === 6")-->
+      <!--    price(price-value="mobilePage.P.product.addelemPriceDis", price-currency="mobilePage.U.userInfo.currency")-->
       <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
     </div>
     <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
@@ -123,7 +121,9 @@
       <div class="item-name"><span>{{mobPage.LENGTH_LABEL}}</span></div>
       <div fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 3, mobPage.SelectedElement)" ng-keyup="elementsPanel.pressCulculator($event)" class="item-val"><span>{{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_height + ' ' + mobPage.MM}}</span></div>
     </div>
-    <div class="add-elem-price"><span>{{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty | number : 2}}</span><span class="curr">{{mobPage.U.userInfo.currency}}</span></div>
+    <!--.add-elem-price-->
+    <!--    span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty | number : 2}}-->
+    <!--    span.curr {{mobPage.U.userInfo.currency}}-->
     <div class="controls">
       <div ng-click="mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.SelectedElement)" class="alert-no">
         <p>{{mobPage.DELETE}}</p>
