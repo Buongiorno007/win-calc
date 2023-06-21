@@ -4254,6 +4254,7 @@ let portrait = false;
                             thisCtrl.isError = true;
                             if ($location.path() === "/mobile") {
                                 GlobalStor.global.isAlertInfo = true;
+                                thisCtrl.isError = false;
                             }
 
                         }
@@ -4314,6 +4315,7 @@ let portrait = false;
                                     GlobalStor.global.alertTitle = "Внимание";
                                     GlobalStor.global.alertDescr = thisCtrl.ErrosArray;
                                     GlobalStor.global.isAlertInfo = true;
+                                    thisCtrl.isError = false;
                                 }
                             }
                             GlobalStor.global.isLoader = 0;
@@ -4325,7 +4327,7 @@ let portrait = false;
                 }
 
                 function addBasketOrder() {
-                    if (!thisCtrl.isError) {
+                    if (!thisCtrl.isError && !GlobalStor.global.isAlertInfo) {
                         if (!GlobalStor.global.isZeroPriceList.length) {
                             if (!ProductStor.product.is_addelem_only) {
                                 alert();
