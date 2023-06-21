@@ -136,7 +136,9 @@
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-if="configMenu.G.global.tempPrice")
-    .get-price-btn(ng-class="{'active': configMenu.O.order.products.length, 'disable': configMenu.G.global.tempPrice}" ng-click="configMenu.getPrice()")
+    .get-price-btn(ng-class="{'active': configMenu.O.order.products.length}" ng-click="configMenu.getPrice()" ng-if="!configMenu.G.global.tempPrice")
+      p.get-price-btn-p {{configMenu.GET_PRICE}}
+    .get-price-btn(ng-class="{'disable': configMenu.G.global.tempPrice}" ng-if="configMenu.G.global.tempPrice")
       p.get-price-btn-p {{configMenu.GET_PRICE}}
     .cart-btns(ng-class="{'active': configMenu.O.order.products.length}")
       .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.G.global.tempPrice}")

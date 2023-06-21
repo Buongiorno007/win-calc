@@ -878,7 +878,10 @@
         </div>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-if="configMenu.G.global.tempPrice"></price>
-          <div ng-class="{'active': configMenu.O.order.products.length, 'disable': configMenu.G.global.tempPrice}" ng-click="configMenu.getPrice()" class="get-price-btn">
+          <div ng-class="{'active': configMenu.O.order.products.length}" ng-click="configMenu.getPrice()" ng-if="!configMenu.G.global.tempPrice" class="get-price-btn">
+            <p class="get-price-btn-p">{{configMenu.GET_PRICE}}</p>
+          </div>
+          <div ng-class="{'disable': configMenu.G.global.tempPrice}" ng-if="configMenu.G.global.tempPrice" class="get-price-btn">
             <p class="get-price-btn-p">{{configMenu.GET_PRICE}}</p>
           </div>
           <div ng-class="{'active': configMenu.O.order.products.length}" class="cart-btns">
