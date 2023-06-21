@@ -126,7 +126,10 @@
                             GlobalStor.global.alertTitle = "Внимание";
                             GlobalStor.global.alertDescr = thisCtrl.ErrosArray;
                             thisCtrl.isError = true;
-                            GlobalStor.global.isAlertInfo = true;
+                            if ($location.path() === "/mobile") {
+                                GlobalStor.global.isAlertInfo = true;
+                            }
+
                         }
                     });
                 }
@@ -174,58 +177,71 @@
 
                 function checkForAddElem() {
                     GlobalStor.global.isLoader = 1;
-                    LightServ.getPrice().then((resp) => {
-                        GlobalStor.global.isLoader = 0;
-                        if(!resp) {
-                            thisCtrl.ErrosArray = window.localStorage.getItem('errors')
-                            thisCtrl.isError = true;
-                            GlobalStor.global.isAlertInfo = true;
-                        }
-                        GlobalStor.global.isLoader = 0;
-                        if (!thisCtrl.isError) {
-                            if (!GlobalStor.global.isZeroPriceList.length) {
-                                if (!ProductStor.product.is_addelem_only) {
-                                    alert();
-                                    if (GlobalStor.global.dangerAlert < 1) {
-                                        if (ProductStor.product.beadsData.length > 0) {
-                                            if (!OrderStor.order.products.length) {
-                                                $('#qty').hide().show(0);
-                                                $('#qty-mobile').hide().show(0);
-                                                saveProduct();
-                                            } else if (GlobalStor.global.isNewTemplate) {
-                                                $('#qty').hide().show(0);
-                                                $('#qty-mobile').hide().show(0);
-                                                saveProduct();
-                                            } else if (!GlobalStor.global.isChangedTemplate) {
-                                                //  ALERT
-                                                GlobalStor.global.isNoChangedProduct = 1;
-                                            } else {
-                                                $('#qty').hide().show(0);
-                                                $('#qty-mobile').hide().show(0);
-                                                saveProduct();
-                                            }
+                    if(!ProductStor.product.product_price) {
+                        LightServ.getPrice().then((resp) => {
+                            GlobalStor.global.isLoader = 0;
+
+                            if(!resp) {
+                                thisCtrl.ErrosArray = window.localStorage.getItem('errors')
+                                thisCtrl.isError = true;
+                                if ($location.path() === "/mobile") {
+                                    GlobalStor.global.alertTitle = "Внимание";
+                                    GlobalStor.global.alertDescr = thisCtrl.ErrosArray;
+                                    GlobalStor.global.isAlertInfo = true;
+                                }
+                            }
+                            GlobalStor.global.isLoader = 0;
+                            addBasketOrder();
+                        });
+                    } else {
+                        addBasketOrder();
+                    }
+                }
+
+                function addBasketOrder() {
+                    if (!thisCtrl.isError) {
+                        if (!GlobalStor.global.isZeroPriceList.length) {
+                            if (!ProductStor.product.is_addelem_only) {
+                                alert();
+                                if (GlobalStor.global.dangerAlert < 1) {
+                                    if (ProductStor.product.beadsData.length > 0) {
+                                        if (!OrderStor.order.products.length) {
+                                            $('#qty').hide().show(0);
+                                            $('#qty-mobile').hide().show(0);
+                                            saveProduct();
+                                        } else if (GlobalStor.global.isNewTemplate) {
+                                            $('#qty').hide().show(0);
+                                            $('#qty-mobile').hide().show(0);
+                                            saveProduct();
+                                        } else if (!GlobalStor.global.isChangedTemplate) {
+                                            //  ALERT
+                                            GlobalStor.global.isNoChangedProduct = 1;
                                         } else {
-                                            GeneralServ.isErrorProd(
-                                                $filter('translate')('common_words.ERROR_PROD_BEADS')
-                                            );
+                                            $('#qty').hide().show(0);
+                                            $('#qty-mobile').hide().show(0);
+                                            saveProduct();
                                         }
+                                    } else {
+                                        GeneralServ.isErrorProd(
+                                            $filter('translate')('common_words.ERROR_PROD_BEADS')
+                                        );
                                     }
-                                } else {
-                                    saveProduct();
                                 }
                             } else {
-                                var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-                                GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-                                    msg += " " + ZeroElem + "\n";
-                                });
-                                msg += " \n" + thisCtrl.ATENTION_MSG2;
-                                GeneralServ.infoAlert(
-                                    thisCtrl.ATENTION,
-                                    msg
-                                );
+                                saveProduct();
                             }
+                        } else {
+                            var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                            GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                                msg += " " + ZeroElem + "\n";
+                            });
+                            msg += " \n" + thisCtrl.ATENTION_MSG2;
+                            GeneralServ.infoAlert(
+                                thisCtrl.ATENTION,
+                                msg
+                            );
                         }
-                    });
+                    }
                 }
 
                 function showNextTip() {
