@@ -243,6 +243,7 @@
                                 msg
                             );
                         }
+                        GlobalStor.global.isLoader = 0;
                     }
                 }
 

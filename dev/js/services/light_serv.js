@@ -74,31 +74,115 @@
               "template_source": orderData
             }
           if (link) {
-            getStatusPrice(link).then((resp) => {
-              defer.resolve(resp)
-            });
-          } else {
-            GlobalStor.global.isLoader = 1;
-            $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
-                 function (result) {
-                   errorHandler(result.data.errors);
-                  if (result.data.errors.length) {
-                    getStatusPrice(result.data.status_link).then((resp) => {
-                      defer.resolve(resp)
-                    });
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    ProductStor.product.product_price = result.data.cost
-                    ProductStor.product.productPriceDis = result.data.cost;
-                    GlobalStor.global.tempPrice = ProductStor.product.product_price;
-                    defer.resolve(result.data);
-                  }
-                },
-                function (err) {
-                  console.log(err)
-                  defer.resolve(false);
+            if (GlobalStor.global.dangerAlert < 1) {
+              if (ProductStor.product.beadsData.length > 0) {
+                if (!OrderStor.order.products.length) {
+                  getStatusPrice(link).then((resp) => {
+                    defer.resolve(resp)
+                  });
+                } else if (GlobalStor.global.isNewTemplate) {
+                  getStatusPrice(link).then((resp) => {
+                    defer.resolve(resp)
+                  });
+                } else if (!GlobalStor.global.isChangedTemplate) {
+                  //  ALERT
+                  GlobalStor.global.isNoChangedProduct = 1;
+                  GlobalStor.global.isLoader = 0;
+                } else {
+                  getStatusPrice(link).then((resp) => {
+                    defer.resolve(resp)
+                  });
                 }
-            );
+              } else {
+                GeneralServ.isErrorProd(
+                    $filter('translate')('common_words.ERROR_PROD_BEADS')
+                );
+              }
+            }
+          } else {
+            if (GlobalStor.global.dangerAlert < 1) {
+              if (ProductStor.product.beadsData.length > 0) {
+                if (!OrderStor.order.products.length) {
+                  GlobalStor.global.isLoader = 1;
+                  $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                      function (result) {
+                        errorHandler(result.data.errors);
+                        if (result.data.errors.length) {
+                          getStatusPrice(result.data.status_link).then((resp) => {
+                            defer.resolve(resp)
+                          });
+                        } else {
+                          GlobalStor.global.isLoader = 0;
+                          ProductStor.product.product_price = result.data.cost
+                          ProductStor.product.productPriceDis = result.data.cost;
+                          GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                          defer.resolve(result.data);
+                        }
+                      },
+                      function (err) {
+                        console.log(err)
+                        GlobalStor.global.isLoader = 0;
+                        defer.resolve(false);
+                      }
+                  );
+                } else if (GlobalStor.global.isNewTemplate) {
+                  GlobalStor.global.isLoader = 1;
+                  $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                      function (result) {
+                        errorHandler(result.data.errors);
+                        if (result.data.errors.length) {
+                          getStatusPrice(result.data.status_link).then((resp) => {
+                            defer.resolve(resp)
+                          });
+                        } else {
+                          GlobalStor.global.isLoader = 0;
+                          ProductStor.product.product_price = result.data.cost
+                          ProductStor.product.productPriceDis = result.data.cost;
+                          GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                          defer.resolve(result.data);
+                        }
+                      },
+                      function (err) {
+                        console.log(err)
+                        GlobalStor.global.isLoader = 0;
+                        defer.resolve(false);
+                      }
+                  );
+                } else if (!GlobalStor.global.isChangedTemplate) {
+                  //  ALERT
+                  GlobalStor.global.isNoChangedProduct = 1;
+                  GlobalStor.global.isLoader = 0;
+                } else {
+                  GlobalStor.global.isLoader = 1;
+                  $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                      function (result) {
+                        errorHandler(result.data.errors);
+                        if (result.data.errors.length) {
+                          getStatusPrice(result.data.status_link).then((resp) => {
+                            defer.resolve(resp)
+                          });
+                        } else {
+                          GlobalStor.global.isLoader = 0;
+                          ProductStor.product.product_price = result.data.cost
+                          ProductStor.product.productPriceDis = result.data.cost;
+                          GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                          defer.resolve(result.data);
+                        }
+                      },
+                      function (err) {
+                        GlobalStor.global.isLoader = 0;
+                        console.log(err)
+                        defer.resolve(false);
+                      }
+                  );
+                }
+              } else {
+                GlobalStor.global.isLoader = 0;
+                GeneralServ.isErrorProd(
+                    $filter('translate')('common_words.ERROR_PROD_BEADS')
+                );
+              }
+            }
           }
           return defer.promise;
         }
