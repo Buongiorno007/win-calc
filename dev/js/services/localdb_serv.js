@@ -2789,7 +2789,7 @@
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    console.log(UserStor, 'checl')
+                    console.log(GlobalStor.global, 'checl')
                     // console.log(ProductStor.product)
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);

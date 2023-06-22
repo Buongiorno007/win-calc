@@ -153,9 +153,10 @@ body {
     justify-content: center;
     position: absolute;
     background: white;
+    border-radius: 4px;
     top: 5%;
     left: 5%;
-    height: 90%;
+    height: 20%;
     width: 90%;
     .alert-btns {
       button {
@@ -203,8 +204,8 @@ body {
   .svg-template {
     .size-txt-edit {
       @extend .size-txt;
-      stroke: $main_red;
-      fill: $main_red;
+      stroke: #fff;
+      fill: #fff;
       &.active {
         stroke: #fff;
         fill: #fff;
@@ -220,7 +221,7 @@ body {
       &.active {
         width: 240px;
         height: 110px;
-        fill: $main_red;
+        fill: $main_deep_green;
         fill-opacity: 1;
       }
     }
@@ -241,7 +242,9 @@ body {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      padding: 5px 18px;
+      padding: 20px 10px;
+      background-color: #1b1e23;
+      z-index: 9000;
 
       .energy-coeff-and-discoint-price {
         display: flex;
@@ -249,9 +252,7 @@ body {
         align-items: center;
 
         .energy-coeff-title {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 16px;
           color: #fff;
         }
@@ -335,7 +336,8 @@ body {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.2);
+    border-top: 1px solid #fff;
+    z-index: 10000;
     .control-button {
       display: inline-flex;
       flex-direction: column;
@@ -399,7 +401,6 @@ body {
       }
     }
     p {
-      text-transform: uppercase;
       @include roboto-lt(8px);
     }
   }
@@ -435,11 +436,11 @@ body {
       left: 0;
       background: white;
       width: 100%;
-      height: calc(100% - 100px);
+      height: calc(100% + 200px);
       z-index: 1;
       overflow-y: scroll;
       overflow-x: hidden;
-      padding-top: 100px;
+      padding-top: 75px;
       box-sizing: content-box;
     }
     .swiper-container {
@@ -683,15 +684,16 @@ body {
       position: fixed;
       top: 0;
       left: 0;
-      background: white;
+      background: #1b1e23;
       width: 100%;
       height: calc(100% - 100px);
       z-index: 1;
       overflow-y: scroll;
       overflow-x: hidden;
-      padding-top: 100px;
+      padding-top: 80px;
       box-sizing: content-box;
       .conf-item {
+        padding: 8px;
         &.active {
           background: white;
           border-bottom-right-radius: 5px;
@@ -702,13 +704,20 @@ body {
           width: 6vh;
         }
         .conf-item-text {
-          @include roboto-lt(1.5vh);
+          color: #fff;
+          font-weight: bold;
+          font-size: 18px;
+        }
+        .conf-item-text-sm {
+          font-size: 14px;
+          line-height: 24px;
+          color: #bebebe;
         }
       }
       .configs-list {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
         .profile {
           background: url("../img/config-menu/profile.svg") no-repeat center;
           background-size: contain;
@@ -759,28 +768,37 @@ body {
   }
   .size-calc-container {
     position: absolute;
+    background-color: #1b1e23;
     bottom: 0;
     width: 100%;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    z-index: 1;
+    z-index: 999999;
     .calc-delete {
       width: 11rem;
-      height: rem(70px);
+      background-color: #1b1e23;
     }
     .calc-interval {
+      background-color: #1b1e23;
       width: 22rem;
     }
     .cell {
-      height: rem(70px);
+      color: #fff;
       &:active {
-        background-color: #6ed44a;
+        background-color: $main_deep_green;
       }
     }
   }
+
   ::-webkit-scrollbar {
     display: none;
+  }
+  .close-icon {
+    img {
+      width: 34px;
+      height: 34px;
+    }
   }
   .value {
     width: 100%;
@@ -807,23 +825,37 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: white;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 10px;
     width: 100%;
-    height: 100px;
     z-index: 3;
-    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
-    background-color: #424242;
+    background-color: $main_deep_green;
+    box-shadow: 5px 5px 10px rgba(32, 105, 93, 0.5);
+    .accept-container-item {
+      color: #fff;
+      font-size: 16px;
+    }
     .row {
       width: 100%;
       height: auto;
       display: inline-flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
+      .header-title {
+        font-size: 18px;
+        color: #fff;
+        font-weight: bold;
+      }
+      .accept-container-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       .accept-button {
         width: 40vw;
         height: 40px;
@@ -838,12 +870,7 @@ body {
         -webkit-text-fill-color: white;
       }
       .selected-profile {
-        padding-left: 10px;
-        width: 40%;
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        width: 100%;
       }
       .row-title {
         width: calc(100% - 70px);
@@ -868,14 +895,15 @@ body {
     z-index: 1;
   }
   .mobile-profiles {
+    background-color: #1b1e23;
     .profiles-list {
       display: inline-flex;
       flex-direction: column;
-      height: calc(100% - 100px);
+      height: 125%;
       overflow-y: scroll;
       overflow-x: hidden;
       width: 100%;
-      margin-top: 100px;
+      margin-top: 80px;
       -webkit-overflow-scrolling: touch;
       .profile-block {
         display: inline-flex;
@@ -887,15 +915,13 @@ body {
           display: inline-flex;
           align-items: center;
           height: 70px;
-          background: $main_f7;
           flex: 0 0 auto;
           .title {
             margin: 0;
             display: inline-flex;
             align-items: center;
             @include roboto-rg(24px);
-            color: black;
-            -webkit-text-fill-color: black;
+            color: #fff;
             text-transform: uppercase;
             line-height: 20px;
           }
@@ -921,6 +947,9 @@ body {
             justify-content: space-between;
             border: 1px solid $main_f7;
             box-sizing: content-box;
+            border-radius: 4px;
+            background-color: $main_f7;
+            margin-right: 10px;
             .profile-info-item {
               display: inline-flex;
               flex-direction: column;
@@ -944,9 +973,7 @@ body {
               }
             }
             &.selected {
-              border: 2px solid $main_red;
-              background: $main_f7;
-              border-radius: 0;
+              border: 2px solid $main_deep_green;
             }
             .profile-img {
               display: inline-flex;
@@ -993,11 +1020,11 @@ body {
   .mobile-glass {
     .glass-container {
       position: absolute;
-      top: 100px;
+      top: 75px;
       width: 100%;
       height: calc(100% - 100px);
       overflow-y: auto;
-      background: white;
+      background: #1b1e23;
       .glass-block {
         all: unset;
         position: relative;
@@ -1011,31 +1038,38 @@ body {
           width: 90%;
           height: 60px;
           background: white;
-          border-radius: 50px;
-          border: 2px solid $main_gray_dark;
+          border-radius: 4px;
+          border: 1px solid $main_gray_dark;
           display: inline-flex;
           flex-direction: row;
           align-items: center;
-          justify-content: center;
-          @include roboto-rg(25px);
+          justify-content: flex-start;
+          @include roboto-rg(18px);
           color: $main_gray_dark;
           -webkit-text-fill-color: $main_gray_dark;
           z-index: 1;
           margin-top: 15px;
           text-transform: uppercase;
+          .dropdown-icon {
+            img {
+              height: 32px;
+              width: 32px;
+            }
+          }
           &.active {
-            @extend .red-color;
-            border: 2px solid $main_red;
+            background-color: #bebebe;
+            border: 2px solid $main_deep_green;
           }
           p {
-            position: relative;
+            text-align: left;
+            padding: 8px;
             top: 2px;
             width: 90%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             &.active {
-              @extend .red-color;
+              color: $main_deep_green;
             }
           }
         }
@@ -1051,20 +1085,22 @@ body {
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
-            width: 90%;
+            width: 85%;
             height: 40px;
             background: white;
-            border-radius: 50px;
+            border-radius: 4px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
             .info {
-              height: 35px;
-              width: 35px;
+              height: 25px;
+              width: 25px;
               background: url("../img/calc/info-button.svg") no-repeat;
               background-size: contain;
             }
             &.selected {
-              @extend .border;
+              border: 2px solid $main_deep_green;
+              color: #fff;
+              background-color: #bebebe;
             }
             .title {
               width: calc(100% - 34px);
@@ -1077,7 +1113,7 @@ body {
               -webkit-text-fill-color: $main_gray_dark;
               z-index: 1;
               &.selected {
-                @extend .red-color;
+                color: $main_deep_green;
                 border: none;
               }
             }
@@ -1127,7 +1163,7 @@ body {
       width: 100%;
       height: 100%;
       background: white;
-      top: 0;
+      top: 75px;
       left: 0;
       z-index: 2;
       overflow: hidden;
@@ -1180,7 +1216,6 @@ body {
       width: 100%;
       height: 40px;
       position: absolute;
-      bottom: 10vh;
       z-index: 2;
       div {
         width: 45%;
@@ -1198,13 +1233,15 @@ body {
       }
       .set-glass-btn {
         background: white;
+        border-radius: 4px;
         @extend .border;
         p {
           @extend .red-color;
         }
       }
       .set-glass-all-btn {
-        background: red;
+        background-color: $main_deep_green;
+        border-radius: 4px;
         p {
           color: white;
           -webkit-text-fill-color: white;
@@ -1239,9 +1276,10 @@ body {
   }
   .mobile-lamination {
     .laminat-filter {
-      margin-top: 100px;
+      margin-top: 75px;
       height: calc(100% - 100px);
       overflow: auto;
+      background-color: #1b1e23;
     }
     .laminat-box {
       width: 100%;
@@ -1256,7 +1294,6 @@ body {
         justify-content: center;
         width: 80%;
         height: 40px;
-        background: white;
         border-radius: 50px;
         border: 1px solid $main_gray_dark;
         margin: 5px 0 5px 0;
@@ -2055,21 +2092,21 @@ body {
     margin: 15px;
   }
   .alert-yes {
-    background: $main_red;
+    background: $main_deep_green;
     color: white;
     -webkit-text-fill-color: white;
-    border-radius: 25px;
+    border-radius: 4px;
     margin: 15px;
   }
   .isApply {
-    background: $main_red;
+    background: $main_deep_green;
     color: white;
     -webkit-text-fill-color: white;
-    border-radius: 25px;
+    border-radius: 4px;
   }
   .size-line {
     stroke-width: 1.2px !important;
-    stroke: $main_red !important;
+    stroke: #fff !important;
   }
   .gray {
     background: $main_f7;

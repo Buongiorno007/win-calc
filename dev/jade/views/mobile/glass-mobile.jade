@@ -22,8 +22,8 @@
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].name}}
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'es' && !glassPanel.G.global.glassTypes[$index].translate.es") {{glassPanel.G.global.glassTypes[$index].name}}
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ro' && !glassPanel.G.global.glassTypes[$index].translate.ro") {{glassPanel.G.global.glassTypes[$index].name}}
-            img(ng-if='!(glassPanel.G.global.cordova)' ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)")
-            img(ng-if='(glassPanel.G.global.cordova)' ng-src="{{glassPanel.extendUrl(glassPanel.G.global.glassTypes[$index].img)}}" ng-click="glassPanel.OpenGlassFolder($index)")
+                .dropdown-icon
+                    img(src="img/dropdown-icon.svg", alt="Dropdown icon")
             .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
                 .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
                     .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
@@ -48,15 +48,6 @@
                         p(ng-if="glassPanel.U.userInfo.langLabel === 'ro' && !glass.translate.ro") {{glass.sku}}
                     .info(ng-if="glass.img.length && glass.description", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
     .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
-        .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
-        .dialog-title
-            .apply-title
-                p {{glassPanel.APPLY}}
-            .glass-title(ng-class="{'column': glassPanel.G.global.selectGlassName.length > 8}")
-                .curr-glass-value
-                    p {{ glassPanel.G.global.glassTypes[glassPanel.OpenFolder].name }}&nbsp
-                .curr-glass-value
-                    p {{glassPanel.G.global.selectGlassName}}
         .dialog-inner-mob
             svg-template(template="glassPanel.P.product.template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="glassPanel.constants.SVG_ID_GLASS")
         .buttons

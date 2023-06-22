@@ -20,7 +20,7 @@
 }
 
 .calc-equal {
-  background-color: $main_green;
+  background-color: $main_deep_green;
 }
 
 .size-calc-container {
@@ -71,6 +71,7 @@
   .calc-value-limit {
     @include roboto-lt(rem(36px));
     max-width: 7rem;
+    color: #fff;
 
     &.restriction {
       @extend .flashing;

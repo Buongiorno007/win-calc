@@ -1,17 +1,17 @@
 .config-content(ng-controller="ConfigMenuCtrl as configMenu")
+  include accept-container
   .configs-list
     .conf-item(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
-      .configuration.profile
       .conf-item-text {{ ::configMenu.CONFIGMENU_PROFILE }}
+      .conf-item-text-sm {{ configMenu.P.product.profile.name }}
     .conf-item(fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}")
-      .configuration.glass
       .conf-item-text {{ ::configMenu.CONFIGMENU_GLASS }}
+      .conf-item-text-sm {{ mobilePage.P.product.glass[0].sku }}
     .conf-item(fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}")
-      .configuration.furniture
       .conf-item-text {{ ::configMenu.CONFIGMENU_HARDWARE }}
+      .conf-item-text-sm {{ mobilePage.P.product.hardware.name }}
     .conf-item(fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}")
-      .configuration.laminataion
       .conf-item-text {{ ::configMenu.CONFIGMENU_LAMINATION }}
+      .conf-item-text-sm {{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
     .conf-item(fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}")
-      .configuration.add-elements
       .conf-item-text {{ ::configMenu.CONFIGMENU_ADDITIONAL }}

@@ -1022,9 +1022,9 @@
     "GLASS_TIP": "To select a double-glazed window, click here",
     "SELECT_ALL": "Take all",
     "SELECT_GLASS_WARN": "Click on the glazing, you want to change",
-    "KARKAS": "FRAME",
-    "KONFIG": "CONFIG.",
-    "CART": "CART"
+    "KARKAS": "Frame",
+    "KONFIG": "Configuration",
+    "CART": "Cart"
   },
   "panels": {
     "GLASS_HEADER": "Standard single-chamber double-glazed windows",
