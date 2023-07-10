@@ -1247,6 +1247,8 @@
                 Object.keys(data).sort().forEach(function (key) {
                     ordered[key] = data[key];
                 });
+                const calculationId = +window.localStorage.getItem('calculationId');
+                ordered.calculation_id = calculationId;
                 var defer = $q.defer(),
                     dataToSend = {
                         model: table,

@@ -2573,6 +2573,7 @@ let portrait = false;
         let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 
         function preloadImages(array) {
+
           if (!app) {
             if (!preloadImages.list) {
               preloadImages.list = [];
@@ -2673,6 +2674,10 @@ let portrait = false;
 
         function saveCache() {
           GlobalStor.global.loadDate = new Date();
+          const factoryId = $location.search().factoryId;
+          const dealerId = $location.search().dealerId;
+          const calculationId = $location.search().calculationId;
+          console.log(factoryId, 'factoryId')
           var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
           var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
           var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
@@ -2687,6 +2692,10 @@ let portrait = false;
           window.localStorage.setItem('AuxStor', aux);
           window.localStorage.setItem('DesignStor', design);
           window.localStorage.setItem('OrderStor', order);
+
+          window.localStorage.setItem('factoryId', factoryId);
+          window.localStorage.setItem('dealerId', dealerId);
+          window.localStorage.setItem('calculationId', calculationId);
         }
 
         function importDBfromServer() {
@@ -3438,11 +3447,13 @@ let portrait = false;
               return false;
             }
           } else {
+              $location.search("factoryId", "b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7")
+              $location.search("dealerId", "89bab35f-768a-4d9f-b3bb-eb3f2a206552")
+              $location.search("calculationId", "5")
             console.log("не все данные сохранены");
             localStorage.clear();
             return false;
           }
-
         }
 
         function fastEnter(url) {
@@ -21368,8 +21379,9 @@ function ErrorResult(code, message) {
         function getPrice() {
           var defer = $q.defer();
           const link = window.localStorage.getItem('link');
-          const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
-          const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
+
+          const factoryId = window.localStorage.getItem('factoryId');
+          const dealerId = window.localStorage.getItem('dealerId');
           const templateSource = {
             beads: ProductStor.product.beadsData,
           }
@@ -23202,6 +23214,8 @@ function ErrorResult(code, message) {
                 Object.keys(data).sort().forEach(function (key) {
                     ordered[key] = data[key];
                 });
+                const calculationId = +window.localStorage.getItem('calculationId');
+                ordered.calculation_id = calculationId;
                 var defer = $q.defer(),
                     dataToSend = {
                         model: table,

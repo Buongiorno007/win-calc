@@ -55,8 +55,9 @@
         function getPrice() {
           var defer = $q.defer();
           const link = window.localStorage.getItem('link');
-          const factoryId = 'b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7';
-          const dealerId = '89bab35f-768a-4d9f-b3bb-eb3f2a206552';
+
+          const factoryId = window.localStorage.getItem('factoryId');
+          const dealerId = window.localStorage.getItem('dealerId');
           const templateSource = {
             beads: ProductStor.product.beadsData,
           }
