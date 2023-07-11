@@ -18,7 +18,9 @@
             DesignStor,
             ProductStor,
             AuxStor,
-            CartStor) {
+            CartStor,
+            ConfigMenuServ
+            ) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
             GlobalStor.global.currOpenPage = 'mobile';
@@ -94,6 +96,13 @@
 
             function setTab(newTab) {
                 GlobalStor.global.activePanel = 0;
+                // Additional elements
+                if (newTab === 6) {
+                    GlobalStor.global.MobileTabActive = 3;
+                    ConfigMenuServ.selectConfigPanel(newTab)
+                    console.log(GlobalStor.global.activePanel, 'activePanel')
+                    return
+                }
                 if (GlobalStor.global.MobileTabActive === newTab) {
                     GlobalStor.global.MobileTabActive = 0;
                 } else {

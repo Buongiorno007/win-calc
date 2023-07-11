@@ -101,8 +101,8 @@
 .size-rect {
   width: 160px;
   height: 70px;
-  stroke: $main_green;
-  stroke: $main_green;
+  stroke: $main_deep_green;
+  stroke: $main_deep_green;
   stroke-width: 3px;
   fill-opacity: 0;
   cursor: pointer;
@@ -112,7 +112,7 @@
   }
 }
 .size-txt {
-  font-size: rem(90px);
+  font-size: rem(140px);
   stroke: #000;
   stroke-width: 1px;
   text-anchor: middle;

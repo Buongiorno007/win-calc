@@ -146,7 +146,6 @@
                     }
                 }
 
-
                 //------- Close Size Calculator
                 function closeSizeCaclulator() {
                     var elementIndex = AuxStor.aux.currentAddElementId,

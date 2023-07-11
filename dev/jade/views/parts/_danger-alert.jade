@@ -4,6 +4,5 @@
         .message-alert(ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index", ng-if="addElem.name && dangerAlert.G.global.currOpenPage === 'history'") {{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}
         .message-alert(ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index", ng-if="addElem.name && dangerAlert.G.global.currOpenPage === 'main'") {{' - ' + addElem.name}}
         .message-alert {{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}
-        .close-danger-alert(ng-click="dangerAlert.close()")
         .continued-proc(ng-click="dangerAlert.continued()")
             p {{::dangerAlert.IGNORE}}

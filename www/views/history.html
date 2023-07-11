@@ -475,7 +475,6 @@
     <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'history'" class="message-alert">{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}</div>
     <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'main'" class="message-alert">{{' - ' + addElem.name}}</div>
     <div class="message-alert">{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}</div>
-    <div ng-click="dangerAlert.close()" class="close-danger-alert"></div>
     <div ng-click="dangerAlert.continued()" class="continued-proc">
       <p>{{::dangerAlert.IGNORE}}</p>
     </div>

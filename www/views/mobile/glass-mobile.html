@@ -1,21 +1,21 @@
 
 <div ng-if="mobilePage.G.global.activePanel === 3" ng-controller="GlassesCtrl as glassPanel" class="mobile-glass mobile-common-panel">
   <div class="accept-container">
-    <div ng-if="mobilePage.isSet(3) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp; mobilePage.G.global.activePanel !== 3 &amp;&amp; mobilePage.G.global.activePanel !== 4 &amp;&amp; mobilePage.G.global.activePanel !== 5" class="row">
+    <div ng-if="mobilePage.isSet(3) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp; mobilePage.G.global.activePanel !== 3 &amp;&amp; mobilePage.G.global.activePanel !== 4 &amp;&amp; mobilePage.G.global.activePanel !== 5 &amp;&amp; mobilePage.G.global.activePanel !== 7 &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
       <div class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">Конфигурация</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div class="accept-container-item">Задайте параметры вашего окна</div>
       </div>
     </div>
-    <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
+    <div ng-if="!mobilePage.isSet(1)" class="row">
       <!--СТЕКЛОПАКЕТ-->
       <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">Стеклопакет</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div ng-if="mobilePage.P.product.glass.length == 1" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku }}</div>
         <div ng-if="mobilePage.P.product.glass.length == 2" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</div>
@@ -25,7 +25,7 @@
       <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">Фурнитура</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.hardware.name }}</div>
         <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorHandle.name }}</div>
@@ -35,7 +35,7 @@
       <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">Профиль</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.profile.name }}</div>
         <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorName | translate }}</div>
@@ -45,16 +45,30 @@
       <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">Ламинация</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div class="accept-container-item">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 7" class="selected-profile">
+        <div class="accept-container-header">
+          <div class="header-title">Наборы</div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+        </div>
+        <div class="accept-container-item">Набор {{ mobilePage.P.product.currentSet }}</div>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
+        <div class="accept-container-header">
+          <div class="header-title">Аксессуары</div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+        </div>
+        <div class="accept-container-item">Выберите аксессуары</div>
       </div>
     </div>
     <div ng-if="mobilePage.isSet(1)" class="row">
       <div class="selected-profile">
         <div class="accept-container-header">
           <div class="header-title">{{mobilePage.TEMPLATE_SELECTION}}</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
         </div>
         <div class="accept-container-item">{{ mobilePage.P.product.template_source.name }}</div>
       </div>
@@ -81,29 +95,29 @@
         <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.it">{{glassPanel.G.global.glassTypes[$index].name}}</p>
         <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.es">{{glassPanel.G.global.glassTypes[$index].name}}</p>
         <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ro">{{glassPanel.G.global.glassTypes[$index].name}}</p>
-        <div class="dropdown-icon"><img src="img/dropdown-icon.svg" alt="Dropdown icon"></div>
+        <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="dropdown-icon"><img src="img/dropdown-arrow.svg" alt="Dropdown icon"></div>
       </div>
       <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
         <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" class="glass-item">
           <div ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="title">
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glass.translate.en">{{glass.translate.en}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glass.translate.ru">{{glass.translate.ru}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glass.translate.ua">{{glass.translate.ua}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glass.translate.pl">{{glass.translate.pl}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glass.translate.de">{{glass.translate.de}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glass.translate.bg">{{glass.translate.bg}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glass.translate.it">{{glass.translate.it}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; glass.translate.es">{{glass.translate.es}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; glass.translate.ro">{{glass.translate.ro}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glass.translate.pl">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glass.translate.es">{{glass.sku}}</p>
-            <p ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glass.translate.ro">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glass.translate.en">{{glass.translate.en}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glass.translate.ru">{{glass.translate.ru}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glass.translate.ua">{{glass.translate.ua}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glass.translate.pl">{{glass.translate.pl}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glass.translate.de">{{glass.translate.de}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glass.translate.bg">{{glass.translate.bg}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glass.translate.it">{{glass.translate.it}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; glass.translate.es">{{glass.translate.es}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; glass.translate.ro">{{glass.translate.ro}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glass.translate.pl">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glass.translate.es">{{glass.sku}}</p>
+            <p ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glass.translate.ro">{{glass.sku}}</p>
           </div>
           <div ng-if="glass.img.length &amp;&amp; glass.description" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
         </div>

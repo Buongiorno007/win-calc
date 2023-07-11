@@ -53,6 +53,6 @@
                             p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
                             p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
                             p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
-                    .info-container
-                        .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
-                            | Information
+                    //- .info-container
+                    //-     .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
+                    //-         | Information

@@ -23,6 +23,9 @@
 
         /**----------- Select hardware -------- */
         function selectHardware(newId) {
+          if (ProductStor.product.currentSet) {
+            ProductStor.product.currentSet = 0;
+          }
           GlobalStor.global.isChangedTemplate = 1;
           if (ProductStor.product.hardware.id !== newId) {
 

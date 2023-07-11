@@ -14,7 +14,7 @@
                 span(ng-if="!$last") {{ sashExtra }},
                 span(ng-if="$last") {{ sashExtra }}.
             .extra-glass {{ ::attantBox.CHANGE_SIZE }}
-        .close-dialog-button(fs-click="attantBox.closeAttantion()")
+        .close-dialog-button(fs-click="attantBox.stepBackAfterDanger()")
             .close-dialog-title {{::mobilePage.HEAT_TRANSFER_INFO_11}}
             .close-dialog
 

@@ -1,13 +1,14 @@
-.scroll-container(ng-controller="TemplatesCtrl as templatesPanel")
-    include accept-container
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
-        .button
-            p {{ ::templatesPanel.templateName[$index]|translate }}
-        .templates-list
-            .template(ng-repeat="templateIcon in templatesPanel.templateList track by $index"
-            ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
-            ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
-                img.template-img(ng-src="{{ templateIcon.src }}" )
-                .name {{templateIcon.name}}
-    //.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
-        | Add elements only
+.mobile-profiles.mobile-common-panel
+    .profiles-list(ng-controller="TemplatesCtrl as templatesPanel")
+        include accept-container
+        .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
+            .button
+                p {{ ::templatesPanel.templateName[$index]|translate }}
+            .templates-list
+                .template(ng-repeat="templateIcon in templatesPanel.templateList track by $index"
+                ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
+                ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
+                    img.template-img(ng-src="{{ templateIcon.src }}" )
+                    .name {{templateIcon.name}}
+        //.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
+            | Add elements only

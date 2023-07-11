@@ -2,7 +2,10 @@
     include accept-container
     .folders-container
         .folders(ng-repeat="folders in mobPage.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" )
-            p.folders-name(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}') {{folders.name | translate}}
+            .folders-header
+                p.folders-name(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}') {{folders.name | translate}}
+                .dropdown-icon(ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}')
+                    img(src="img/dropdown-arrow.svg", alt="dropdown-arrow")
             .choosen-add-elem(ng-repeat="chosenAddElem in mobPage.P.product.chosenAddElements[$index] track by $index")
                 .row-header
                     p.name {{chosenAddElem.name}}

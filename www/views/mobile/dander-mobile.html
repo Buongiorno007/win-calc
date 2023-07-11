@@ -15,7 +15,7 @@
       <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
       <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
     </div>
-    <div fs-click="attantBox.closeAttantion()" class="close-dialog-button">
+    <div fs-click="attantBox.stepBackAfterDanger()" class="close-dialog-button">
       <div class="close-dialog-title">{{::mobilePage.HEAT_TRANSFER_INFO_11}}</div>
       <div class="close-dialog"></div>
     </div>

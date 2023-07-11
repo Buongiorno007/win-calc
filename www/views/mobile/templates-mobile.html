@@ -1,75 +1,91 @@
 
-<div ng-controller="TemplatesCtrl as templatesPanel" class="scroll-container">
-  <div class="accept-container">
-    <div ng-if="mobilePage.isSet(3) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp; mobilePage.G.global.activePanel !== 3 &amp;&amp; mobilePage.G.global.activePanel !== 4 &amp;&amp; mobilePage.G.global.activePanel !== 5" class="row">
-      <div class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">Конфигурация</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+<div class="mobile-profiles mobile-common-panel">
+  <div ng-controller="TemplatesCtrl as templatesPanel" class="profiles-list">
+    <div class="accept-container">
+      <div ng-if="mobilePage.isSet(3) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp; mobilePage.G.global.activePanel !== 3 &amp;&amp; mobilePage.G.global.activePanel !== 4 &amp;&amp; mobilePage.G.global.activePanel !== 5 &amp;&amp; mobilePage.G.global.activePanel !== 7 &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
+        <div class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Конфигурация</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div class="accept-container-item">Задайте параметры вашего окна</div>
         </div>
-        <div class="accept-container-item">Задайте параметры вашего окна</div>
+      </div>
+      <div ng-if="!mobilePage.isSet(1)" class="row">
+        <!--СТЕКЛОПАКЕТ-->
+        <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Стеклопакет</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length == 1" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku }}</div>
+          <div ng-if="mobilePage.P.product.glass.length == 2" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</div>
+          <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</div>
+        </div>
+        <!--ФУРНИТУРА-->
+        <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Фурнитура</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.hardware.name }}</div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorHandle.name }}</div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorLock.name }}</div>
+        </div>
+        <!--ПРОФИЛЬ-->
+        <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Профиль</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.profile.name }}</div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorName | translate }}</div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorSashName }}</div>
+        </div>
+        <!--ЛАМИНАЦИЯ-->
+        <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Ламинация</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div class="accept-container-item">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
+        </div>
+        <div ng-if="mobilePage.G.global.activePanel === 7" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Наборы</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div class="accept-container-item">Набор {{ mobilePage.P.product.currentSet }}</div>
+        </div>
+        <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">Аксессуары</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div class="accept-container-item">Выберите аксессуары</div>
+        </div>
+      </div>
+      <div ng-if="mobilePage.isSet(1)" class="row">
+        <div class="selected-profile">
+          <div class="accept-container-header">
+            <div class="header-title">{{mobilePage.TEMPLATE_SELECTION}}</div>
+            <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg" alt="red cross"></div>
+          </div>
+          <div class="accept-container-item">{{ mobilePage.P.product.template_source.name }}</div>
+        </div>
       </div>
     </div>
-    <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
-      <!--СТЕКЛОПАКЕТ-->
-      <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">Стеклопакет</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
-        </div>
-        <div ng-if="mobilePage.P.product.glass.length == 1" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku }}</div>
-        <div ng-if="mobilePage.P.product.glass.length == 2" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</div>
-        <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="accept-container-item">{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</div>
+    <div ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}" class="types">
+      <div class="button">
+        <p>{{ ::templatesPanel.templateName[$index]|translate }}</p>
       </div>
-      <!--ФУРНИТУРА-->
-      <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">Фурнитура</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
+      <div class="templates-list">
+        <div ng-repeat="templateIcon in templatesPanel.templateList track by $index" ng-if="templateIcon.type === Pindex" ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)" ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}" class="template"><img ng-src="{{ templateIcon.src }}" class="template-img">
+          <div class="name">{{templateIcon.name}}</div>
         </div>
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.hardware.name }}</div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorHandle.name }}</div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorLock.name }}</div>
-      </div>
-      <!--ПРОФИЛЬ-->
-      <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">Профиль</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="accept-container-item">{{ mobilePage.P.product.profile.name }}</div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorName | translate }}</div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="accept-container-item">{{ mobilePage.P.product.doorSashName }}</div>
-      </div>
-      <!--ЛАМИНАЦИЯ-->
-      <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">Ламинация</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
-        </div>
-        <div class="accept-container-item">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
       </div>
     </div>
-    <div ng-if="mobilePage.isSet(1)" class="row">
-      <div class="selected-profile">
-        <div class="accept-container-header">
-          <div class="header-title">{{mobilePage.TEMPLATE_SELECTION}}</div>
-          <div class="close-icon"><img ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg" alt="red cross"></div>
-        </div>
-        <div class="accept-container-item">{{ mobilePage.P.product.template_source.name }}</div>
-      </div>
-    </div>
+    <!--.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")| Add elements only
+    -->
   </div>
-  <div ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}" class="types">
-    <div class="button">
-      <p>{{ ::templatesPanel.templateName[$index]|translate }}</p>
-    </div>
-    <div class="templates-list">
-      <div ng-repeat="templateIcon in templatesPanel.templateList track by $index" ng-if="templateIcon.type === Pindex" ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)" ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}" class="template"><img ng-src="{{ templateIcon.src }}" class="template-img">
-        <div class="name">{{templateIcon.name}}</div>
-      </div>
-    </div>
-  </div>
-  <!--.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")| Add elements only
-  -->
 </div>

@@ -23,6 +23,9 @@
 
     /**============ METHODS ================*/
     function selectProfile(newId) {
+      if (ProductStor.product.currentSet) {
+        ProductStor.product.currentSet = 0;
+      }
       GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.continued = 0;
       profileForAlert(newId);

@@ -974,6 +974,7 @@
     "CONFIGMENU_CONFIGURATION": "Configuration and sizes",
     "CONFIGMENU_SIZING": "width * height",
     "CONFIGMENU_PROFILE": "Profile",
+    "CONFIGMENU_SET": "Set",
     "CONFIGMENU_GLASS": "Glazing",
     "CONFIGMENU_HARDWARE": "accessories",
     "CONFIGMENU_LAMINATION": "Lamination",
@@ -1022,8 +1023,8 @@
     "GLASS_TIP": "To select a double-glazed window, click here",
     "SELECT_ALL": "Take all",
     "SELECT_GLASS_WARN": "Click on the glazing, you want to change",
-    "KARKAS": "Frame",
-    "KONFIG": "Configuration",
+    "KARKAS": "Accessories",
+    "KONFIG": "Params",
     "CART": "Cart"
   },
   "panels": {

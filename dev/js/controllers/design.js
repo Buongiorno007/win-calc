@@ -639,6 +639,7 @@
                 /**++++++++++ position by Axises ++++++++*/
 
                 function positionAxis() {
+                    console.log('positionAxis')
                     GlobalStor.global.isChangedTemplate = 1;
                     deactivMenu();
                     DesignServ.positionAxises();

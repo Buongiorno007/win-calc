@@ -1418,6 +1418,7 @@ let portrait = false;
                 /**++++++++++ position by Axises ++++++++*/
 
                 function positionAxis() {
+                    console.log('positionAxis')
                     GlobalStor.global.isChangedTemplate = 1;
                     deactivMenu();
                     DesignServ.positionAxises();
@@ -4610,7 +4611,9 @@ let portrait = false;
             DesignStor,
             ProductStor,
             AuxStor,
-            CartStor) {
+            CartStor,
+            ConfigMenuServ
+            ) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
             GlobalStor.global.currOpenPage = 'mobile';
@@ -4686,6 +4689,13 @@ let portrait = false;
 
             function setTab(newTab) {
                 GlobalStor.global.activePanel = 0;
+                // Additional elements
+                if (newTab === 6) {
+                    GlobalStor.global.MobileTabActive = 3;
+                    ConfigMenuServ.selectConfigPanel(newTab)
+                    console.log(GlobalStor.global.activePanel, 'activePanel')
+                    return
+                }
                 if (GlobalStor.global.MobileTabActive === newTab) {
                     GlobalStor.global.MobileTabActive = 0;
                 } else {
@@ -5996,91 +6006,131 @@ if (window.location.hostname !== 'localhost') {
 // controllers/panels/profiles.js
 
 (function () {
-    'use strict';
-    /**@ngInject*/
-    angular
-        .module('MainModule')
-        .controller('ProfilesCtrl',
+  'use strict';
+  /**@ngInject*/
+  angular.module('MainModule').controller(
+    'ProfilesCtrl',
 
-            function ($filter,
-                      globalConstants,
-                      GlobalStor,
-                      OrderStor,
-                      ProductStor,
-                      ProfileServ,
-                      UserStor,
-                      MainServ) {
-                /*jshint validthis:true */
-                var thisCtrl = this;
-                thisCtrl.G = GlobalStor;
-                thisCtrl.P = ProductStor;
-                thisCtrl.U = UserStor;
-                thisCtrl.O = OrderStor;
+    function (
+      $filter,
+      globalConstants,
+      GlobalStor,
+      OrderStor,
+      ProductStor,
+      ProfileServ,
+      UserStor,
+      MainServ,
+      HardwareServ,
+      GlassesServ
+    ) {
+      /*jshint validthis:true */
+      var thisCtrl = this;
+      thisCtrl.G = GlobalStor;
+      thisCtrl.P = ProductStor;
+      thisCtrl.U = UserStor;
+      thisCtrl.O = OrderStor;
 
-                thisCtrl.config = {
-                    camera: $filter('translate')('panels.CAMERa'),
-                    camer: $filter('translate')('panels.CAMER'),
-                    camers: $filter('translate')('panels.CAMERs'),
-                    DELAY_START: 5 * globalConstants.STEP,
-                    DELAY_BLOCK: 2 * globalConstants.STEP,
-                    DELAY_TYPING: 2.5 * globalConstants.STEP,
-                    typing: 'on'
-                };
+      thisCtrl.config = {
+        camera: $filter('translate')('panels.CAMERa'),
+        camer: $filter('translate')('panels.CAMER'),
+        camers: $filter('translate')('panels.CAMERs'),
+        DELAY_START: 5 * globalConstants.STEP,
+        DELAY_BLOCK: 2 * globalConstants.STEP,
+        DELAY_TYPING: 2.5 * globalConstants.STEP,
+        typing: 'on'
+      };
 
-                //------- translate
-                thisCtrl.COUNTRY_NAME = $filter('translate')('panels.COUNTRY_NAME');
-                thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
-                thisCtrl.PROFILE_NAME_2 = $filter('translate')('panels.PROFILE_NAME_2');
-                thisCtrl.PROFILE_NAME_3 = $filter('translate')('panels.PROFILE_NAME_3');
-                thisCtrl.PROFILE_NAME_4 = $filter('translate')('panels.PROFILE_NAME_4');
-                thisCtrl.PROFILE_NAME_5 = $filter('translate')('panels.PROFILE_NAME_5');
-                thisCtrl.PROFILE_NAME_6 = $filter('translate')('panels.PROFILE_NAME_6');
-                thisCtrl.PROFILE_NAME_7 = $filter('translate')('panels.PROFILE_NAME_7');
-                thisCtrl.PROFILE_NAME_8 = $filter('translate')('panels.PROFILE_NAME_8');
-                thisCtrl.PROFILE_NAME_9 = $filter('translate')('panels.PROFILE_NAME_9');
-                thisCtrl.PROFILE_NAME_10 = $filter('translate')('panels.PROFILE_NAME_10');
-                thisCtrl.PROFILE_NAME_11 = $filter('translate')('panels.PROFILE_NAME_11');
-                thisCtrl.PROFILE_NAME_12 = $filter('translate')('panels.PROFILE_NAME_12');
-                thisCtrl.PROFILE_NAME_13 = $filter('translate')('panels.PROFILE_NAME_13');
-                thisCtrl.PROFILE_NAME_14 = $filter('translate')('panels.PROFILE_NAME_14');
-                thisCtrl.PROFILE_NAME_15 = $filter('translate')('panels.PROFILE_NAME_15');
-                thisCtrl.PROFILE_NAME_16 = $filter('translate')('panels.PROFILE_NAME_16');
-                thisCtrl.PROFILE_NAME_17 = $filter('translate')('panels.PROFILE_NAME_17');
-                thisCtrl.PROFILE_NAME_18 = $filter('translate')('panels.PROFILE_NAME_18');
-                thisCtrl.PROFILE_NAME_19 = $filter('translate')('panels.PROFILE_NAME_19');
-                thisCtrl.PROFILE_NAME_20 = $filter('translate')('panels.PROFILE_NAME_20');
-                thisCtrl.PROFILE_NAME_21 = $filter('translate')('panels.PROFILE_NAME_21');
-                thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
-                thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
-                thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-                thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
-                thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
-                thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
-                thisCtrl.CAMERa = $filter('translate')('panels.CAMERa');
-                thisCtrl.CAMER = $filter('translate')('panels.CAMER');
-                thisCtrl.CAMERs = $filter('translate')('panels.CAMERs');
-                thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
+      //------- translate
+      thisCtrl.COUNTRY_NAME = $filter('translate')('panels.COUNTRY_NAME');
+      thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
+      thisCtrl.PROFILE_NAME_2 = $filter('translate')('panels.PROFILE_NAME_2');
+      thisCtrl.PROFILE_NAME_3 = $filter('translate')('panels.PROFILE_NAME_3');
+      thisCtrl.PROFILE_NAME_4 = $filter('translate')('panels.PROFILE_NAME_4');
+      thisCtrl.PROFILE_NAME_5 = $filter('translate')('panels.PROFILE_NAME_5');
+      thisCtrl.PROFILE_NAME_6 = $filter('translate')('panels.PROFILE_NAME_6');
+      thisCtrl.PROFILE_NAME_7 = $filter('translate')('panels.PROFILE_NAME_7');
+      thisCtrl.PROFILE_NAME_8 = $filter('translate')('panels.PROFILE_NAME_8');
+      thisCtrl.PROFILE_NAME_9 = $filter('translate')('panels.PROFILE_NAME_9');
+      thisCtrl.PROFILE_NAME_10 = $filter('translate')('panels.PROFILE_NAME_10');
+      thisCtrl.PROFILE_NAME_11 = $filter('translate')('panels.PROFILE_NAME_11');
+      thisCtrl.PROFILE_NAME_12 = $filter('translate')('panels.PROFILE_NAME_12');
+      thisCtrl.PROFILE_NAME_13 = $filter('translate')('panels.PROFILE_NAME_13');
+      thisCtrl.PROFILE_NAME_14 = $filter('translate')('panels.PROFILE_NAME_14');
+      thisCtrl.PROFILE_NAME_15 = $filter('translate')('panels.PROFILE_NAME_15');
+      thisCtrl.PROFILE_NAME_16 = $filter('translate')('panels.PROFILE_NAME_16');
+      thisCtrl.PROFILE_NAME_17 = $filter('translate')('panels.PROFILE_NAME_17');
+      thisCtrl.PROFILE_NAME_18 = $filter('translate')('panels.PROFILE_NAME_18');
+      thisCtrl.PROFILE_NAME_19 = $filter('translate')('panels.PROFILE_NAME_19');
+      thisCtrl.PROFILE_NAME_20 = $filter('translate')('panels.PROFILE_NAME_20');
+      thisCtrl.PROFILE_NAME_21 = $filter('translate')('panels.PROFILE_NAME_21');
+      thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+      thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+      thisCtrl.NOICE_INSULATION = $filter('translate')(
+        'panels.NOICE_INSULATION'
+      );
+      thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
+      thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+      thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+      thisCtrl.CAMERa = $filter('translate')('panels.CAMERa');
+      thisCtrl.CAMER = $filter('translate')('panels.CAMER');
+      thisCtrl.CAMERs = $filter('translate')('panels.CAMERs');
+      thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
 
-                function ClickOnFolder(event) {
-                    if ($(event.target).parent().attr('class') === 'producer') {
-                        $('.profiles-list').animate({scrollTop: $(event.target).offset().top + $('.profiles-list').scrollTop() - 120}, 'slow');
-                    } else {
-                        $('.profiles-list').animate({scrollTop: $(event.target).offset().top + $('.profiles-list').scrollTop() - 100}, 'slow');
-                    }
-                }
+      function ClickOnFolder(event) {
+        if ($(event.target).parent().attr('class') === 'producer') {
+          $('.profiles-list').animate(
+            {
+              scrollTop:
+                $(event.target).offset().top +
+                $('.profiles-list').scrollTop() -
+                120
+            },
+            'slow'
+          );
+        } else {
+          $('.profiles-list').animate(
+            {
+              scrollTop:
+                $(event.target).offset().top +
+                $('.profiles-list').scrollTop() -
+                100
+            },
+            'slow'
+          );
+        }
+      }
 
-                /**========== FINISH ==========*/
-                //------ clicking
-                thisCtrl.extendUrl = MainServ.extendUrl;
+      function selectSet(sets) {
+        const setToAply = sets.set[0];
+        GlobalStor.global.activeSet = setToAply;
+        ProfileServ.selectProfile(setToAply.profile_systems_id);
+        HardwareServ.selectHardware(setToAply.window_hardware_groups_id);
+        GlassesServ.selectGlass(setToAply.list_id);
 
-                thisCtrl.ClickOnFolder = ClickOnFolder;
-                thisCtrl.alert = alert;
-                thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
-                thisCtrl.profileForAlert = ProfileServ.profileForAlert;
-                thisCtrl.selectProfile = ProfileServ.selectProfile;
-                thisCtrl.showInfoBox = MainServ.showInfoBox;
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            ProfileServ.selectProfile(setToAply.profile_systems_id);
+            HardwareServ.selectHardware(setToAply.window_hardware_groups_id);
+            GlassesServ.selectGlass(setToAply.list_id);
+            resolve();
+            ProductStor.product.currentSet = sets.title;
+          }, 1);
+        });
+      }
 
-            });
+      /**========== FINISH ==========*/
+      //------ clicking
+      thisCtrl.extendUrl = MainServ.extendUrl;
+
+      thisCtrl.ClickOnFolder = ClickOnFolder;
+      thisCtrl.alert = alert;
+      thisCtrl.selectSet = selectSet;
+      thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
+      thisCtrl.profileForAlert = ProfileServ.profileForAlert;
+      thisCtrl.selectProfile = ProfileServ.selectProfile;
+      thisCtrl.showInfoBox = MainServ.showInfoBox;
+    }
+  );
 })();
 
 
@@ -6818,7 +6868,7 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('AttantCtrl',
 
-  function($filter, DesignStor, HistoryStor) {
+  function($filter, DesignStor, HistoryStor, GlobalStor, SVGServ, ProductStor, globalConstants) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
@@ -6837,6 +6887,52 @@ if (window.location.hostname !== 'localhost') {
       DesignStor.design.isHardwareExtra = 0;
       HistoryStor.history.isNoPrint = 0;
       DesignStor.design.isNoDoors = 0;
+
+      stepBackAfterDanger()
+    }
+
+    function deselectAllDimension() {
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
+    }
+
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function (result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+            if (entry.impost) {
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+            }
+          });
+
+        });
+    }
+
+    function hideSizeTools() {
+      deselectAllDimension();
+      GlobalStor.global.isSizeCalculator = 0;
+      DesignStor.design.openVoiceHelper = 0;
+    }
+
+    function cleanTempSize() {
+      DesignStor.design.tempSize.length = 0;
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+      DesignStor.design.isDimExtra = 0;
+      DesignStor.design.isSquareExtra = 0;
+    }
+
+    function stepBackAfterDanger() {
+      console.log('cehckl')
+      GlobalStor.global.checkDoors = 0;
+      var lastIndex = DesignStor.design.designSteps.length - 1;
+      DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+      rebuildSVGTemplate();
+      DesignStor.design.designSteps.pop();
+      cleanTempSize();
+      hideSizeTools();
     }
 
 
@@ -6883,45 +6979,46 @@ if (window.location.hostname !== 'localhost') {
 
 // controllers/parts/danger-alert.js
 
-(function(){
+(function () {
   'use strict';
   /**@ngInject*/
-  angular
-    .module('MainModule')
-    .controller('DangerAlertCtrl',
+  angular.module('MainModule').controller(
+    'DangerAlertCtrl',
 
-  function($filter,
-           GlobalStor,
-           HistoryStor
-           ){
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.H = HistoryStor;
-    thisCtrl.DANGER_ALERT_FIRST_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_FIRST_PAGE');
-    thisCtrl.DANGER_ALERT_SECOND_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_SECOND_PAGE');
-    thisCtrl.IGNORE = $filter('translate')('danger-alert.IGNORE');
-    thisCtrl.PRODUCT = $filter('translate')('danger-alert.PRODUCT');
+    function ($filter, GlobalStor, HistoryStor) {
+      /*jshint validthis:true */
+      var thisCtrl = this;
+      thisCtrl.G = GlobalStor;
+      thisCtrl.H = HistoryStor;
+      thisCtrl.DANGER_ALERT_FIRST_PAGE = $filter('translate')(
+        'danger-alert.DANGER_ALERT_FIRST_PAGE'
+      );
+      thisCtrl.DANGER_ALERT_SECOND_PAGE = $filter('translate')(
+        'danger-alert.DANGER_ALERT_SECOND_PAGE'
+      );
+      thisCtrl.IGNORE = $filter('translate')('danger-alert.IGNORE');
+      thisCtrl.PRODUCT = $filter('translate')('danger-alert.PRODUCT');
 
-    /**============ METHODS ================*/
+      /**============ METHODS ================*/
 
-    function close() {
-      GlobalStor.global.nameAddElem = [];
-      GlobalStor.global.dangerAlert=0;
+      function close() {
+        GlobalStor.global.nameAddElem = [];
+        GlobalStor.global.dangerAlert = 0;
+      }
+
+      function continued() {
+        GlobalStor.global.nameAddElem = [];
+        GlobalStor.global.dangerAlert = 0;
+        GlobalStor.global.continued = 1;
+      }
+
+      /**========== FINISH ==========*/
+      thisCtrl.close = close;
+      thisCtrl.continued = continued;
     }
-
-    function continued() {
-      GlobalStor.global.nameAddElem = [];
-      GlobalStor.global.dangerAlert=0;
-      GlobalStor.global.continued=1;
-    }
-
-    /**========== FINISH ==========*/
-    thisCtrl.close = close;
-    thisCtrl.continued = continued;
-
-  });
+  );
 })();
+
 
 
 // controllers/parts/edit_order.js
@@ -10152,7 +10249,7 @@ if (window.location.hostname !== 'localhost') {
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 80,
+                                            'dx': 140,
                                             'dy': 40,
                                             'type': 'line',
                                             'block_id': dim.blockId,
@@ -12274,7 +12371,6 @@ function ErrorResult(code, message) {
                         });
                     }
                 }
-
 
                 //------- Close Size Calculator
                 function closeSizeCaclulator() {
@@ -15411,6 +15507,7 @@ function ErrorResult(code, message) {
         }
 
         function closeSizeCaclulator(prom, save) {
+          positionAxises();
           var deff = $q.defer();
           if (DesignStor.design.tempSize.length) {
             if (UserStor.userInfo.factory_id === 1966) {
@@ -19447,47 +19544,366 @@ function ErrorResult(code, message) {
 // services/glasses_serv.js
 
 (function () {
-    'use strict';
-    /**@ngInject*/
-    angular
-        .module('HistoryModule')
-        .factory('GlassesServ',
+  'use strict';
+  /**@ngInject*/
+  angular.module('HistoryModule').factory(
+    'GlassesServ',
 
-            function ($location,
-                      $filter,
-                      $q,
-                      GlobalStor,
-                      DesignServ) {
-                /*jshint validthis:true */
-                var thisFactory = this;
+    function (
+      $location,
+      $filter,
+      $q,
+      DesignServ,
+      ProductStor,
+      globalConstants,
+      MainServ,
+      SVGServ,
+      GlobalStor,
+      AddElementMenuServ,
+      GeneralServ,
+      DesignStor
+    ) {
+      /*jshint validthis:true */
+      var thisFactory = this;
 
+      /**============ METHODS ================*/
 
-                /**============ METHODS ================*/
+      function changePriceAsNewGlass() {
+        var hardwareIds;
+        DesignStor.design.selectedGlass.length = 0;
+        /** set current Glass */
+        SVGServ.createSVGTemplate(
+          ProductStor.product.template_source,
+          ProductStor.product.profileDepths
+        ).then(function (result) {
+          ProductStor.product.template = angular.copy(result);
+          /** calculate price */
+          hardwareIds = ProductStor.product.hardware.id || 0;
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            hardwareIds,
+            ProductStor.product.lamination.lamination_in_id
+          );
+          //------ save analytics data
+          //TODO ??
+          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
+      }
 
-                function selectGlass(newId, newName, type) {
-                    GlobalStor.global.isChangedTemplate = 1;
-                    GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
-                    GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
-                    GlobalStor.global.selectGlassId = angular.copy(newId);
-                    GlobalStor.global.selectGlassName = angular.copy(newName);
-                    GlobalStor.global.selectGlassType = angular.copy(type);
-                    //----- open glass selector dialog
-                    GlobalStor.global.showGlassSelectorDialog = 1;
-                    DesignServ.initAllGlassXGlass();
-                }
+      function confirmGlass() {
+        var selectBlockQty = DesignStor.design.selectedGlass.length,
+          glassesTEMP = angular.copy(ProductStor.product.glass),
+          blockId;
 
-                /**========== FINISH ==========*/
-                //------ clicking
-                selectGlass: selectGlass;
+        /** there are selected glasses */
+        if (!selectBlockQty) {
+          MainServ.setGlassToTemplateBlocks(
+            GlobalStor.global.selectGlassType,
+            ProductStor.product.template,
+            GlobalStor.global.selectGlassId,
+            GlobalStor.global.selectGlassName
+          );
+        }
 
-                thisFactory.publicObj = {
-                    selectGlass: selectGlass
-                };
+        /** set new Glass in product */
+        MainServ.setCurrentGlass(
+          ProductStor.product,
+          GlobalStor.global.selectGlassId
+        );
 
-                return thisFactory.publicObj;
+        /** Extra Glass finding */
+        MainServ.checkGlassSizes(ProductStor.product.template);
 
+        if (DesignStor.design.extraGlass.length) {
+          /** there are incorrect glasses
+           * expose Alert */
+          DesignStor.design.isGlassExtra = 1;
+          /** return previous Glasses */
+          ProductStor.product.glass = angular.copy(glassesTEMP);
+          /** return prev value in template */
+          MainServ.setGlassToTemplateBlocks(
+            GlobalStor.global.selectGlassType,
+            ProductStor.product.template,
+            GlobalStor.global.prevGlassId,
+            GlobalStor.global.prevGlassName
+          );
+        } else {
+          /** there are selected glasses */
+          if (selectBlockQty) {
+            while (--selectBlockQty > -1) {
+              blockId =
+                DesignStor.design.selectedGlass[selectBlockQty].attributes
+                  .block_id.nodeValue;
+              MainServ.setGlassToTemplateBlocks(
+                GlobalStor.global.selectGlassType,
+                ProductStor.product.template_source,
+                GlobalStor.global.selectGlassId,
+                GlobalStor.global.selectGlassName,
+                blockId
+              );
+            }
+            changePriceAsNewGlass();
+            DesignServ.closeGlassSelectorDialog();
+          } else {
+            /** apply current glass to all skylights */
+            setGlassToAll();
+          }
+        }
+        SVGServ.createSVGTemplateIcon(
+          ProductStor.product.template_source,
+          ProductStor.product.profileDepths
+        ).then(function (result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
+      }
 
+      function setGlassToAll() {
+        MainServ.setGlassToTemplateBlocks(
+          GlobalStor.global.selectGlassType,
+          ProductStor.product.template_source,
+          GlobalStor.global.selectGlassId,
+          GlobalStor.global.selectGlassName
+        );
+        changePriceAsNewGlass();
+        DesignServ.closeGlassSelectorDialog();
+      }
+
+      function selectGlass(newId, newName, type, glass) {
+        if (ProductStor.product.currentSet) {
+          ProductStor.product.currentSet = 0;
+        }
+        GlobalStor.global.isChangedTemplate = 1;
+        GlobalStor.global.prevGlassId = angular.copy(
+          GlobalStor.global.selectGlassId
+        );
+        GlobalStor.global.prevGlassName = angular.copy(
+          GlobalStor.global.selectGlassName
+        );
+        GlobalStor.global.selectGlassId = angular.copy(newId);
+        GlobalStor.global.selectGlassName = angular.copy(newName);
+        GlobalStor.global.selectGlassType = angular.copy(type);
+        //----- open glass selector dialog
+        GlobalStor.global.showGlassSelectorDialog = 1;
+        DesignServ.initAllGlassXGlass();
+
+        setTimeout(() => {
+          const apprPrice = ProductStor.product.report
+            .filter((el) => el.sku === newName)
+            .map((glass) => glass.priceReal)
+            .reduce((sum, curr) => sum + curr, 0);
+          GlobalStor.global.apprPrice = Math.floor(apprPrice * 0.95);
+
+          const amountGlass = ProductStor.product.report
+            .filter((el) => el.sku === newName)
+            .map((glass) => glass.amount);
+
+          const sizeGlass = ProductStor.product.report
+            .filter((el) => el.sku === newName)
+            .map((glass, index) => glass.size * amountGlass[index])
+            .reduce((sum, curr) => sum + curr, 0);
+          GlobalStor.global.sizeCoeff = sizeGlass;
+        }, 0);
+        confirmGlass();
+      }
+
+      function closeButton(id) {
+        if (
+          ($location.path() === '/light' || $location.path() === '/mobile') &&
+          !ProductStor.product.is_addelem_only
+        ) {
+          SVGServ.createSVGTemplate(
+            DesignStor.design.templateSourceTEMP,
+            ProductStor.product.profileDepths
+          ).then(function (result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+          });
+          ProductStor.product.template_source =
+            DesignStor.design.templateSourceTEMP;
+          ProductStor.product.template = DesignStor.design.templateTEMP;
+          if (DesignStor.design.activeSubMenuItem > 0) {
+            DesignStor.design.activeSubMenuItem = 0;
+            GlobalStor.global.goLeft = false;
+            GlobalStor.global.showTemplates = false;
+            GlobalStor.global.activePanel = 0;
+            $(document).ready(function () {
+              $('.temp-fig-rehau').removeClass('active');
             });
+          }
+        }
+
+        GlobalStor.global.configMenuTips++;
+        //тут тоже может быть
+        MainServ.laminatFiltering();
+        if (
+          GlobalStor.global.isQtyCalculator ||
+          GlobalStor.global.isSizeCalculator
+        ) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        //---- hide rooms if opened
+        GlobalStor.global.showRoomSelectorDialog = 0;
+        GlobalStor.global.showCoefInfoBlock = 0;
+        //---- hide tips
+        GlobalStor.global.configMenuTips = 0;
+        //---- hide comment if opened
+        GlobalStor.global.isShowCommentBlock = 0;
+        //---- hide template type menu if opened
+        GlobalStor.global.isTemplateTypeMenu = 0;
+
+        GlobalStor.global.isServiceCalculator = 0;
+        GlobalStor.global.typeMenu = 5555;
+        GlobalStor.global.typeMenuID = 5555;
+        GlobalStor.global.servicesPriceIndex = -1;
+
+        GeneralServ.stopStartProg();
+        MainServ.setDefaultAuxParam();
+        //------ close Glass Selector Dialogs
+        if (GlobalStor.global.showGlassSelectorDialog) {
+          DesignServ.closeGlassSelectorDialog(1);
+        }
+
+        if (id === 1) {
+          GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+          GlobalStor.global.activePanel = 0;
+          DesignStor.design.isGlassExtra = 0;
+          $location.path('/design');
+          GlobalStor.global.currOpenPage = 'design';
+          //console.log(DesignStor.design.showHint);
+          if (DesignStor.design.showHint >= 0) {
+            GlobalStor.global.hintTimer = setTimeout(function () {
+              DesignStor.design.showHint = 1;
+            }, 90000);
+          }
+        } else {
+          if (id === 3) {
+            var temp = [];
+            GlobalStor.global.glasses.forEach(function (glass) {
+              glass.forEach(function (glass_img) {
+                temp.push(glass_img.glass_image);
+              });
+            });
+            var transcalency_arr = [];
+            var noise_coeff_arr = [];
+            GlobalStor.global.glasses.forEach(function (glass_arr) {
+              glass_arr.forEach(function (glass) {
+                transcalency_arr.push(glass.transcalency);
+                noise_coeff_arr.push(glass.noise_coeff);
+              });
+            });
+            var transcalency_min = Math.min.apply(Math, transcalency_arr);
+            var transcalency_max = Math.max.apply(Math, transcalency_arr);
+
+            var noise_coeff_min = Math.min.apply(Math, noise_coeff_arr);
+            var noise_coeff_max = Math.max.apply(Math, noise_coeff_arr);
+
+            GlobalStor.global.glasses.forEach(function (glass_arr) {
+              glass_arr.forEach(function (glass) {
+                glass.transcalencyD =
+                  1 +
+                  Math.floor(
+                    ((glass.transcalency - transcalency_min) /
+                      (transcalency_max - transcalency_min)) *
+                      4
+                  );
+                if (glass.noise_coeff !== 0) {
+                  glass.noise_coeffD =
+                    1 +
+                    Math.floor(
+                      ((glass.noise_coeff - noise_coeff_min) /
+                        (noise_coeff_max - noise_coeff_min)) *
+                        4
+                    );
+                } else glass.noise_coeffD = glass.noise_coeff;
+              });
+            });
+          }
+          /** if Door */
+          if (ProductStor.product.construction_type === 4) {
+            //--------- show only Glasses and AddElements
+            if (id === 3 || id === 6 || id === 5) {
+              GlobalStor.global.activePanel =
+                GlobalStor.global.activePanel === id ? 0 : id;
+            } else {
+              // GlobalStor.global.activePanel = 0;
+              DesignStor.design.isGlassExtra = 0;
+              if ($location.path() !== '/mobile') {
+                if ($location.path() !== '/light') {
+                  $location.path('/design');
+                  GlobalStor.global.currOpenPage = 'design';
+                } else {
+                  $('.config-menu').hide();
+                  $('.right-side').width('100%');
+                  $('.main-content').width('100%');
+                }
+              }
+              GlobalStor.global.templateTEMP = angular.copy(
+                ProductStor.product
+              );
+              DesignServ.setDoorConfigDefault(ProductStor.product).then(
+                function (result) {
+                  if ($location.path() !== '/mobile') {
+                    DesignStor.design.steps.isDoorConfig = 1;
+                  } else {
+                    DesignStor.design.isDoorConfigMobile = 1;
+                    DesignStor.design.showMobileStep = 0;
+                  }
+                }
+              );
+            }
+          }
+          if (id === 8) {
+            let someArray = [];
+            GlobalStor.global.templatesImgs.forEach((template) => {
+              someArray.push(template.src);
+            });
+          } else {
+            // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+            if (GlobalStor.global.activePanel === id) {
+              GlobalStor.global.activePanel = 0;
+              GlobalStor.global.isServiceCalculator = 0;
+              if (
+                ($location.path() === '/light' ||
+                  $location.path() === '/mobile') &&
+                !ProductStor.product.is_addelem_only
+              ) {
+                setTimeout(function () {
+                  DesignServ.rebuildSVGTemplate();
+                }, 1000);
+              }
+            } else {
+              GlobalStor.global.activePanel = id;
+            }
+          }
+        }
+        if (
+          GlobalStor.global.activePanel !== 0 &&
+          GlobalStor.global.setTimeout === 0
+        ) {
+          GlobalStor.global.setTimeout = 1;
+          $timeout(function () {
+            InfoBoxServ.autoShow(id);
+          }, 4000);
+        }
+      }
+
+      /**========== FINISH ==========*/
+      //------ clicking
+      selectGlass: selectGlass;
+      confirmGlass: confirmGlass;
+      closeButton: closeButton;
+
+      thisFactory.publicObj = {
+        selectGlass: selectGlass,
+        confirmGlass: confirmGlass,
+        closeButton: closeButton
+      };
+
+      return thisFactory.publicObj;
+    }
+  );
 })();
 
 
@@ -19519,6 +19935,9 @@ function ErrorResult(code, message) {
 
         /**----------- Select hardware -------- */
         function selectHardware(newId) {
+          if (ProductStor.product.currentSet) {
+            ProductStor.product.currentSet = 0;
+          }
           GlobalStor.global.isChangedTemplate = 1;
           if (ProductStor.product.hardware.id !== newId) {
 
@@ -24481,8 +24900,8 @@ function ErrorResult(code, message) {
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    console.log(GlobalStor.global, 'checl')
-                    // console.log(ProductStor.product)
+                    // console.log(GlobalStor.global, 'checl')
+                    // console.log(ProductStor.product, 'product')
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
@@ -25822,10 +26241,10 @@ function ErrorResult(code, message) {
 // services/login_serv.js
 
 (function () {
-  "use strict";
+  'use strict';
   /**@ngInject*/
-  angular.module("LoginModule").factory(
-    "loginServ",
+  angular.module('LoginModule').factory(
+    'loginServ',
 
     function (
       $q,
@@ -25919,6 +26338,46 @@ function ErrorResult(code, message) {
         return defer.promise;
       }
 
+      function prepareSets() {
+        var deff = $q.defer();
+
+        localDB
+          .selectLocalDB('categories_sets')
+          .then(function (setsCategories) {
+            GlobalStor.global.setsCategories = setsCategories;
+            return localDB.selectLocalDB('sets');
+          })
+          .then(function (sets) {
+            GlobalStor.global.setsCategories[0].setsForCategory = sets;
+            return localDB.selectLocalDB('set_data');
+          })
+          .then(function (set) {
+            for (
+              let i = 0;
+              i < GlobalStor.global.setsCategories[0].setsForCategory.length;
+              i++
+            ) {
+              GlobalStor.global.setsCategories[0].setsForCategory[i].set = [];
+              for (let j = 0; j < set.length; j++) {
+                if (
+                  GlobalStor.global.setsCategories[0].setsForCategory[i].id ===
+                  set[j].sets_id
+                ) {
+                  GlobalStor.global.setsCategories[0].setsForCategory[
+                    i
+                  ].set.push(set[j]);
+                }
+              }
+            }
+            deff.resolve(1);
+          })
+          .catch(function (err) {
+            console.error(err);
+            deff.resolve(0);
+          });
+        return deff.promise;
+      }
+
       function downloadAllCities() {
         var deff = $q.defer(),
           countryQty,
@@ -25951,17 +26410,17 @@ function ErrorResult(code, message) {
                   ) {
                     if (GlobalStor.global.locations.cities[cityQty].areasName) {
                       GlobalStor.global.locations.cities[cityQty].fullLocation =
-                        "" +
+                        '' +
                         GlobalStor.global.locations.cities[cityQty].name +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.cities[cityQty].areasName +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.regions[regionQty].name;
                     } else {
                       GlobalStor.global.locations.cities[cityQty].fullLocation =
-                        "" +
+                        '' +
                         GlobalStor.global.locations.cities[cityQty].name +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.regions[regionQty].name;
                     }
                     GlobalStor.global.locations.cities[cityQty].climatic_zone =
@@ -26018,8 +26477,8 @@ function ErrorResult(code, message) {
               GlobalStor.global.locations.cities[cityQty].country_id;
             UserStor.userInfo.climatic_zone =
               GlobalStor.global.locations.cities[cityQty].climatic_zone;
-            UserStor.userInfo.heat_transfer = +GlobalStor.global.locations
-              .cities[cityQty].heat_transfer;
+            UserStor.userInfo.heat_transfer =
+              +GlobalStor.global.locations.cities[cityQty].heat_transfer;
             UserStor.userInfo.fullLocation =
               GlobalStor.global.locations.cities[cityQty].fullLocation;
             while (--regionQty > -1) {
@@ -26082,7 +26541,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.factories.tableName,
             null,
-            "therm_coeff_id, link, max_construct_size, max_construct_square"
+            'therm_coeff_id, link, max_construct_size, max_construct_square'
           )
           .then(function (result) {
             var heat_transfer = UserStor.userInfo.heat_transfer,
@@ -26100,7 +26559,7 @@ function ErrorResult(code, message) {
                   );
                 }
                 //-------- check factory Link
-                if (result[0].link !== "null") {
+                if (result[0].link !== 'null') {
                   UserStor.userInfo.factoryLink = angular.copy(result[0].link);
                 }
                 //-------- sizes limits
@@ -26128,7 +26587,6 @@ function ErrorResult(code, message) {
               UserStor.userInfo.heat_transfer,
               UserStor.userInfo.fullLocation
             );
-
           });
       }
 
@@ -26139,7 +26597,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.currencies.tableName,
             null,
-            "id, is_base, name, value"
+            'id, is_base, name, value'
           )
           .then(function (currencies) {
             var currencQty = currencies.length;
@@ -26150,23 +26608,23 @@ function ErrorResult(code, message) {
                 if (currencies[currencQty].is_base === 1) {
                   UserStor.userInfo.currencyId = currencies[currencQty].id;
                   if (/uah/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20b4"; //'₴';
+                    UserStor.userInfo.currency = '\u20b4'; //'₴';
                   } else if (/rub/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\ue906"; // '\u20BD';//'₽';
+                    UserStor.userInfo.currency = '\ue906'; // '\u20BD';//'₽';
                   } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "$";
+                    UserStor.userInfo.currency = '$';
                   } else if (/eur/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20AC"; //'€';
+                    UserStor.userInfo.currency = '\u20AC'; //'€';
                   } else if (/kzt/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20B8"; //'TENGE';
+                    UserStor.userInfo.currency = '\u20B8'; //'TENGE';
                   } else {
-                    UserStor.userInfo.currency = "\xA4"; //Generic Currency Symbol
+                    UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
                   }
                 }
               }
               defer.resolve(1);
             } else {
-              console.error("not find currencies!");
+              console.error('not find currencies!');
               defer.resolve(0);
             }
           });
@@ -26184,7 +26642,7 @@ function ErrorResult(code, message) {
           //#setBase64Avatar(url, function (base64Img) {
           //#});
         } else {
-          localforage.getItem("userAvatar", function (err, value) {
+          localforage.getItem('userAvatar', function (err, value) {
             UserStor.userInfo.avatar = value;
           });
         }
@@ -26206,12 +26664,12 @@ function ErrorResult(code, message) {
                 disQty = disKeys.length,
                 dis;
               for (dis = 0; dis < disQty; dis += 1) {
-                if (disKeys[dis].indexOf("week") + 1) {
-                  if (disKeys[dis].indexOf("construct") + 1) {
+                if (disKeys[dis].indexOf('week') + 1) {
+                  if (disKeys[dis].indexOf('construct') + 1) {
                     UserStor.userInfo.discConstrByWeek.push(
                       +discounts[disKeys[dis]]
                     );
-                  } else if (disKeys[dis].indexOf("add_elem") + 1) {
+                  } else if (disKeys[dis].indexOf('add_elem') + 1) {
                     UserStor.userInfo.discAddElemByWeek.push(
                       +discounts[disKeys[dis]]
                     );
@@ -26220,7 +26678,7 @@ function ErrorResult(code, message) {
               }
               defer.resolve(1);
             } else {
-              console.error("not find users_discounts!");
+              console.error('not find users_discounts!');
               defer.resolve(0);
             }
           });
@@ -26233,7 +26691,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
-            "margin, coeff"
+            'margin, coeff'
           )
           .then(function (margins) {
             return margins;
@@ -26245,7 +26703,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
-            "area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies"
+            'area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies'
           )
           .then(function (coeffs) {
             return coeffs;
@@ -26269,8 +26727,8 @@ function ErrorResult(code, message) {
         localDB.selectLocalDB(tableGroup).then(function (result) {
           /** sorting types by position */
           var types = angular.copy(result).sort(function (a, b) {
-            return GeneralServ.sorting(a.position, b.position);
-          }),
+              return GeneralServ.sorting(a.position, b.position);
+            }),
             typesQty = types.length;
           if (typesQty) {
             groups.length = 0;
@@ -26389,27 +26847,30 @@ function ErrorResult(code, message) {
           //        console.log('data!!!!', data);
           if (data) {
             //-------- select all glass Ids as to profile Id
-            var promises3 = _.map(GlobalStor.global.glassesAll, function (item) {
-              var defer3 = $q.defer();
-              localDB
-                .selectLocalDB(
-                  localDB.tablesLocalDB.elements_profile_systems.tableName,
-                  {
-                    profile_system_id: item.profileId
-                  },
-                  "element_id"
-                )
-                .then(function (glassId) {
-                  //console.warn('glass+++', glassId);
-                  var glassIdQty = glassId.length;
-                  if (glassIdQty) {
-                    defer3.resolve(glassId);
-                  } else {
-                    defer3.resolve(0);
-                  }
-                });
-              return defer3.promise;
-            });
+            var promises3 = _.map(
+              GlobalStor.global.glassesAll,
+              function (item) {
+                var defer3 = $q.defer();
+                localDB
+                  .selectLocalDB(
+                    localDB.tablesLocalDB.elements_profile_systems.tableName,
+                    {
+                      profile_system_id: item.profileId
+                    },
+                    'element_id'
+                  )
+                  .then(function (glassId) {
+                    //console.warn('glass+++', glassId);
+                    var glassIdQty = glassId.length;
+                    if (glassIdQty) {
+                      defer3.resolve(glassId);
+                    } else {
+                      defer3.resolve(0);
+                    }
+                  });
+                return defer3.promise;
+              }
+            );
 
             $q.all(promises3).then(function (glassIds) {
               //-------- get glass as to its Id
@@ -26432,8 +26893,8 @@ function ErrorResult(code, message) {
                         parent_element_id: item.element_id,
                         list_group_id: 6
                       },
-                      "id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, " +
-                      "img, link, glass_image, glass_type, glass_color"
+                      'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, ' +
+                        'img, link, glass_image, glass_type, glass_color'
                     )
                     .then(function (result2) {
                       // console.log('list +++++', result2);
@@ -26477,8 +26938,8 @@ function ErrorResult(code, message) {
                             {
                               id: item.parent_element_id
                             },
-                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, " +
-                            "max_width, min_width, max_height, min_height, max_sq, reg_coeff"
+                            'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, ' +
+                              'max_width, min_width, max_height, min_height, max_sq, reg_coeff'
                           )
                           .then(function (result) {
                             //console.log('glass!!!!', result);
@@ -26545,21 +27006,18 @@ function ErrorResult(code, message) {
               GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].cameras
               );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_type = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_type
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_color = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_color
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].position = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].position
-              );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_type =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_type
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_color =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_color
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].position =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].position
+                );
               GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].img
               );
@@ -26569,16 +27027,14 @@ function ErrorResult(code, message) {
               GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].link
               );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].description = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].description
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_image = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_image
-              );
+              GlobalStor.global.glassesAll[g].glasses[l].description =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].description
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_image =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_image
+                );
             }
           }
 
@@ -26615,9 +27071,8 @@ function ErrorResult(code, message) {
             }
           }
 
-          GlobalStor.global.glassesAll[g].glassTypes = angular.copy(
-            newGlassesType
-          );
+          GlobalStor.global.glassesAll[g].glassTypes =
+            angular.copy(newGlassesType);
           GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
           delete GlobalStor.global.glassesAll[g].glassLists;
         }
@@ -26630,7 +27085,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
             null,
-            "type_id, min_width, max_width, min_height, max_height, group_id"
+            'type_id, min_width, max_width, min_height, max_height, group_id'
           )
           .then(function (result) {
             if (result && result.length) {
@@ -26652,9 +27107,9 @@ function ErrorResult(code, message) {
           if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
             // var url = globalConstants.serverIP + '' + urlSource;
             if (GlobalStor.global.isDevice) {
-              var imgName = urlSource.split("/").pop(),
+              var imgName = urlSource.split('/').pop(),
                 //targetPath = cordova.file.documentsDirectory + '' + imgName,
-                targetPath = cordova.file.dataDirectory + "" + imgName,
+                targetPath = cordova.file.dataDirectory + '' + imgName,
                 trustHosts = true,
                 options = {};
 
@@ -26664,10 +27119,10 @@ function ErrorResult(code, message) {
                 .download(url, targetPath, options, trustHosts)
                 .then(
                   function (result) {
-                    console.log("Success!", result);
+                    console.log('Success!', result);
                   },
                   function (err) {
-                    console.log("Error!", err);
+                    console.log('Error!', err);
                   },
                   function (progress) {
                     //console.log('progress!', progress);
@@ -26679,7 +27134,7 @@ function ErrorResult(code, message) {
             }
             return url;
           } else {
-            return "";
+            return '';
           }
         }
       }
@@ -26720,27 +27175,27 @@ function ErrorResult(code, message) {
         return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.locales_names.tableName,
-            null, 
-            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, es, table_attr"          
+            null,
+            'id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, es, table_attr'
           )
           .then(function (result) {
             if (result && result.length) {
-              GlobalStor.global.locales_names = angular.copy(result)
+              GlobalStor.global.locales_names = angular.copy(result);
             }
-          })
-        }
+          });
+      }
       /** download all lamination */
       function downloadAllLamination() {
         return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.lamination_factory_colors.tableName,
             null,
-            "id, name, lamination_type_id"
+            'id, name, lamination_type_id'
           )
           .then(function (lamin) {
             return lamin;
           });
-       }
+      }
 
       /** download lamination couples */
       function downloadLamCouples() {
@@ -26764,8 +27219,7 @@ function ErrorResult(code, message) {
                   ) {
                     GlobalStor.global.laminatCouples[
                       coupleQty
-                    ].laminat_in_name =
-                      GlobalStor.global.laminats[lam].name;
+                    ].laminat_in_name = GlobalStor.global.laminats[lam].name;
                     GlobalStor.global.laminatCouples[coupleQty].img_in_id =
                       GlobalStor.global.laminats[lam].lamination_type_id;
                   }
@@ -26776,8 +27230,7 @@ function ErrorResult(code, message) {
                   ) {
                     GlobalStor.global.laminatCouples[
                       coupleQty
-                    ].laminat_out_name =
-                      GlobalStor.global.laminats[lam].name;
+                    ].laminat_out_name = GlobalStor.global.laminats[lam].name;
                     GlobalStor.global.laminatCouples[coupleQty].img_out_id =
                       GlobalStor.global.laminats[lam].lamination_type_id;
                   }
@@ -26829,7 +27282,7 @@ function ErrorResult(code, message) {
               //------ for Grids
               elemGroupObj.elementType.push({
                 addition_type_id: 20,
-                name: ""
+                name: ''
               });
               elemGroupObj.elementsList = [addKits[i]];
             } else {
@@ -26845,7 +27298,7 @@ function ErrorResult(code, message) {
                 gridsQty = gridsSingl.length;
               if (gridsQty) {
                 while (--gridsQty > -1) {
-                  gridsSingl[gridsQty]["profile_id"] = 0;
+                  gridsSingl[gridsQty]['profile_id'] = 0;
                   delete gridsSingl[gridsQty].factory_id;
                 }
                 if (GlobalStor.global.addElementsAll[0].elementsList) {
@@ -26854,14 +27307,15 @@ function ErrorResult(code, message) {
                       GlobalStor.global.addElementsAll[0].elementsList
                     )
                   ) {
-                    GlobalStor.global.addElementsAll[0].elementsList[0] = GlobalStor.global.addElementsAll[0].elementsList[0].concat(
-                      gridsSingl
-                    );
+                    GlobalStor.global.addElementsAll[0].elementsList[0] =
+                      GlobalStor.global.addElementsAll[0].elementsList[0].concat(
+                        gridsSingl
+                      );
                   }
                 } else {
                   GlobalStor.global.addElementsAll[0].elementType.push({
                     addition_type_id: 20,
-                    name: ""
+                    name: ''
                   });
                   GlobalStor.global.addElementsAll[0].elementsList = [
                     gridsSingl
@@ -26876,41 +27330,41 @@ function ErrorResult(code, message) {
 
       function getAllAddElems() {
         var deff = $q.defer(),
-          promGroup = _.map(GlobalStor.global.addElementsAll, function (
-            group,
-            index
-          ) {
-            var deff1 = $q.defer();
-            //------- without Grids
-            if (index && group.elementsList && group.elementsList.length) {
-              var promElems = _.map(group.elementsList, function (item) {
-                var deff2 = $q.defer();
+          promGroup = _.map(
+            GlobalStor.global.addElementsAll,
+            function (group, index) {
+              var deff1 = $q.defer();
+              //------- without Grids
+              if (index && group.elementsList && group.elementsList.length) {
+                var promElems = _.map(group.elementsList, function (item) {
+                  var deff2 = $q.defer();
 
-                /** change Images Path and save in device */
-                // item.img = downloadElemImg(item.img);
+                  /** change Images Path and save in device */
+                  // item.img = downloadElemImg(item.img);
 
-                localDB
-                  .selectLocalDB(localDB.tablesLocalDB.elements.tableName, {
-                    id: item.parent_element_id
-                  })
-                  .then(function (result) {
-                    if (result && result.length) {
-                      GlobalStor.global.tempAddElements.push(
-                        angular.copy(result[0])
-                      );
-                      deff2.resolve(1);
-                    } else {
-                      deff2.resolve(0);
-                    }
-                  });
-                return deff2.promise;
-              });
-              deff1.resolve($q.all(promElems));
-            } else {
-              deff1.resolve(0);
+                  localDB
+                    .selectLocalDB(localDB.tablesLocalDB.elements.tableName, {
+                      id: item.parent_element_id
+                    })
+                    .then(function (result) {
+                      if (result && result.length) {
+                        GlobalStor.global.tempAddElements.push(
+                          angular.copy(result[0])
+                        );
+                        deff2.resolve(1);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                  return deff2.promise;
+                });
+                deff1.resolve($q.all(promElems));
+              } else {
+                deff1.resolve(0);
+              }
+              return deff1.promise;
             }
-            return deff1.promise;
-          });
+          );
         deff.resolve($q.all(promGroup));
         return deff.promise;
       }
@@ -26967,7 +27421,7 @@ function ErrorResult(code, message) {
               elemAllQty = addElemAll.length,
               defaultGroup = {
                 id: 0,
-                name: $filter("translate")("add_elements.OTHERS")
+                name: $filter('translate')('add_elements.OTHERS')
               },
               groups,
               newElemList,
@@ -27035,7 +27489,7 @@ function ErrorResult(code, message) {
                         widthTemp = 0;
                         heightTemp = 0;
                         switch (
-                        addElemAll[elemAllQty].elementsList[el].list_group_id
+                          addElemAll[elemAllQty].elementsList[el].list_group_id
                         ) {
                           case 21: // 1 - visors
                           case 9: // 2 - spillways
@@ -27064,12 +27518,10 @@ function ErrorResult(code, message) {
                           ].max_size = 5000;
                         }
 
-                        addElemAll[elemAllQty].elementsList[
-                          el
-                        ].element_width = widthTemp;
-                        addElemAll[elemAllQty].elementsList[
-                          el
-                        ].element_height = heightTemp;
+                        addElemAll[elemAllQty].elementsList[el].element_width =
+                          widthTemp;
+                        addElemAll[elemAllQty].elementsList[el].element_height =
+                          heightTemp;
                         addElemAll[elemAllQty].elementsList[el].element_qty = 1;
                         /** get price of element */
                         for (k = 0; k < tempElemQty; k += 1) {
@@ -27105,7 +27557,7 @@ function ErrorResult(code, message) {
                       //  return GeneralServ.sorting(a.position, b.position);
                       //});
                       /** sorting by name */
-                      elements = $filter("orderBy")(elements, "name");
+                      elements = $filter('orderBy')(elements, 'name');
 
                       newElemList.push(elements);
                     } else {
@@ -27114,9 +27566,8 @@ function ErrorResult(code, message) {
                   }
 
                   if (newElemList.length) {
-                    addElemAll[elemAllQty].elementsList = angular.copy(
-                      newElemList
-                    );
+                    addElemAll[elemAllQty].elementsList =
+                      angular.copy(newElemList);
                   } else {
                     addElemAll[elemAllQty].elementsList = 0;
                   }
@@ -27275,9 +27726,8 @@ function ErrorResult(code, message) {
                       );
                     }
                   }
-                  hardware_groups[x].profIds = hardware_groups[x].profIds.join(
-                    ", "
-                  );
+                  hardware_groups[x].profIds =
+                    hardware_groups[x].profIds.join(', ');
                 }
                 GlobalStor.global.doorLocks = angular.copy(hardware_groups);
               });
@@ -27312,17 +27762,17 @@ function ErrorResult(code, message) {
             }
           }
           if (isExist) {
-            profIds.push("hel" + profArr[i].accessory_id + "lo");
+            profIds.push('hel' + profArr[i].accessory_id + 'lo');
           }
         }
-        return profIds.join(", ");
+        return profIds.join(', ');
       }
 
       /**------ download Handles ------*/
 
       function downloadDoorHandles() {
         //36 офисная ручка , 35 нажимной гарнитур
-        var options = "id, name, list_type_id, parent_element_id";
+        var options = 'id, name, list_type_id, parent_element_id';
         localDB
           .selectLocalDB(
             localDB.tablesLocalDB.lists.tableName,
@@ -27333,9 +27783,8 @@ function ErrorResult(code, message) {
           )
           .then(function (handlData) {
             //console.warn('нажимной гарнитур', handlData);
-            GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(
-              handlData
-            );
+            GlobalStor.global.doorHandlers =
+              GlobalStor.global.doorHandlers.concat(handlData);
             localDB
               .selectLocalDB(
                 localDB.tablesLocalDB.lists.tableName,
@@ -27346,42 +27795,41 @@ function ErrorResult(code, message) {
               )
               .then(function (handlData) {
                 //console.warn('офисная ручка', handlData);
-                GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(
-                  handlData
-                );
+                GlobalStor.global.doorHandlers =
+                  GlobalStor.global.doorHandlers.concat(handlData);
 
                 /** download Locks */
                 downloadLocks();
                 accessoryHandles();
                 downloadDoorsItems();
                 //------- get link between handler and profile
-                var promises = _.map(GlobalStor.global.doorHandlers, function (
-                  item
-                ) {
-                  var deff = $q.defer();
-                  localDB
-                    .selectLocalDB(
-                      localDB.tablesLocalDB.lock_lists.tableName,
-                      {
-                        list_id: item.id
-                      },
-                      "accessory_id"
-                    )
-                    .then(function (profileIds) {
-                      //console.info('--prof---', profileIds);
-                      deff.resolve(profileIds);
-                    });
-                  return deff.promise;
-                });
+                var promises = _.map(
+                  GlobalStor.global.doorHandlers,
+                  function (item) {
+                    var deff = $q.defer();
+                    localDB
+                      .selectLocalDB(
+                        localDB.tablesLocalDB.lock_lists.tableName,
+                        {
+                          list_id: item.id
+                        },
+                        'accessory_id'
+                      )
+                      .then(function (profileIds) {
+                        //console.info('--prof---', profileIds);
+                        deff.resolve(profileIds);
+                      });
+                    return deff.promise;
+                  }
+                );
 
                 $q.all(promises).then(function (profData) {
                   var handleQty = GlobalStor.global.doorHandlers.length,
                     h;
                   for (h = 0; h < handleQty; h += 1) {
                     //--------- compare with profiles
-                    GlobalStor.global.doorHandlers[
-                      h
-                    ].profIds = checkHandleWProfile(profData[h]);
+                    GlobalStor.global.doorHandlers[h].profIds =
+                      checkHandleWProfile(profData[h]);
                   }
                 });
               });
@@ -27397,7 +27845,7 @@ function ErrorResult(code, message) {
             {
               list_group_id: 2
             },
-            "id, name, doorstep_type"
+            'id, name, doorstep_type'
           )
           .then(function (doorData) {
             var door = angular.copy(doorData),
@@ -27471,7 +27919,6 @@ function ErrorResult(code, message) {
         localDB
           .selectLocalDB(localDB.tablesLocalDB.doors_hardware_items.tableName)
           .then(function (doorData) {
-
             var items = angular.copy(doorData);
             for (var x = 0; x < items.length; x += 1) {
               items[x].parent_element_id = items[x].child_id;
@@ -27515,6 +27962,7 @@ function ErrorResult(code, message) {
                         );
                         /** download factory data */
                         downloadFactoryData();
+                        prepareSets();
                         /** download All Profiles */
                         downloadAllElemAsGroup(
                           localDB.tablesLocalDB.profile_system_folders
@@ -27561,44 +28009,51 @@ function ErrorResult(code, message) {
                                     downloadAllBackgrounds().then(function () {
                                       // console.log("downloadAllBackgrounds");
                                       /** download All AddElements */
-                                      downloadAllAddElements().then(function () {
-                                        // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
-                                        /** download All Lamination */
-                                        downloadAllLamination().then(function (result) {
-                                          if (result && result.length) {
-                                            GlobalStor.global.laminats = _.map(
-                                              angular.copy(result),
-                                              function (item) {
-                                                item.isActive = 0;
-                                                return item;
-                                              }
-                                            );
-                                            /** add white color */
-                                            GlobalStor.global.laminats.unshift({
-                                              id: 1,
-                                              lamination_type_id: 1,
-                                              isActive: 0,
-                                              name: "mainpage.WHITE_LAMINATION"
-                                            });
-                                            /** download lamination couples */
-                                            downloadLamCouples().then(
-                                              function () {
-                                                /** add white-white couple */
-                                                GlobalStor.global.laminatCouples.push(
-                                                  angular.copy(
-                                                    ProductStor.product
-                                                      .lamination
-                                                  )
+                                      downloadAllAddElements().then(
+                                        function () {
+                                          // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
+                                          /** download All Lamination */
+                                          downloadAllLamination().then(
+                                            function (result) {
+                                              if (result && result.length) {
+                                                GlobalStor.global.laminats =
+                                                  _.map(
+                                                    angular.copy(result),
+                                                    function (item) {
+                                                      item.isActive = 0;
+                                                      return item;
+                                                    }
+                                                  );
+                                                /** add white color */
+                                                GlobalStor.global.laminats.unshift(
+                                                  {
+                                                    id: 1,
+                                                    lamination_type_id: 1,
+                                                    isActive: 0,
+                                                    name: 'mainpage.WHITE_LAMINATION'
+                                                  }
+                                                );
+                                                /** download lamination couples */
+                                                downloadLamCouples().then(
+                                                  function () {
+                                                    /** add white-white couple */
+                                                    GlobalStor.global.laminatCouples.push(
+                                                      angular.copy(
+                                                        ProductStor.product
+                                                          .lamination
+                                                      )
+                                                    );
+                                                  }
                                                 );
                                               }
-                                            );
-                                          }
-                                          /** download Cart Menu Data */
-                                          downloadCartMenuData();
-                                          //console.timeEnd('start');
-                                          defer.resolve(1);
-                                        });
-                                      });
+                                              /** download Cart Menu Data */
+                                              downloadCartMenuData();
+                                              //console.timeEnd('start');
+                                              defer.resolve(1);
+                                            }
+                                          );
+                                        }
+                                      );
                                     });
                                   }
                                 });
@@ -27607,12 +28062,12 @@ function ErrorResult(code, message) {
                           }
                         });
                       } else {
-                        console.error("not find options_discounts!");
+                        console.error('not find options_discounts!');
                         defer.resolve(0);
                       }
                     });
                   } else {
-                    console.error("not find options_coefficients!");
+                    console.error('not find options_coefficients!');
                     defer.resolve(0);
                   }
                 });
@@ -27630,6 +28085,7 @@ function ErrorResult(code, message) {
         isLocalDBExist: isLocalDBExist,
         prepareLocationToUse: prepareLocationToUse,
         downloadAllCities: downloadAllCities,
+        prepareSets: prepareSets,
         collectCityIdsAsCountry: collectCityIdsAsCountry,
         setUserLocation: setUserLocation,
         setUserGeoLocation: setUserGeoLocation,
@@ -27953,718 +28409,7 @@ function ErrorResult(code, message) {
                         defer.resolve(0);
                     });
                     return defer.promise;
-                }  
-                needed_data().then(
-                    function(data) {
-                        try {
-                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
-                        Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
-                        /* TODO */ 
-                        //Block for profiles and profiles descriptions translations ***
-                        product.locales_names_addition_folders = data
-                        GlobalStor.global.locales_names_addition_folders = data
-                        //There are only profiles systems here
-                        const array_size = 100;
-                        const profiles_systems = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
-                            profiles_systems.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
-                        }
-                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(profiles_systems);
-                        const filtered_array_by_name = profiles_systems[0].filter(element => element.table_attr === "name")
-                        let profiles_data_profiles_types_array = GlobalStor.global.profiles[0];
-                        let profiles_data_second_array = GlobalStor.global.profiles[1];
-                        //Loop that runs through the profiles and pushes there translations from a filtered array
-                        for(let i = 0; i < profiles_data_profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_name.length; y++) {
-                                if(profiles_data_profiles_types_array[i].id === filtered_array_by_name[y].table_id) {
-                                    profiles_data_profiles_types_array[i]["translate"] = filtered_array_by_name[y]
-                                }
-                            }
-                        }
-                        //Loop that runs through the profiles and pushes there translations from a filtered array. Second one
-                        for(let i = 0; i < profiles_data_second_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_name.length; y++) {
-                                if(profiles_data_second_array[i].id === filtered_array_by_name[y].table_id) {
-                                    profiles_data_second_array[i]["translate"] = filtered_array_by_name[y]
-                                }
-                            }
-                        }
-                        //Filtred array contains only descriptions translations
-                        const filtered_array_by_description = profiles_systems[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < profiles_data_profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_description.length; y++) {
-                                if(profiles_data_profiles_types_array[i].id === filtered_array_by_description[y].table_id) {
-                                    profiles_data_profiles_types_array[i]["description"] = filtered_array_by_description[y]
-    
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < profiles_data_second_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_description.length; y++) {
-                                if(profiles_data_second_array[i].id === filtered_array_by_description[y].table_id) {
-                                    profiles_data_second_array[i]["description"] = filtered_array_by_description[y]
-                                }
-                            }
-                        }
-                        //Block for profiles and profiles descriptions translations end ***
-
-                        //Block for systems_folders translation start ***
-                        const system_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders; i += array_size) {
-                            system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders.slice(i, i + array_size));
-                        }
-                        system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders);
-                        //Filtred array contains only system_folders names
-                        const filtered_array = system_folders[0].filter(element => element.table_attr === "name")
-                        let profiles_types_array = GlobalStor.global.profilesType;
-                        for(let i = 0; i < profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array.length; y++) {
-                                if(profiles_types_array[i].id === filtered_array[y].table_id) {
-                                    profiles_types_array[i]["translate"] = filtered_array[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_profile_system_folder = system_folders[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < profiles_types_array.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_profile_system_folder.length; y++) {
-                                if(profiles_types_array[i].id === array_filtered_by_description_profile_system_folder[y].table_id) {
-                                    profiles_types_array[i]["description"] = array_filtered_by_description_profile_system_folder[y]
-                                }
-                            }
-                        }
-                        
-                        //Block for systems_folders translation end ***
-                        
-                        //Block for glasses folder starts ***
-                        const glasses_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders; i += array_size) {
-                            glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders.slice(i, i + array_size));
-                        }
-                        glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders);
-                        const array_filtered_by_names_glasses_folders = glasses_folders[0].filter(element => element.table_attr === "name")
-                        let glasses_folders_array_first = GlobalStor.global.glassTypes;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_glasses_folders.length; y++) {
-                                if(glasses_folders_array_first[i].id === array_filtered_by_names_glasses_folders[y].table_id) {
-                                    glasses_folders_array_first[i]["translate"] = array_filtered_by_names_glasses_folders[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_folders = glasses_folders[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
-                               if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
-                                glasses_folders_array_first[i]["description"] = array_filtered_by_description_folders[y]
-                               }
-                           }
-                       }
-                        //Block for glasses folder end ***
-
-
-                        //Block for hardware groups start***
-                        const hardware_groups = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups; i += array_size) {
-                            hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups.slice(i, i + array_size));
-                        }
-                        hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups);
-                        const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
-                        //First looop for first array
-                        let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        if (hardware_groups_array_first) {
-                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
-                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                    if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                        hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
-                                    }
-                                }
-                            }
-                        }
-
-                        //Second loop for second array
-                        let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        if (hardware_groups_array_second) {
-                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
-                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                    if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                        hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
-                                    }
-                                }
-                            }
-                        }
-
-                        const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        if (hardware_groups_array_first) {
-                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
-                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                                    if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                        hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                                    }
-                                }
-                            }
-                        }
-
-                        if (hardware_groups_array_second) {
-                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
-                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                                    if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                        hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                                    }
-                                }
-                            }
-                        }
-                        //Block for hardware goups end ***
-
-                        //Block for hardware folders start ***
-                        const hardware_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders; i += array_size) {
-                            hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders.slice(i, i + array_size));
-                        }
-                        hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders);
-                        const array_filtered_by_names_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "name")
-                        //First looop for first array
-                        let hardware_folders_array_first = GlobalStor.global.hardwareTypes;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_folders.length; y++) {
-                                if(hardware_folders_array_first[i].id === array_filtered_by_names_hardware_folders[y].table_id) {
-                                    hardware_folders_array_first[i]["translate"] = array_filtered_by_names_hardware_folders[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "description")
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_hardware_folders.length; y++) {
-                                if(hardware_folders_array_first[i].id === array_filtered_by_description_hardware_folders[y].table_id) {
-                                    hardware_folders_array_first[i]["description"] = array_filtered_by_description_hardware_folders[y]
-                                }
-                            }
-                        }
-                        //Block for hardware folders end ***
-
-
-                        //Block for additional folders elements starts ***
-                        const additional_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders; i += array_size) {
-                            additional_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders.slice(i, i + array_size));
-                        }
-                        additional_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders);
-                        const array_filtered_by_names_additional_folders = additional_folders[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_descriptions_additional_folders = additional_folders[0].filter(element => element.table_attr === "description")
-
-                        let additional_folders_array_zero = GlobalStor.global.addElementsAll[1].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_zero[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_zero[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_zero[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                   additional_folders_array_zero[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_first = GlobalStor.global.addElementsAll[2].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_first[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                     additional_folders_array_first[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_first[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_first[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_second = GlobalStor.global.addElementsAll[6].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_second[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_second[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_second[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_second[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_third = GlobalStor.global.addElementsAll[8].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_third.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_third[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_third[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_third[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_third[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_fourth = GlobalStor.global.addElementsAll[9].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fourth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fourth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_fourth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_fourth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_fourth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_fifth = GlobalStor.global.addElementsAll[10].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fifth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fifth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_fifth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_fifth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_fifth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_sixth = GlobalStor.global.addElementsAll[16].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_sixth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_sixth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_sixth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_sixth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_sixth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_seventh = GlobalStor.global.addElementsAll[17].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_seventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_seventh[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_seventh[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_seventh[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_seventh[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        //Block for additional folders elements end  ***
-
-
-                        //Block for additional elements start ***
-                        const additional_elements = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lists; i += array_size) {
-                            additional_elements.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(i, i + array_size));
-                        }
-                        additional_elements.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
-                        const array_filtered_by_names_additional_elements = additional_elements[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_description_additional_elements = additional_elements[0].filter(element => element.table_attr === "description")
-                        /* Loop for zero element */
-                        let additional_elements_array_first_zero = GlobalStor.global.addElementsAll[1].elementsList;
-                        for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_first_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_first_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for zero element end */
-                        
-                        /* Loop for first element  */
-                        let additional_elements_array_first_first = GlobalStor.global.addElementsAll[1].elementsList;
-                        for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_first[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_first[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_first_first[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_first_first[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for first element  END*/
-
-                        /* Loop for second element  */
-                        let additional_elements_array_second = GlobalStor.global.addElementsAll[2].elementsList;
-                        for(let i = 0; i < additional_elements_array_second.length; i++) {
-                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_second[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_second[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_second.length; i++) {
-                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_second[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_second[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for second element end */
-
-                        /* For the sixth element */
-                        let additional_elements_array_sixth_zero = GlobalStor.global.addElementsAll[6].elementsList;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_sixth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* End loop for sixth element */
-
-                        /* For the eight element */
-                        let additional_elements_array_eighth_zero = GlobalStor.global.addElementsAll[8].elementsList;
-                        for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_eighth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_eighth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* End for eight element */
-
-                        /* Loop for ninth element */
-                        let additional_elements_array_ninth = GlobalStor.global.addElementsAll[9].elementsList;
-                        for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_ninth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_ninth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_ninth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_ninth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for ninth element end */
-    
-                        /* Loop for teenth element */
-                        let additional_elements_array_teenth = GlobalStor.global.addElementsAll[10].elementsList;
-                        for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_teenth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_teenth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_teenth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_teenth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for teenth element end */
-
-                        /* Loop for sixtenth element */
-                        let additional_elements_array_sixteenth_zero = GlobalStor.global.addElementsAll[16].elementsList;
-                        for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixteenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_sixteenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for sixtenth element END */
-                        
-                        /* Loop for seventh element */
-                        let additional_elements_array_seventeenth_zero = GlobalStor.global.addElementsAll[17].elementsList;
-                        for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_seventeenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_seventeenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for seventh element  END*/
-                        //Block for additional elements end ***
-                        
-                        //Block for mosquitos start ***
-                        const mosquitos = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos; i += array_size) {
-                            mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos.slice(i, i + array_size));
-                        }
-                        mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos)
-                        const array_filtered_by_name_mosquitos = mosquitos[0].filter(element => element.table_attr === "name")
-
-                        let mosquitos_array = GlobalStor.global.addElementsAll[0].elementsList[0];
-                        for(let i = 0; i < mosquitos_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_name_mosquitos.length; y++) {
-                                    if(mosquitos_array[i].id === array_filtered_by_name_mosquitos[y].table_id) {
-                                        mosquitos_array[i]["translate"] = array_filtered_by_name_mosquitos[y]
-                                }
-                            }
-                        }
-
-                        //Block for mosquitos end ***
-
-                        //Block for mosquitos SINGLE start ***
-
-                        // const mosquitos_single = [];
-                        // for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles; i += array_size) {
-                        //     mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles.slice(i, i + array_size));
-                        // }
-                        // mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles);
-                        // const array_filtered_by_names_mosquitos_single = mosquitos_single[0].filter(element => element.table_attr === "name")
-
-                        // let mosquitos_single_elements_array_zero = GlobalStor.global.addElementsAll[0].elementsList[0];
-                        // //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        //  for(let i = 0; i < mosquitos_single_elements_array_zero.length; i++) {
-                        //      for(let y = 0; y < array_filtered_by_names_mosquitos_single.length; y++) {
-                        //          if(mosquitos_single_elements_array_zero[i].id === array_filtered_by_names_mosquitos_single[y].table_id) {
-                        //             mosquitos_single_elements_array_zero[i]["translate"] = array_filtered_by_names_mosquitos_single[y]
-                        //         }
-                        //     }
-                        // }
-                        //Block for mosquitos SINGLE end ***
-
-
-                       //Block for laminations start ***
-                       const laminations = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
-                       
-                       const array_filtered_by_names_laminations = laminations[0].filter(element => element.table_attr === "name")
-                       let laminations_array = GlobalStor.global.laminats;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations.length; y++) {
-                                    if(laminations_array[i].id === array_filtered_by_names_laminations[y].table_id) {
-                                        laminations_array[i]["translate"] = array_filtered_by_names_laminations[y]
-                                } 
-                            }
-                        }
-                       //Block for laminations end ***
-
-
-                       //Block for lamination-couplese start ***
-                       const laminations_couples = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
-
-                       const array_filtered_by_names_laminations_couples = laminations_couples[0].filter(element => element.table_attr === "name")
-
-                        let laminations_couples_array = GlobalStor.global.laminatCouples;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_couples_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations_couples.length; y++) {
-                                    if(laminations_couples_array[i].lamination_in_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_in_id"] = array_filtered_by_names_laminations_couples[y]
-                                    } if(laminations_couples_array[i].lamination_out_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_out_id"] = array_filtered_by_names_laminations_couples[y]
-                                    }
-                            }
-                        }
-                       //Block for lamination-couplese end ***
-
-
-                        //Block for glasses translations starts ***
-                        const glasses = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lists; i += array_size) {
-                            system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(i, i + array_size));
-                        }
-                        glasses.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
-                        //Filtred array contains only glasses names
-                        const array_filtered_by_names_glasses = glasses[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_description_glasses_first = glasses[0].filter(element => element.table_attr === "description")
-                        let glasses_array_first = GlobalStor.global.glasses;
-
-                        for(let i = 0; i < glasses_array_first.length; i++) {
-                            for(let y = 0; y < glasses_array_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_glasses.length; z++) {
-                                    if(glasses_array_first[i][y].id === array_filtered_by_names_glasses[z].table_id) {
-                                        glasses_array_first[i][y]["translate"] = array_filtered_by_names_glasses[z]
-                                    }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < glasses_array_first.length; i++) {
-                            for(let y = 0; y < glasses_array_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_glasses_first.length; z++) {
-                                    if(glasses_array_first[i][y].id === array_filtered_by_description_glasses_first[z].table_id) {
-                                        glasses_array_first[i][y]["description"] = array_filtered_by_description_glasses_first[z]
-                                    }
-                                }
-                            }
-                        }
-                        } catch (e) {
-                            console.log(e)
-                        }
-                        //Block for glasses translations end ****************
-                        // Hardware display logic that fits only a certain profile
-
-                        //Download data from backend
-                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
-                        //Clearing hardwares arrays
-                        GlobalStor.global.hardwares = []
-                        //Loop for windowHardwareProfileSystem elements 
-                        for (let element of windowHardwareProfileSystem) {
-                            //Get current profile id
-                            let currentProfileId = ProductStor.product.profile.id;
-                            //Check if current profile id equal to element from backend 
-                            if (element.profile_system_id === currentProfileId) {
-                                //Local variables for different manipulation
-                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
-                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
-                                    if (filteredHardwares.length) {
-                                        if (!GlobalStor.global.hardwares[index]) {
-                                            GlobalStor.global.hardwares[index] = []
-                                        }
-                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
-                                    }
-                                })
-                            }
-                        }
-                        setCurrentHardware(ProductStor.product);
-                        if (ProductStor.product.profile.id) {
-                            preparePrice(
-                                ProductStor.product.template,
-                                ProductStor.product.profile.id,
-                                ProductStor.product.glass,
-                                ProductStor.product.hardware.id,
-                                ProductStor.product.lamination.lamination_in_id)
-                        } 
-                    }
-                )
-               
+                }
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
@@ -33728,6 +33473,9 @@ function ErrorResult(code, message) {
 
     /**============ METHODS ================*/
     function selectProfile(newId) {
+      if (ProductStor.product.currentSet) {
+        ProductStor.product.currentSet = 0;
+      }
       GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.continued = 0;
       profileForAlert(newId);

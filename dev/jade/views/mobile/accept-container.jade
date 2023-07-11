@@ -1,19 +1,19 @@
 .accept-container
-    .row(ng-if="mobilePage.isSet(3) && mobilePage.G.global.activePanel !== 2 && mobilePage.G.global.activePanel !== 3 && mobilePage.G.global.activePanel !== 4 && mobilePage.G.global.activePanel !== 5")
+    .row(ng-if="mobilePage.isSet(3) && mobilePage.G.global.activePanel !== 2 && mobilePage.G.global.activePanel !== 3 && mobilePage.G.global.activePanel !== 4 && mobilePage.G.global.activePanel !== 5 && mobilePage.G.global.activePanel !== 7 && mobilePage.G.global.activePanel !== 6")
         .selected-profile
             .accept-container-header
                 .header-title Конфигурация
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item Задайте параметры вашего окна
 
-    .row(ng-if="!mobilePage.isSet(1) && mobilePage.G.global.activePanel !== 6")
+    .row(ng-if="!mobilePage.isSet(1)")
         //СТЕКЛОПАКЕТ
         .selected-profile(ng-if="mobilePage.G.global.activePanel === 3")
             .accept-container-header
                 .header-title Стеклопакет
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item(ng-if="mobilePage.P.product.glass.length == 1") {{ mobilePage.P.product.glass[0].sku }}
             .accept-container-item(ng-if="mobilePage.P.product.glass.length == 2") {{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}
             .accept-container-item(ng-if="mobilePage.P.product.glass.length > 2") {{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}
@@ -22,7 +22,7 @@
             .accept-container-header
                 .header-title Фурнитура
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item(ng-if="mobilePage.P.product.construction_type !== 4") {{ mobilePage.P.product.hardware.name }}
             .accept-container-item(ng-if="mobilePage.P.product.construction_type === 4") {{ mobilePage.P.product.doorHandle.name }}
             .accept-container-item(ng-if="mobilePage.P.product.construction_type === 4") {{ mobilePage.P.product.doorLock.name }}
@@ -31,7 +31,7 @@
             .accept-container-header
                 .header-title Профиль
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item(ng-if="mobilePage.P.product.construction_type !== 4") {{ mobilePage.P.product.profile.name }}
             .accept-container-item(ng-if="mobilePage.P.product.construction_type === 4") {{ mobilePage.P.product.doorName | translate }}
             .accept-container-item(ng-if="mobilePage.P.product.construction_type === 4") {{ mobilePage.P.product.doorSashName }}
@@ -40,12 +40,24 @@
             .accept-container-header
                 .header-title Ламинация
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item {{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
+        .selected-profile(ng-if="mobilePage.G.global.activePanel === 7")
+            .accept-container-header
+                .header-title Наборы
+                .close-icon
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
+            .accept-container-item Набор {{ mobilePage.P.product.currentSet }}
+        .selected-profile(ng-if="mobilePage.G.global.activePanel === 6")
+            .accept-container-header
+                .header-title Аксессуары
+                .close-icon
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
+            .accept-container-item Выберите аксессуары
     .row(ng-if="mobilePage.isSet(1)")
         .selected-profile
             .accept-container-header
                 .header-title {{mobilePage.TEMPLATE_SELECTION}}
                 .close-icon
-                    img(ng-click="mobilePage.closePanelMobile()" src="img/red-cross-icon.svg", alt="red cross")
+                    img(ng-click="mobilePage.closePanelMobile()" src="img/black-cross.svg", alt="red cross")
             .accept-container-item {{ mobilePage.P.product.template_source.name }}

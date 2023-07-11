@@ -22,30 +22,30 @@
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].name}}
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'es' && !glassPanel.G.global.glassTypes[$index].translate.es") {{glassPanel.G.global.glassTypes[$index].name}}
                 p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ro' && !glassPanel.G.global.glassTypes[$index].translate.ro") {{glassPanel.G.global.glassTypes[$index].name}}
-                .dropdown-icon
-                    img(src="img/dropdown-icon.svg", alt="Dropdown icon")
+                .dropdown-icon(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
+                    img(src="img/dropdown-arrow.svg", alt="Dropdown icon")
             .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
                 .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
                     .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'en' && glass.translate.en") {{glass.translate.en}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ru' && glass.translate.ru") {{glass.translate.ru}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'uk' && glass.translate.ua") {{glass.translate.ua}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'pl' && glass.translate.pl") {{glass.translate.pl}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'de' && glass.translate.de") {{glass.translate.de}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'bg' && glass.translate.bg") {{glass.translate.bg}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'it' && glass.translate.it") {{glass.translate.it}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'es' && glass.translate.es") {{glass.translate.es}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ro' && glass.translate.ro") {{glass.translate.ro}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'en' && glass.translate.en") {{glass.translate.en}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' && glass.translate.ru") {{glass.translate.ru}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' && glass.translate.ua") {{glass.translate.ua}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' && glass.translate.pl") {{glass.translate.pl}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'de' && glass.translate.de") {{glass.translate.de}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' && glass.translate.bg") {{glass.translate.bg}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'it' && glass.translate.it") {{glass.translate.it}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'es' && glass.translate.es") {{glass.translate.es}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' && glass.translate.ro") {{glass.translate.ro}}
 
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glass.translate.en") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glass.translate.ru") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glass.translate.ua") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glass.translate.pl") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glass.translate.de") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glass.translate.bg") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glass.translate.it") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'es' && !glass.translate.es") {{glass.sku}}
-                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ro' && !glass.translate.ro") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glass.translate.en") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glass.translate.ru") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glass.translate.ua") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glass.translate.pl") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glass.translate.de") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glass.translate.bg") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glass.translate.it") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'es' && !glass.translate.es") {{glass.sku}}
+                        p(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' && !glass.translate.ro") {{glass.sku}}
                     .info(ng-if="glass.img.length && glass.description", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
     .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
         .dialog-inner-mob

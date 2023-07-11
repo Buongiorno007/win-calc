@@ -10,36 +10,38 @@
     </div>
   </div>
   <div class="cart-dialog-body">
-    <div class="cart-dialog-label bold">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT }}</div>
-    <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT_1 }}</div>
-    <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field-mobile red-field">
-      <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME_SHORT }}" required class="user-field red-field">
-      <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">!</div>
-    </div>
-    <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required }" class="input-field-mobile red-field">
-      <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_SHORT }}" required class="user-field red-field">
-      <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">!</div>
-    </div>
-    <div class="input-field-mobile">
-      <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" class="user-field">
-    </div>
-    <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
-      <input id="impLocation" type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" class="user-field">
-      <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">!</div>
-      <div ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
-        <div ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</div>
+    <div>
+      <div class="cart-dialog-label bold">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT }}</div>
+      <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT_1 }}</div>
+      <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field-mobile">
+        <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME_SHORT }}" required class="user-field">
+        <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">!</div>
       </div>
-    </div>
-    <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
-      <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" class="user-field street">
-    </div>
-    <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
-      <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" class="user-field small">
-      <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" class="user-field small">
-      <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" class="user-field small">
-    </div>
-    <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
-      <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+      <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required }" class="input-field-mobile">
+        <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_SHORT }}" required class="user-field">
+        <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">!</div>
+      </div>
+      <div class="input-field-mobile">
+        <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" class="user-field">
+      </div>
+      <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
+        <input id="impLocation" type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" class="user-field">
+        <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">!</div>
+        <div ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
+          <div ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</div>
+        </div>
+      </div>
+      <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
+        <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" class="user-field street">
+      </div>
+      <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
+        <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" class="user-field small">
+        <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" class="user-field small">
+        <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" class="user-field small">
+      </div>
+      <div ng-if="orderForm.U.userInfo.user_type !== 8" class="input-field-mobile">
+        <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+      </div>
     </div>
     <button type="submit" class="save">{{ ::orderForm.READY }}</button>
   </div>

@@ -20,7 +20,7 @@
     }
 }
 .message-alert {
-    color: rgba(255, 255, 255, 0.85);
+    color: #000;
     font-size: large;
     position: relative;
     text-align: left;
@@ -30,6 +30,7 @@
     width: 80%;
     max-width: 83%;
     z-index: 1;
+    margin-bottom: 75px
   }
 .close-danger-alert {
     @extend .small-cross-btn;

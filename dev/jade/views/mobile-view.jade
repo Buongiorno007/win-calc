@@ -12,18 +12,18 @@
         .common-content-style.config-content(ng-if="mobilePage.isSet(3)")
             include mobile/config-mobile
 
-    .control-buttons-container
+    .control-buttons-container(ng-if="!mobilePage.isSet(4)")
         .templates.control-button(ng-click="mobilePage.setTab(1)" ng-class="{ active: mobilePage.isSet(1) }")
             .img-common.templates-img
             p {{mobilePage.ROOM_SELECTION}}
-        .karkas.control-button(ng-click="mobilePage.setTab(2)" ng-class="{ active: mobilePage.isSet(2) }")
-            .img-common.karkas-img
-            p {{mobilePage.KARKAS}}
-        .config.control-button(ng-click="mobilePage.setTab(3)" ng-class="{ active: mobilePage.isSet(3) }")
+        .config.control-button(ng-click="mobilePage.setTab(3)" ng-class="{ active: mobilePage.isSet(3) && mobilePage.G.global.activePanel !== 6 }")
             .img-common.config-img
             p {{mobilePage.KONFIG}}
+        .karkas.control-button(ng-click="mobilePage.setTab(6)" ng-class="{ active: mobilePage.G.global.activePanel === 6 }")
+            .img-common.karkas-img
+            p {{mobilePage.KARKAS}}
         .cart.control-button(ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }")
-            .img-common.cart-img
+            .cart-img
                 .qty-mobile#qty-mobile
                     span {{ mobilePage.G.global.construction_count }}
             p {{mobilePage.CART}}
@@ -31,11 +31,12 @@
     //- in order for the mobile version to be able to open the side menu, just uncomment
 
     .burger(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
-    section.mobile_disable(ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger:active")
+    section.mobile_disable(ng-if="mobilePage.U.userInfo.user_type !== 8")
         include mobile/left-menu-mobile
     include mobile/door-settings-mobile
     include mobile/heat-coef-mobile
     include mobile/profiles-mobile
+    include mobile/sets-mobile
     include mobile/glass-mobile
     include mobile/grid-selector-mobile
     include mobile/hardwares-mobile

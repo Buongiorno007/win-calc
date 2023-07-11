@@ -1156,7 +1156,7 @@
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 80,
+                                            'dx': 140,
                                             'dy': 40,
                                             'type': 'line',
                                             'block_id': dim.blockId,

@@ -1,8 +1,8 @@
 (function () {
-  "use strict";
+  'use strict';
   /**@ngInject*/
-  angular.module("LoginModule").factory(
-    "loginServ",
+  angular.module('LoginModule').factory(
+    'loginServ',
 
     function (
       $q,
@@ -96,6 +96,46 @@
         return defer.promise;
       }
 
+      function prepareSets() {
+        var deff = $q.defer();
+
+        localDB
+          .selectLocalDB('categories_sets')
+          .then(function (setsCategories) {
+            GlobalStor.global.setsCategories = setsCategories;
+            return localDB.selectLocalDB('sets');
+          })
+          .then(function (sets) {
+            GlobalStor.global.setsCategories[0].setsForCategory = sets;
+            return localDB.selectLocalDB('set_data');
+          })
+          .then(function (set) {
+            for (
+              let i = 0;
+              i < GlobalStor.global.setsCategories[0].setsForCategory.length;
+              i++
+            ) {
+              GlobalStor.global.setsCategories[0].setsForCategory[i].set = [];
+              for (let j = 0; j < set.length; j++) {
+                if (
+                  GlobalStor.global.setsCategories[0].setsForCategory[i].id ===
+                  set[j].sets_id
+                ) {
+                  GlobalStor.global.setsCategories[0].setsForCategory[
+                    i
+                  ].set.push(set[j]);
+                }
+              }
+            }
+            deff.resolve(1);
+          })
+          .catch(function (err) {
+            console.error(err);
+            deff.resolve(0);
+          });
+        return deff.promise;
+      }
+
       function downloadAllCities() {
         var deff = $q.defer(),
           countryQty,
@@ -128,17 +168,17 @@
                   ) {
                     if (GlobalStor.global.locations.cities[cityQty].areasName) {
                       GlobalStor.global.locations.cities[cityQty].fullLocation =
-                        "" +
+                        '' +
                         GlobalStor.global.locations.cities[cityQty].name +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.cities[cityQty].areasName +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.regions[regionQty].name;
                     } else {
                       GlobalStor.global.locations.cities[cityQty].fullLocation =
-                        "" +
+                        '' +
                         GlobalStor.global.locations.cities[cityQty].name +
-                        ", " +
+                        ', ' +
                         GlobalStor.global.locations.regions[regionQty].name;
                     }
                     GlobalStor.global.locations.cities[cityQty].climatic_zone =
@@ -195,8 +235,8 @@
               GlobalStor.global.locations.cities[cityQty].country_id;
             UserStor.userInfo.climatic_zone =
               GlobalStor.global.locations.cities[cityQty].climatic_zone;
-            UserStor.userInfo.heat_transfer = +GlobalStor.global.locations
-              .cities[cityQty].heat_transfer;
+            UserStor.userInfo.heat_transfer =
+              +GlobalStor.global.locations.cities[cityQty].heat_transfer;
             UserStor.userInfo.fullLocation =
               GlobalStor.global.locations.cities[cityQty].fullLocation;
             while (--regionQty > -1) {
@@ -259,7 +299,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.factories.tableName,
             null,
-            "therm_coeff_id, link, max_construct_size, max_construct_square"
+            'therm_coeff_id, link, max_construct_size, max_construct_square'
           )
           .then(function (result) {
             var heat_transfer = UserStor.userInfo.heat_transfer,
@@ -277,7 +317,7 @@
                   );
                 }
                 //-------- check factory Link
-                if (result[0].link !== "null") {
+                if (result[0].link !== 'null') {
                   UserStor.userInfo.factoryLink = angular.copy(result[0].link);
                 }
                 //-------- sizes limits
@@ -305,7 +345,6 @@
               UserStor.userInfo.heat_transfer,
               UserStor.userInfo.fullLocation
             );
-
           });
       }
 
@@ -316,7 +355,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.currencies.tableName,
             null,
-            "id, is_base, name, value"
+            'id, is_base, name, value'
           )
           .then(function (currencies) {
             var currencQty = currencies.length;
@@ -327,23 +366,23 @@
                 if (currencies[currencQty].is_base === 1) {
                   UserStor.userInfo.currencyId = currencies[currencQty].id;
                   if (/uah/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20b4"; //'₴';
+                    UserStor.userInfo.currency = '\u20b4'; //'₴';
                   } else if (/rub/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\ue906"; // '\u20BD';//'₽';
+                    UserStor.userInfo.currency = '\ue906'; // '\u20BD';//'₽';
                   } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "$";
+                    UserStor.userInfo.currency = '$';
                   } else if (/eur/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20AC"; //'€';
+                    UserStor.userInfo.currency = '\u20AC'; //'€';
                   } else if (/kzt/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\u20B8"; //'TENGE';
+                    UserStor.userInfo.currency = '\u20B8'; //'TENGE';
                   } else {
-                    UserStor.userInfo.currency = "\xA4"; //Generic Currency Symbol
+                    UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
                   }
                 }
               }
               defer.resolve(1);
             } else {
-              console.error("not find currencies!");
+              console.error('not find currencies!');
               defer.resolve(0);
             }
           });
@@ -361,7 +400,7 @@
           //#setBase64Avatar(url, function (base64Img) {
           //#});
         } else {
-          localforage.getItem("userAvatar", function (err, value) {
+          localforage.getItem('userAvatar', function (err, value) {
             UserStor.userInfo.avatar = value;
           });
         }
@@ -383,12 +422,12 @@
                 disQty = disKeys.length,
                 dis;
               for (dis = 0; dis < disQty; dis += 1) {
-                if (disKeys[dis].indexOf("week") + 1) {
-                  if (disKeys[dis].indexOf("construct") + 1) {
+                if (disKeys[dis].indexOf('week') + 1) {
+                  if (disKeys[dis].indexOf('construct') + 1) {
                     UserStor.userInfo.discConstrByWeek.push(
                       +discounts[disKeys[dis]]
                     );
-                  } else if (disKeys[dis].indexOf("add_elem") + 1) {
+                  } else if (disKeys[dis].indexOf('add_elem') + 1) {
                     UserStor.userInfo.discAddElemByWeek.push(
                       +discounts[disKeys[dis]]
                     );
@@ -397,7 +436,7 @@
               }
               defer.resolve(1);
             } else {
-              console.error("not find users_discounts!");
+              console.error('not find users_discounts!');
               defer.resolve(0);
             }
           });
@@ -410,7 +449,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
-            "margin, coeff"
+            'margin, coeff'
           )
           .then(function (margins) {
             return margins;
@@ -422,7 +461,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
-            "area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies"
+            'area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies'
           )
           .then(function (coeffs) {
             return coeffs;
@@ -446,8 +485,8 @@
         localDB.selectLocalDB(tableGroup).then(function (result) {
           /** sorting types by position */
           var types = angular.copy(result).sort(function (a, b) {
-            return GeneralServ.sorting(a.position, b.position);
-          }),
+              return GeneralServ.sorting(a.position, b.position);
+            }),
             typesQty = types.length;
           if (typesQty) {
             groups.length = 0;
@@ -566,27 +605,30 @@
           //        console.log('data!!!!', data);
           if (data) {
             //-------- select all glass Ids as to profile Id
-            var promises3 = _.map(GlobalStor.global.glassesAll, function (item) {
-              var defer3 = $q.defer();
-              localDB
-                .selectLocalDB(
-                  localDB.tablesLocalDB.elements_profile_systems.tableName,
-                  {
-                    profile_system_id: item.profileId
-                  },
-                  "element_id"
-                )
-                .then(function (glassId) {
-                  //console.warn('glass+++', glassId);
-                  var glassIdQty = glassId.length;
-                  if (glassIdQty) {
-                    defer3.resolve(glassId);
-                  } else {
-                    defer3.resolve(0);
-                  }
-                });
-              return defer3.promise;
-            });
+            var promises3 = _.map(
+              GlobalStor.global.glassesAll,
+              function (item) {
+                var defer3 = $q.defer();
+                localDB
+                  .selectLocalDB(
+                    localDB.tablesLocalDB.elements_profile_systems.tableName,
+                    {
+                      profile_system_id: item.profileId
+                    },
+                    'element_id'
+                  )
+                  .then(function (glassId) {
+                    //console.warn('glass+++', glassId);
+                    var glassIdQty = glassId.length;
+                    if (glassIdQty) {
+                      defer3.resolve(glassId);
+                    } else {
+                      defer3.resolve(0);
+                    }
+                  });
+                return defer3.promise;
+              }
+            );
 
             $q.all(promises3).then(function (glassIds) {
               //-------- get glass as to its Id
@@ -609,8 +651,8 @@
                         parent_element_id: item.element_id,
                         list_group_id: 6
                       },
-                      "id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, " +
-                      "img, link, glass_image, glass_type, glass_color"
+                      'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, ' +
+                        'img, link, glass_image, glass_type, glass_color'
                     )
                     .then(function (result2) {
                       // console.log('list +++++', result2);
@@ -654,8 +696,8 @@
                             {
                               id: item.parent_element_id
                             },
-                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, " +
-                            "max_width, min_width, max_height, min_height, max_sq, reg_coeff"
+                            'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, ' +
+                              'max_width, min_width, max_height, min_height, max_sq, reg_coeff'
                           )
                           .then(function (result) {
                             //console.log('glass!!!!', result);
@@ -722,21 +764,18 @@
               GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].cameras
               );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_type = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_type
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_color = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_color
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].position = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].position
-              );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_type =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_type
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_color =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_color
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].position =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].position
+                );
               GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].img
               );
@@ -746,16 +785,14 @@
               GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(
                 GlobalStor.global.glassesAll[g].glassLists[l].link
               );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].description = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].description
-              );
-              GlobalStor.global.glassesAll[g].glasses[
-                l
-              ].glass_image = angular.copy(
-                GlobalStor.global.glassesAll[g].glassLists[l].glass_image
-              );
+              GlobalStor.global.glassesAll[g].glasses[l].description =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].description
+                );
+              GlobalStor.global.glassesAll[g].glasses[l].glass_image =
+                angular.copy(
+                  GlobalStor.global.glassesAll[g].glassLists[l].glass_image
+                );
             }
           }
 
@@ -792,9 +829,8 @@
             }
           }
 
-          GlobalStor.global.glassesAll[g].glassTypes = angular.copy(
-            newGlassesType
-          );
+          GlobalStor.global.glassesAll[g].glassTypes =
+            angular.copy(newGlassesType);
           GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
           delete GlobalStor.global.glassesAll[g].glassLists;
         }
@@ -807,7 +843,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
             null,
-            "type_id, min_width, max_width, min_height, max_height, group_id"
+            'type_id, min_width, max_width, min_height, max_height, group_id'
           )
           .then(function (result) {
             if (result && result.length) {
@@ -829,9 +865,9 @@
           if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
             // var url = globalConstants.serverIP + '' + urlSource;
             if (GlobalStor.global.isDevice) {
-              var imgName = urlSource.split("/").pop(),
+              var imgName = urlSource.split('/').pop(),
                 //targetPath = cordova.file.documentsDirectory + '' + imgName,
-                targetPath = cordova.file.dataDirectory + "" + imgName,
+                targetPath = cordova.file.dataDirectory + '' + imgName,
                 trustHosts = true,
                 options = {};
 
@@ -841,10 +877,10 @@
                 .download(url, targetPath, options, trustHosts)
                 .then(
                   function (result) {
-                    console.log("Success!", result);
+                    console.log('Success!', result);
                   },
                   function (err) {
-                    console.log("Error!", err);
+                    console.log('Error!', err);
                   },
                   function (progress) {
                     //console.log('progress!', progress);
@@ -856,7 +892,7 @@
             }
             return url;
           } else {
-            return "";
+            return '';
           }
         }
       }
@@ -897,27 +933,27 @@
         return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.locales_names.tableName,
-            null, 
-            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, es, table_attr"          
+            null,
+            'id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, es, table_attr'
           )
           .then(function (result) {
             if (result && result.length) {
-              GlobalStor.global.locales_names = angular.copy(result)
+              GlobalStor.global.locales_names = angular.copy(result);
             }
-          })
-        }
+          });
+      }
       /** download all lamination */
       function downloadAllLamination() {
         return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.lamination_factory_colors.tableName,
             null,
-            "id, name, lamination_type_id"
+            'id, name, lamination_type_id'
           )
           .then(function (lamin) {
             return lamin;
           });
-       }
+      }
 
       /** download lamination couples */
       function downloadLamCouples() {
@@ -941,8 +977,7 @@
                   ) {
                     GlobalStor.global.laminatCouples[
                       coupleQty
-                    ].laminat_in_name =
-                      GlobalStor.global.laminats[lam].name;
+                    ].laminat_in_name = GlobalStor.global.laminats[lam].name;
                     GlobalStor.global.laminatCouples[coupleQty].img_in_id =
                       GlobalStor.global.laminats[lam].lamination_type_id;
                   }
@@ -953,8 +988,7 @@
                   ) {
                     GlobalStor.global.laminatCouples[
                       coupleQty
-                    ].laminat_out_name =
-                      GlobalStor.global.laminats[lam].name;
+                    ].laminat_out_name = GlobalStor.global.laminats[lam].name;
                     GlobalStor.global.laminatCouples[coupleQty].img_out_id =
                       GlobalStor.global.laminats[lam].lamination_type_id;
                   }
@@ -1006,7 +1040,7 @@
               //------ for Grids
               elemGroupObj.elementType.push({
                 addition_type_id: 20,
-                name: ""
+                name: ''
               });
               elemGroupObj.elementsList = [addKits[i]];
             } else {
@@ -1022,7 +1056,7 @@
                 gridsQty = gridsSingl.length;
               if (gridsQty) {
                 while (--gridsQty > -1) {
-                  gridsSingl[gridsQty]["profile_id"] = 0;
+                  gridsSingl[gridsQty]['profile_id'] = 0;
                   delete gridsSingl[gridsQty].factory_id;
                 }
                 if (GlobalStor.global.addElementsAll[0].elementsList) {
@@ -1031,14 +1065,15 @@
                       GlobalStor.global.addElementsAll[0].elementsList
                     )
                   ) {
-                    GlobalStor.global.addElementsAll[0].elementsList[0] = GlobalStor.global.addElementsAll[0].elementsList[0].concat(
-                      gridsSingl
-                    );
+                    GlobalStor.global.addElementsAll[0].elementsList[0] =
+                      GlobalStor.global.addElementsAll[0].elementsList[0].concat(
+                        gridsSingl
+                      );
                   }
                 } else {
                   GlobalStor.global.addElementsAll[0].elementType.push({
                     addition_type_id: 20,
-                    name: ""
+                    name: ''
                   });
                   GlobalStor.global.addElementsAll[0].elementsList = [
                     gridsSingl
@@ -1053,41 +1088,41 @@
 
       function getAllAddElems() {
         var deff = $q.defer(),
-          promGroup = _.map(GlobalStor.global.addElementsAll, function (
-            group,
-            index
-          ) {
-            var deff1 = $q.defer();
-            //------- without Grids
-            if (index && group.elementsList && group.elementsList.length) {
-              var promElems = _.map(group.elementsList, function (item) {
-                var deff2 = $q.defer();
+          promGroup = _.map(
+            GlobalStor.global.addElementsAll,
+            function (group, index) {
+              var deff1 = $q.defer();
+              //------- without Grids
+              if (index && group.elementsList && group.elementsList.length) {
+                var promElems = _.map(group.elementsList, function (item) {
+                  var deff2 = $q.defer();
 
-                /** change Images Path and save in device */
-                // item.img = downloadElemImg(item.img);
+                  /** change Images Path and save in device */
+                  // item.img = downloadElemImg(item.img);
 
-                localDB
-                  .selectLocalDB(localDB.tablesLocalDB.elements.tableName, {
-                    id: item.parent_element_id
-                  })
-                  .then(function (result) {
-                    if (result && result.length) {
-                      GlobalStor.global.tempAddElements.push(
-                        angular.copy(result[0])
-                      );
-                      deff2.resolve(1);
-                    } else {
-                      deff2.resolve(0);
-                    }
-                  });
-                return deff2.promise;
-              });
-              deff1.resolve($q.all(promElems));
-            } else {
-              deff1.resolve(0);
+                  localDB
+                    .selectLocalDB(localDB.tablesLocalDB.elements.tableName, {
+                      id: item.parent_element_id
+                    })
+                    .then(function (result) {
+                      if (result && result.length) {
+                        GlobalStor.global.tempAddElements.push(
+                          angular.copy(result[0])
+                        );
+                        deff2.resolve(1);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                  return deff2.promise;
+                });
+                deff1.resolve($q.all(promElems));
+              } else {
+                deff1.resolve(0);
+              }
+              return deff1.promise;
             }
-            return deff1.promise;
-          });
+          );
         deff.resolve($q.all(promGroup));
         return deff.promise;
       }
@@ -1144,7 +1179,7 @@
               elemAllQty = addElemAll.length,
               defaultGroup = {
                 id: 0,
-                name: $filter("translate")("add_elements.OTHERS")
+                name: $filter('translate')('add_elements.OTHERS')
               },
               groups,
               newElemList,
@@ -1212,7 +1247,7 @@
                         widthTemp = 0;
                         heightTemp = 0;
                         switch (
-                        addElemAll[elemAllQty].elementsList[el].list_group_id
+                          addElemAll[elemAllQty].elementsList[el].list_group_id
                         ) {
                           case 21: // 1 - visors
                           case 9: // 2 - spillways
@@ -1241,12 +1276,10 @@
                           ].max_size = 5000;
                         }
 
-                        addElemAll[elemAllQty].elementsList[
-                          el
-                        ].element_width = widthTemp;
-                        addElemAll[elemAllQty].elementsList[
-                          el
-                        ].element_height = heightTemp;
+                        addElemAll[elemAllQty].elementsList[el].element_width =
+                          widthTemp;
+                        addElemAll[elemAllQty].elementsList[el].element_height =
+                          heightTemp;
                         addElemAll[elemAllQty].elementsList[el].element_qty = 1;
                         /** get price of element */
                         for (k = 0; k < tempElemQty; k += 1) {
@@ -1282,7 +1315,7 @@
                       //  return GeneralServ.sorting(a.position, b.position);
                       //});
                       /** sorting by name */
-                      elements = $filter("orderBy")(elements, "name");
+                      elements = $filter('orderBy')(elements, 'name');
 
                       newElemList.push(elements);
                     } else {
@@ -1291,9 +1324,8 @@
                   }
 
                   if (newElemList.length) {
-                    addElemAll[elemAllQty].elementsList = angular.copy(
-                      newElemList
-                    );
+                    addElemAll[elemAllQty].elementsList =
+                      angular.copy(newElemList);
                   } else {
                     addElemAll[elemAllQty].elementsList = 0;
                   }
@@ -1452,9 +1484,8 @@
                       );
                     }
                   }
-                  hardware_groups[x].profIds = hardware_groups[x].profIds.join(
-                    ", "
-                  );
+                  hardware_groups[x].profIds =
+                    hardware_groups[x].profIds.join(', ');
                 }
                 GlobalStor.global.doorLocks = angular.copy(hardware_groups);
               });
@@ -1489,17 +1520,17 @@
             }
           }
           if (isExist) {
-            profIds.push("hel" + profArr[i].accessory_id + "lo");
+            profIds.push('hel' + profArr[i].accessory_id + 'lo');
           }
         }
-        return profIds.join(", ");
+        return profIds.join(', ');
       }
 
       /**------ download Handles ------*/
 
       function downloadDoorHandles() {
         //36 офисная ручка , 35 нажимной гарнитур
-        var options = "id, name, list_type_id, parent_element_id";
+        var options = 'id, name, list_type_id, parent_element_id';
         localDB
           .selectLocalDB(
             localDB.tablesLocalDB.lists.tableName,
@@ -1510,9 +1541,8 @@
           )
           .then(function (handlData) {
             //console.warn('нажимной гарнитур', handlData);
-            GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(
-              handlData
-            );
+            GlobalStor.global.doorHandlers =
+              GlobalStor.global.doorHandlers.concat(handlData);
             localDB
               .selectLocalDB(
                 localDB.tablesLocalDB.lists.tableName,
@@ -1523,42 +1553,41 @@
               )
               .then(function (handlData) {
                 //console.warn('офисная ручка', handlData);
-                GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(
-                  handlData
-                );
+                GlobalStor.global.doorHandlers =
+                  GlobalStor.global.doorHandlers.concat(handlData);
 
                 /** download Locks */
                 downloadLocks();
                 accessoryHandles();
                 downloadDoorsItems();
                 //------- get link between handler and profile
-                var promises = _.map(GlobalStor.global.doorHandlers, function (
-                  item
-                ) {
-                  var deff = $q.defer();
-                  localDB
-                    .selectLocalDB(
-                      localDB.tablesLocalDB.lock_lists.tableName,
-                      {
-                        list_id: item.id
-                      },
-                      "accessory_id"
-                    )
-                    .then(function (profileIds) {
-                      //console.info('--prof---', profileIds);
-                      deff.resolve(profileIds);
-                    });
-                  return deff.promise;
-                });
+                var promises = _.map(
+                  GlobalStor.global.doorHandlers,
+                  function (item) {
+                    var deff = $q.defer();
+                    localDB
+                      .selectLocalDB(
+                        localDB.tablesLocalDB.lock_lists.tableName,
+                        {
+                          list_id: item.id
+                        },
+                        'accessory_id'
+                      )
+                      .then(function (profileIds) {
+                        //console.info('--prof---', profileIds);
+                        deff.resolve(profileIds);
+                      });
+                    return deff.promise;
+                  }
+                );
 
                 $q.all(promises).then(function (profData) {
                   var handleQty = GlobalStor.global.doorHandlers.length,
                     h;
                   for (h = 0; h < handleQty; h += 1) {
                     //--------- compare with profiles
-                    GlobalStor.global.doorHandlers[
-                      h
-                    ].profIds = checkHandleWProfile(profData[h]);
+                    GlobalStor.global.doorHandlers[h].profIds =
+                      checkHandleWProfile(profData[h]);
                   }
                 });
               });
@@ -1574,7 +1603,7 @@
             {
               list_group_id: 2
             },
-            "id, name, doorstep_type"
+            'id, name, doorstep_type'
           )
           .then(function (doorData) {
             var door = angular.copy(doorData),
@@ -1648,7 +1677,6 @@
         localDB
           .selectLocalDB(localDB.tablesLocalDB.doors_hardware_items.tableName)
           .then(function (doorData) {
-
             var items = angular.copy(doorData);
             for (var x = 0; x < items.length; x += 1) {
               items[x].parent_element_id = items[x].child_id;
@@ -1692,6 +1720,7 @@
                         );
                         /** download factory data */
                         downloadFactoryData();
+                        prepareSets();
                         /** download All Profiles */
                         downloadAllElemAsGroup(
                           localDB.tablesLocalDB.profile_system_folders
@@ -1738,44 +1767,51 @@
                                     downloadAllBackgrounds().then(function () {
                                       // console.log("downloadAllBackgrounds");
                                       /** download All AddElements */
-                                      downloadAllAddElements().then(function () {
-                                        // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
-                                        /** download All Lamination */
-                                        downloadAllLamination().then(function (result) {
-                                          if (result && result.length) {
-                                            GlobalStor.global.laminats = _.map(
-                                              angular.copy(result),
-                                              function (item) {
-                                                item.isActive = 0;
-                                                return item;
-                                              }
-                                            );
-                                            /** add white color */
-                                            GlobalStor.global.laminats.unshift({
-                                              id: 1,
-                                              lamination_type_id: 1,
-                                              isActive: 0,
-                                              name: "mainpage.WHITE_LAMINATION"
-                                            });
-                                            /** download lamination couples */
-                                            downloadLamCouples().then(
-                                              function () {
-                                                /** add white-white couple */
-                                                GlobalStor.global.laminatCouples.push(
-                                                  angular.copy(
-                                                    ProductStor.product
-                                                      .lamination
-                                                  )
+                                      downloadAllAddElements().then(
+                                        function () {
+                                          // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
+                                          /** download All Lamination */
+                                          downloadAllLamination().then(
+                                            function (result) {
+                                              if (result && result.length) {
+                                                GlobalStor.global.laminats =
+                                                  _.map(
+                                                    angular.copy(result),
+                                                    function (item) {
+                                                      item.isActive = 0;
+                                                      return item;
+                                                    }
+                                                  );
+                                                /** add white color */
+                                                GlobalStor.global.laminats.unshift(
+                                                  {
+                                                    id: 1,
+                                                    lamination_type_id: 1,
+                                                    isActive: 0,
+                                                    name: 'mainpage.WHITE_LAMINATION'
+                                                  }
+                                                );
+                                                /** download lamination couples */
+                                                downloadLamCouples().then(
+                                                  function () {
+                                                    /** add white-white couple */
+                                                    GlobalStor.global.laminatCouples.push(
+                                                      angular.copy(
+                                                        ProductStor.product
+                                                          .lamination
+                                                      )
+                                                    );
+                                                  }
                                                 );
                                               }
-                                            );
-                                          }
-                                          /** download Cart Menu Data */
-                                          downloadCartMenuData();
-                                          //console.timeEnd('start');
-                                          defer.resolve(1);
-                                        });
-                                      });
+                                              /** download Cart Menu Data */
+                                              downloadCartMenuData();
+                                              //console.timeEnd('start');
+                                              defer.resolve(1);
+                                            }
+                                          );
+                                        }
+                                      );
                                     });
                                   }
                                 });
@@ -1784,12 +1820,12 @@
                           }
                         });
                       } else {
-                        console.error("not find options_discounts!");
+                        console.error('not find options_discounts!');
                         defer.resolve(0);
                       }
                     });
                   } else {
-                    console.error("not find options_coefficients!");
+                    console.error('not find options_coefficients!');
                     defer.resolve(0);
                   }
                 });
@@ -1807,6 +1843,7 @@
         isLocalDBExist: isLocalDBExist,
         prepareLocationToUse: prepareLocationToUse,
         downloadAllCities: downloadAllCities,
+        prepareSets: prepareSets,
         collectCityIdsAsCountry: collectCityIdsAsCountry,
         setUserLocation: setUserLocation,
         setUserGeoLocation: setUserGeoLocation,
