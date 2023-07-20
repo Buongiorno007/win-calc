@@ -29,14 +29,15 @@
   </div>
   <div ng-if="designPage.D.design.activeMenuItem" class="edit-submenu-list">
     <div ng-if="designPage.D.design.activeSubMenuItem == 3" class="edit-submenu">
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(2)" class="edit-btn impost-vert"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(3)" class="edit-btn impost-hor"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(4)" class="edit-btn impost-inc-hor"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(5)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-hor2"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(6)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-vert"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-vert2"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(8)" class="edit-btn impost-curv-right"></div>
-      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(9)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="edit-btn impost-curv-left"></div>
+      <div class="submenu-subtitle">{{mobilePage.CHOOSE_PLACE}}</div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(2); mobilePage.setTab(0)" class="edit-btn impost-vert"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(3); mobilePage.setTab(0)" class="edit-btn impost-hor"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(4); mobilePage.setTab(0)" class="edit-btn impost-inc-hor"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(5); mobilePage.setTab(0)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-hor2"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(6); mobilePage.setTab(0)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-vert"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(7); mobilePage.setTab(0)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="edit-btn impost-inc-vert2"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(8); mobilePage.setTab(0)" class="edit-btn impost-curv-right"></div>
+      <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(9); mobilePage.setTab(0)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="edit-btn impost-curv-left"></div>
       <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(10)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="edit-btn impost-curv-up"></div>
       <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(11)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="edit-btn impost-curv-down"></div>
       <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(12)" class="edit-btn impost-curv1"></div>
@@ -67,5 +68,6 @@
       <div ng-click="designPage.positionAxis()" class="edit-btn constr-shape-position">{{::designPage.BY_AXIS}}</div>
       <div ng-click="designPage.positionGlass()" class="edit-btn constr-shape-position">{{::designPage.BY_GLASS}}</div>
     </div>
+    <div class="scroll-arrow-sm"></div>
   </div>
 </div>

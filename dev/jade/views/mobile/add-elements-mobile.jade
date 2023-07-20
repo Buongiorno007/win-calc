@@ -4,8 +4,9 @@
         .folders(ng-repeat="folders in mobPage.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" )
             .folders-header
                 p.folders-name(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}') {{folders.name | translate}}
-                .dropdown-icon(ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}')
-                    img(src="img/dropdown-arrow.svg", alt="dropdown-arrow")
+                .add-elems-add-new(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}')
+                    p {{mobilePage.ADD_NEW}}
+                    //- img(src="img/dropdown-arrow.svg", alt="dropdown-arrow")
             .choosen-add-elem(ng-repeat="chosenAddElem in mobPage.P.product.chosenAddElements[$index] track by $index")
                 .row-header
                     p.name {{chosenAddElem.name}}
@@ -24,7 +25,7 @@
                         p.val {{chosenAddElem.element_price | number : 2}}
                         p {{mobPage.PRICE }}
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === mobPage.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
-                .subfolders-name( ng-class='{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
+                .subfolders-name(ng-class='{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
                     p.splice(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
                     .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                 img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img && mobPage.G.global.cordova' ng-src='{{mobPage.extendUrl(subfolder.img)}}')

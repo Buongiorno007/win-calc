@@ -1085,7 +1085,7 @@
                                                     // if (dim.dimId === "fp11" ) {
                                                     //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                     // }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 75) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -1146,7 +1146,7 @@
                                                     if (dim.dimId === "fp7") {
                                                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                     }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.2) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -1156,7 +1156,7 @@
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 140,
+                                            'dx': 100,
                                             'dy': 40,
                                             'type': 'line',
                                             'block_id': dim.blockId,
@@ -2254,6 +2254,7 @@
                                                 var className;
                                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                                     if (d.type === 'glass') {
+                                                        console.log('glass')
                                                         if (d.glass_type === 3) {
                                                             className = 'glass-sandwich'
                                                         } else if (d.glass_type === 4) {

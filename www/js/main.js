@@ -3397,7 +3397,16 @@ let portrait = false;
             localStorage.clear();
             return false;
           }
+        }
 
+        //Simple autologin for rehau landing, sorry have no time to do it better
+        if (window.location.href === "https://okoshko.ua/dark-calc/#/") {
+          setTimeout(() => {
+            GlobalStor.global.isLoader = 1;
+            thisCtrl.user.phone = 'okna';
+            thisCtrl.user.password = 'jryf';
+            document.querySelector('.login-submit').click();
+          }, 2500);
         }
 
         function fastEnter(url) {
@@ -4627,6 +4636,11 @@ let portrait = false;
 
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");
+            thisCtrl.CORRECTION = $filter("translate")("mainpage.CORRECTION");
+            thisCtrl.CONFIGURATION = $filter("translate")("mainpage.CONFIGURATION");
+            thisCtrl.CONFIGURATION_SUBTITLE = $filter("translate")("mainpage.CONFIGURATION_SUBTITLE");
+            thisCtrl.CONFIGMENU_GLASS = $filter("translate")("mainpage.CONFIGMENU_GLASS");
+            thisCtrl.CONFIGMENU_SET = $filter("translate")("mainpage.CONFIGMENU_SET");
             thisCtrl.CART = $filter("translate")("mainpage.CART");
             thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
             thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
@@ -4647,6 +4661,16 @@ let portrait = false;
             thisCtrl.HEAT_TRANSFER_INFO_9 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_9');
             thisCtrl.HEAT_TRANSFER_INFO_10 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_10');
             thisCtrl.HEAT_TRANSFER_INFO_11 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_11');
+            thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+            thisCtrl.SET_IS_NOT_SELECTED = $filter('translate')('mainpage.SET_IS_NOT_SELECTED');
+            thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+            thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+            thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+            thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
+            thisCtrl.ACCESORIES = $filter('translate')('mainpage.ACCESORIES');
+            thisCtrl.ACCESORIES_SUBTITLE = $filter('translate')('mainpage.ACCESORIES_SUBTITLE');
+            thisCtrl.ADD_NEW = $filter('translate')('mainpage.ADD_NEW')
+            thisCtrl.CHOOSE_PLACE = $filter('translate')('mainpage.CHOOSE_PLACE')
 
             thisCtrl.PC_POWER_INFO_1 = $filter('translate')('settings.PC_POWER_INFO_1');
             thisCtrl.PC_POWER_INFO_2 = $filter('translate')('settings.PC_POWER_INFO_2');
@@ -5743,25 +5767,6 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.OpenFolder = -1;
           } else {
             thisCtrl.OpenFolder = index;
-            if (event) {
-              if ($location.path() === "/mobile") {
-                $timeout(() => {
-                  $anchorScroll('anchor' + index);
-                  $timeout(() => {
-                    $('.glass-container').animate({
-                      scrollTop: $('.glass-container').scrollTop() - 20
-                    }, 'slow');
-                  }, 100);
-                }, 100);
-              } else {
-                if (GlobalStor.global.glasses.length - 1 !== index) {
-                  $timeout(() => {
-                    $anchorScroll('anchor' + index);
-                  }, 100);
-                }
-              }
-
-            }
           }
         }
 
@@ -6631,17 +6636,18 @@ if (window.location.hostname !== 'localhost') {
                     GlobalStor.global.OpenSubFolder = index;
                     thisCtrl.ChoosenAddElemGroup = index;
                     AuxStor.aux.isFocusedAddElement = index + 1;
-                    setTimeout(() => {
-                        $('.add-elements-mobile').animate({
-                            scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100
-                        }, 'slow');
-                    }, 250);
+                    // setTimeout(() => {
+                    //     $('.add-elements-mobile').animate({
+                    //         scrollTop: $(event.target).offset().top
+                    //     }, 'slow');
+                    // }, 250);
                     thisCtrl.lastParent = event;
                 }
 
             }
 
             function showItems(index, event, img) {
+                console.l
                 if (GlobalStor.global.OpenItemFolder === index) {
                     GlobalStor.global.OpenItemFolder = -1;
                 } else {
@@ -6649,14 +6655,14 @@ if (window.location.hostname !== 'localhost') {
                     if (img) {
                         setTimeout(() => {
                             $('.add-elements-mobile').animate({
-                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 150
-                            }, 'slow');
+                                scrollTop: $(event.target).offset().top
+                            }, 'fast');
                         }, 250);
                     } else {
                         setTimeout(() => {
                             $('.add-elements-mobile').animate({
-                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 120
-                            }, 'slow');
+                                scrollTop: $(event.target).offset().top
+                            }, 'fast');
                         }, 250);
                     }
                 }
@@ -6925,7 +6931,15 @@ if (window.location.hostname !== 'localhost') {
     }
 
     function stepBackAfterDanger() {
-      console.log('cehckl')
+      setTimeout(() => {
+        GlobalStor.global.checkDoors = 0;
+        var lastIndex = DesignStor.design.designSteps.length - 1;
+        DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+        rebuildSVGTemplate();
+        DesignStor.design.designSteps.pop();
+        cleanTempSize();
+        hideSizeTools();
+      }, 1);
       GlobalStor.global.checkDoors = 0;
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
@@ -10178,7 +10192,7 @@ if (window.location.hostname !== 'localhost') {
                                                     // if (dim.dimId === "fp11" ) {
                                                     //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                     // }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 75) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -10239,7 +10253,7 @@ if (window.location.hostname !== 'localhost') {
                                                     if (dim.dimId === "fp7") {
                                                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                     }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.2) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -10249,7 +10263,7 @@ if (window.location.hostname !== 'localhost') {
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 140,
+                                            'dx': 100,
                                             'dy': 40,
                                             'type': 'line',
                                             'block_id': dim.blockId,
@@ -11347,6 +11361,7 @@ if (window.location.hostname !== 'localhost') {
                                                 var className;
                                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                                     if (d.type === 'glass') {
+                                                        console.log('glass')
                                                         if (d.glass_type === 3) {
                                                             className = 'glass-sandwich'
                                                         } else if (d.glass_type === 4) {
@@ -24901,7 +24916,7 @@ function ErrorResult(code, message) {
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
                     // console.log(GlobalStor.global, 'checl')
-                    // console.log(ProductStor.product, 'product')
+                    console.log(ProductStor.product, 'product')
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);

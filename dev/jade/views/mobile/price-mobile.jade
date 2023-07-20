@@ -4,9 +4,9 @@
             .go-to-cart-title#checkForAddElem(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
         .add-to-basket-img
             img(src="img/basket-icon-2.svg", alt="")
-    .flex-item(ng-if="!mobilePage.isSet(4)")
+    .flex-item(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && mobilePage.G.global.activePanel !== 6")
         .energy-coeff-and-discoint-price
-            .energy-coeff-title Теплопередача
+            .energy-coeff-title {{mobilePage.HEAT_TRANSFER}}
             .price-without-discount
                 .gray-price {{ configMenu.P.product.product_price }}
                 span.discount -{{ configMenu.U.userInfo.discountConstr }}%

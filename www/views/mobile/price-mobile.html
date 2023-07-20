@@ -6,9 +6,9 @@
     </div>
     <div class="add-to-basket-img"><img src="img/basket-icon-2.svg" alt=""></div>
   </div>
-  <div ng-if="!mobilePage.isSet(4)" class="flex-item">
+  <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="flex-item">
     <div class="energy-coeff-and-discoint-price">
-      <div class="energy-coeff-title">Теплопередача</div>
+      <div class="energy-coeff-title">{{mobilePage.HEAT_TRANSFER}}</div>
       <div class="price-without-discount">
         <div class="gray-price">{{ configMenu.P.product.product_price }}</div><span class="discount">-{{ configMenu.U.userInfo.discountConstr }}%</span>
       </div>

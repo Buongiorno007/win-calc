@@ -1,10 +1,7 @@
 
 <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)" class="order-dialog-mobile scrollFix">
   <div class="cart-dialog-header">
-    <div fs-click="orderForm.closeOrderDialog()" class="col">
-      <div class="back-button"></div>
-      <div class="cart-dialog-title">{{ ::orderForm.BACK }}</div>
-    </div>
+    <div fs-click="orderForm.closeOrderDialog()" class="back-button"></div>
     <div class="col">
       <div class="cart-dialog-label">{{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currency }}</div>
     </div>

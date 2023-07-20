@@ -89,7 +89,7 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
     height: rem(80px);
     text-align: center;
     border: 1px solid #221c48;
-    border-radius: 50px;
+    border-radius: 4px;
     outline: none;
 
     &.ng-invalid-minlength,
@@ -258,7 +258,7 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
   @extend .splash;
   background-color: $main_red !important;
   display: block;
-  border-radius: 4rem;
+  border-radius: 4px;
   width: 80%;
   margin: 1.25rem auto 0;
   height: rem(80px);

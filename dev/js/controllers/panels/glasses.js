@@ -177,25 +177,6 @@
             thisCtrl.OpenFolder = -1;
           } else {
             thisCtrl.OpenFolder = index;
-            if (event) {
-              if ($location.path() === "/mobile") {
-                $timeout(() => {
-                  $anchorScroll('anchor' + index);
-                  $timeout(() => {
-                    $('.glass-container').animate({
-                      scrollTop: $('.glass-container').scrollTop() - 20
-                    }, 'slow');
-                  }, 100);
-                }, 100);
-              } else {
-                if (GlobalStor.global.glasses.length - 1 !== index) {
-                  $timeout(() => {
-                    $anchorScroll('anchor' + index);
-                  }, 100);
-                }
-              }
-
-            }
           }
         }
 

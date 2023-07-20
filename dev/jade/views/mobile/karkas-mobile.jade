@@ -23,14 +23,15 @@
 
   .edit-submenu-list(ng-if="designPage.D.design.activeMenuItem")
     .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 3")
-      .edit-btn.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
-      .edit-btn.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
-      .edit-btn.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
-      .edit-btn.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-      .edit-btn.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-      .edit-btn.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-      .edit-btn.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
-      .edit-btn.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+      .submenu-subtitle {{mobilePage.CHOOSE_PLACE}}
+      .edit-btn.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2); mobilePage.setTab(0)")
+      .edit-btn.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3); mobilePage.setTab(0)")
+      .edit-btn.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4); mobilePage.setTab(0)")
+      .edit-btn.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5); mobilePage.setTab(0)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6); mobilePage.setTab(0)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7); mobilePage.setTab(0)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8); mobilePage.setTab(0)")
+      .edit-btn.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9); mobilePage.setTab(0)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
       .edit-btn.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
       .edit-btn.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
       .edit-btn.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
@@ -56,3 +57,4 @@
     .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 5" ng-hide="designPage.P.product.construction_type === 4")
       .edit-btn.constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
       .edit-btn.constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+    .scroll-arrow-sm

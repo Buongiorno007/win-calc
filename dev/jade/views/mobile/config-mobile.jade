@@ -2,8 +2,8 @@
   include accept-container
   .configs-list
     .conf-item(fs-click="configMenu.selectConfigPanel(7)" ng-class="{active : configMenu.G.global.activePanel===7}")
-      .conf-item-text {{ ::configMenu.CONFIGMENU_SET }} Набор
-      .conf-item-text-sm {{ configMenu.P.product.currentSet || 'Набор не выбран'}}
+      .conf-item-text {{ mobilePage.CONFIGMENU_SET }}
+      .conf-item-text-sm {{ configMenu.P.product.currentSet || mobilePage.SET_IS_NOT_SELECTED }}
     .conf-item(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
       .conf-item-text {{ ::configMenu.CONFIGMENU_PROFILE }}
       .conf-item-text-sm {{ configMenu.P.product.profile.name }}

@@ -1028,7 +1028,16 @@
             localStorage.clear();
             return false;
           }
+        }
 
+        //Simple autologin for rehau landing, sorry have no time to do it better
+        if (window.location.href === "https://okoshko.ua/dark-calc/#/") {
+          setTimeout(() => {
+            GlobalStor.global.isLoader = 1;
+            thisCtrl.user.phone = 'okna';
+            thisCtrl.user.password = 'jryf';
+            document.querySelector('.login-submit').click();
+          }, 2500);
         }
 
         function fastEnter(url) {

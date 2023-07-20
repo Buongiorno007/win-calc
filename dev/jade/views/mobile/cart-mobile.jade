@@ -10,6 +10,12 @@
     .product-container
         .add-product.alert-no(ng-click="cartPage.addNewProductInOrder()")
             label {{'+ '+cartPage.ADD_PRODUCT}}
+        .cart-footer-container
+            .cart-footer
+                .price(ng-click='cartPage.swipeDiscountBlock()')
+                    price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
+                .spesification(ng-click='cartPage.openOrderDialog()')
+                    label {{cartPage.ORDER_LV}}
         .product(ng-repeat="product in cartPage.O.order.products track by $index")
             .col
                 .order-delete(ng-click="cartPage.clickDeleteProduct($index)")
@@ -106,12 +112,6 @@
                 .order-edit.alert-no(ng-click="cartPage.mobileBox($index, 'product')")
                     span {{::cartPage.BUTTON_E}}
         .empty(ng-if='cartPage.O.order.products.length === 1')
-    .cart-footer-container
-        .cart-footer
-            .price(ng-click='cartPage.swipeDiscountBlock()')
-                price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
-            .spesification(ng-click='cartPage.openOrderDialog()')
-                label {{cartPage.ORDER_LV}}
     .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
         .order-delete(ng-click="cartPage.C.cart.showCurrentTemp=0")
         .order-edit.alert-no(ng-click="cartPage.mobileBox(cartPage.C.cart.curProd, 'product')")

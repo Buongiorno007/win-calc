@@ -15,6 +15,16 @@
     <div ng-click="cartPage.addNewProductInOrder()" class="add-product alert-no">
       <label>{{'+ '+cartPage.ADD_PRODUCT}}</label>
     </div>
+    <div class="cart-footer-container">
+      <div class="cart-footer">
+        <div ng-click="cartPage.swipeDiscountBlock()" class="price">
+          <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
+        </div>
+        <div ng-click="cartPage.openOrderDialog()" class="spesification">
+          <label>{{cartPage.ORDER_LV}}</label>
+        </div>
+      </div>
+    </div>
     <div ng-repeat="product in cartPage.O.order.products track by $index" class="product">
       <div class="col">
         <div ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></div>
@@ -118,16 +128,6 @@
       </div>
     </div>
     <div ng-if="cartPage.O.order.products.length === 1" class="empty"></div>
-  </div>
-  <div class="cart-footer-container">
-    <div class="cart-footer">
-      <div ng-click="cartPage.swipeDiscountBlock()" class="price">
-        <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
-      </div>
-      <div ng-click="cartPage.openOrderDialog()" class="spesification">
-        <label>{{cartPage.ORDER_LV}}</label>
-      </div>
-    </div>
   </div>
   <div ng-show="cartPage.C.cart.showCurrentTemp" class="template-window">
     <div ng-click="cartPage.C.cart.showCurrentTemp=0" class="order-delete"></div>

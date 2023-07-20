@@ -34,6 +34,11 @@
 
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");
+            thisCtrl.CORRECTION = $filter("translate")("mainpage.CORRECTION");
+            thisCtrl.CONFIGURATION = $filter("translate")("mainpage.CONFIGURATION");
+            thisCtrl.CONFIGURATION_SUBTITLE = $filter("translate")("mainpage.CONFIGURATION_SUBTITLE");
+            thisCtrl.CONFIGMENU_GLASS = $filter("translate")("mainpage.CONFIGMENU_GLASS");
+            thisCtrl.CONFIGMENU_SET = $filter("translate")("mainpage.CONFIGMENU_SET");
             thisCtrl.CART = $filter("translate")("mainpage.CART");
             thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
             thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
@@ -54,6 +59,16 @@
             thisCtrl.HEAT_TRANSFER_INFO_9 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_9');
             thisCtrl.HEAT_TRANSFER_INFO_10 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_10');
             thisCtrl.HEAT_TRANSFER_INFO_11 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_11');
+            thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+            thisCtrl.SET_IS_NOT_SELECTED = $filter('translate')('mainpage.SET_IS_NOT_SELECTED');
+            thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+            thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+            thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+            thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
+            thisCtrl.ACCESORIES = $filter('translate')('mainpage.ACCESORIES');
+            thisCtrl.ACCESORIES_SUBTITLE = $filter('translate')('mainpage.ACCESORIES_SUBTITLE');
+            thisCtrl.ADD_NEW = $filter('translate')('mainpage.ADD_NEW')
+            thisCtrl.CHOOSE_PLACE = $filter('translate')('mainpage.CHOOSE_PLACE')
 
             thisCtrl.PC_POWER_INFO_1 = $filter('translate')('settings.PC_POWER_INFO_1');
             thisCtrl.PC_POWER_INFO_2 = $filter('translate')('settings.PC_POWER_INFO_2');

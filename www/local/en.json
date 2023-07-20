@@ -941,8 +941,10 @@
   "mainpage": {
     "MM": " mm ",
     "INCH": " '' ",
+    "ADD_NEW": "ADD+",
     "CLIMATE_ZONE": "climatic area",
-    "HEAT_TRANSFER": "heat transfer",
+    "HEAT_TRANSFER": "Heat transfer",
+    "CHOOSE_PLACE": "Select the opening where to insert the element (marked with blue)",
     "HEAT_TRANSFER_RESISTANCE": "resistance to heat transfer",
     "HEAT_TRANSFER_INFO_1": "The required value for this climatic zone.",
     "HEAT_TRANSFER_INFO_2": "** To improve it, use double-glazed windows with energy-saving glasses and profile systems with many cameras",
@@ -961,6 +963,9 @@
     "NAVMENU_CURRENT_CALCULATION": "Current calculation",
     "NAVMENU_CART": "Basket of calculation",
     "NAVMENU_ADD_ELEMENTS": "Add. elements",
+    "ACCESORIES": "Accessories",
+    "ACCESORIES_SUBTITLE": "Select the accessories",
+    "SET_IS_NOT_SELECTED": "Set is not selected",
     "NAVMENU_ALL_CALCULATIONS": "Order history",
     "NAVMENU_SETTINGS": "Settings",
     "NAVMENU_MORE_INFO": "More information",
@@ -976,7 +981,7 @@
     "CONFIGMENU_PROFILE": "Profile",
     "CONFIGMENU_SET": "Set",
     "CONFIGMENU_GLASS": "Glazing",
-    "CONFIGMENU_HARDWARE": "accessories",
+    "CONFIGMENU_HARDWARE": "Accessories",
     "CONFIGMENU_LAMINATION": "Lamination",
     "CONFIGMENU_LAMINATION_TYPE": "room / Facade",
 
@@ -1025,6 +1030,9 @@
     "SELECT_GLASS_WARN": "Click on the glazing, you want to change",
     "KARKAS": "Accessories",
     "KONFIG": "Params",
+    "CORRECTION": "Correction",
+    "CONFIGURATION": "Configuration",
+    "CONFIGURATION_SUBTITLE": "Set the parameters of your window",
     "CART": "Cart"
   },
   "panels": {

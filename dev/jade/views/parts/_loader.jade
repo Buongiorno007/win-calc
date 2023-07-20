@@ -1,11 +1,2 @@
-.loader-container(ng-controller="LoaderCtrl as loadBox", ng-show="loadBox.G.global.isLoader")
-        p
-                |{{ ::loginPage.LOADER_TEXT1 }}
-                br
-                |{{ ::loginPage.LOADER_TEXT2 }} 
-                br
-                |{{ ::loginPage.LOADER_TEXT3 }}
-        .loader(ng-class="{'active': loadBox.G.global.loader === 2}")
-            
-    //- .loader-counter(ng-show='loadBox.G.global.loader !== 2')
-        label {{loadBox.G.global.isLoader2 +'%'}}
+.area-loader(ng-controller="LoaderCtrl as loadBox", ng-show="loadBox.G.global.isLoader")
+        span.loader.loader-position

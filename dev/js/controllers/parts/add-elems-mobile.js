@@ -108,17 +108,18 @@
                     GlobalStor.global.OpenSubFolder = index;
                     thisCtrl.ChoosenAddElemGroup = index;
                     AuxStor.aux.isFocusedAddElement = index + 1;
-                    setTimeout(() => {
-                        $('.add-elements-mobile').animate({
-                            scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100
-                        }, 'slow');
-                    }, 250);
+                    // setTimeout(() => {
+                    //     $('.add-elements-mobile').animate({
+                    //         scrollTop: $(event.target).offset().top
+                    //     }, 'slow');
+                    // }, 250);
                     thisCtrl.lastParent = event;
                 }
 
             }
 
             function showItems(index, event, img) {
+                console.l
                 if (GlobalStor.global.OpenItemFolder === index) {
                     GlobalStor.global.OpenItemFolder = -1;
                 } else {
@@ -126,14 +127,14 @@
                     if (img) {
                         setTimeout(() => {
                             $('.add-elements-mobile').animate({
-                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 150
-                            }, 'slow');
+                                scrollTop: $(event.target).offset().top
+                            }, 'fast');
                         }, 250);
                     } else {
                         setTimeout(() => {
                             $('.add-elements-mobile').animate({
-                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 120
-                            }, 'slow');
+                                scrollTop: $(event.target).offset().top
+                            }, 'fast');
                         }, 250);
                     }
                 }
