@@ -3468,7 +3468,7 @@ let portrait = false;
         GlobalStor.global.isLoader = 1;
         setTimeout(() => {
           thisCtrl.user.phone = 'okna';
-          thisCtrl.user.password = 'okna';
+          thisCtrl.user.password = 'jryf';
           document.querySelector('.login-submit').click();
         }, 2500);
       } else {
