@@ -12030,7 +12030,7 @@ body {
 /* line 636, ../../dev/sass/pages/mobile.scss */
 .mobile .karkas-styles .karkas-content .edit-submenu-list .edit-submenu .submenu-subtitle {
   position: absolute;
-  background-color: #f77d7d;
+  background-color: red;
   font-size: 12px;
   width: 100%;
   top: 0px;

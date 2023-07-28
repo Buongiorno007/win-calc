@@ -9,6 +9,7 @@
             $scope,
             $window,
             SVGServ,
+            GeneralServ,
             MainServ,
             NavMenuServ,
             localDB,
@@ -117,6 +118,15 @@
                     ConfigMenuServ.selectConfigPanel(newTab)
                     console.log(GlobalStor.global.activePanel, 'activePanel')
                     return
+                }
+                if (newTab === 4) {
+                    if (!OrderStor.order.products.length) {
+                        GeneralServ.infoAlert(
+                            $filter('translate')('natification.ATENTION'),
+                            $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
+                        );
+                        return
+                    }
                 }
                 if (GlobalStor.global.MobileTabActive === newTab) {
                     GlobalStor.global.MobileTabActive = 0;
