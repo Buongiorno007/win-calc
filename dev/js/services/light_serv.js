@@ -58,6 +58,7 @@
 
           const factoryId = window.localStorage.getItem('factoryId');
           const dealerId = window.localStorage.getItem('dealerId');
+          const ramexId = window.localStorage.getItem('ramexId');
           const templateSource = {
             beads: ProductStor.product.beadsData,
           }
@@ -105,7 +106,8 @@
               if (ProductStor.product.beadsData.length > 0) {
                 if (!OrderStor.order.products.length) {
                   GlobalStor.global.isLoader = 1;
-                  $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                  if (ramexId !== "undefined") {
+                    $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}/ramex/${ramexId}`, orderObj).then(
                       function (result) {
                         errorHandler(result.data.errors);
                         if (result.data.errors.length) {
@@ -126,6 +128,29 @@
                         defer.resolve(false);
                       }
                   );
+                  } else {
+                    $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(
+                      function (result) {
+                        errorHandler(result.data.errors);
+                        if (result.data.errors.length) {
+                          getStatusPrice(result.data.status_link).then((resp) => {
+                            defer.resolve(resp)
+                          });
+                        } else {
+                          GlobalStor.global.isLoader = 0;
+                          ProductStor.product.product_price = result.data.cost
+                          ProductStor.product.productPriceDis = result.data.cost;
+                          GlobalStor.global.tempPrice = ProductStor.product.product_price;
+                          defer.resolve(result.data);
+                        }
+                      },
+                      function (err) {
+                        console.log(err)
+                        GlobalStor.global.isLoader = 0;
+                        defer.resolve(false);
+                      }
+                  );
+                  }
                 } else if (GlobalStor.global.isNewTemplate) {
                   GlobalStor.global.isLoader = 1;
                   $http.post('https://calc.ramex.baueffect.com/' + `calculate/dealer/${dealerId}/factory/${factoryId}`, orderObj).then(

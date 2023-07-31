@@ -265,7 +265,8 @@
           const factoryId = $location.search().factoryId;
           const dealerId = $location.search().dealerId;
           const calculationId = $location.search().calculationId;
-          console.log(factoryId, 'factoryId')
+          const ramexId = $location.search().ramexId;
+
           var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
           var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
           var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
@@ -284,6 +285,7 @@
           window.localStorage.setItem('factoryId', factoryId);
           window.localStorage.setItem('dealerId', dealerId);
           window.localStorage.setItem('calculationId', calculationId);
+          window.localStorage.setItem('ramexId', ramexId);
         }
 
         function importDBfromServer() {
@@ -1035,9 +1037,18 @@
               return false;
             }
           } else {
-              $location.search("factoryId", "b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7")
-              $location.search("dealerId", "89bab35f-768a-4d9f-b3bb-eb3f2a206552")
-              $location.search("calculationId", "5")
+              if (!$location.search().factoryId) {
+                  $location.search("factoryId", "b8881e50-5aeb-4e57-8eb0-49a8e1fdfef7")
+              }
+              if (!$location.search().dealerId) {
+                  $location.search("dealerId", "89bab35f-768a-4d9f-b3bb-eb3f2a206552")
+              }
+              // if (!$location.search().ramexId) {
+              //   $location.search("ramexId", "555")
+              // }
+              if (!$location.search().calculationId) {
+                  $location.search("calculationId", "5")
+              }
             console.log("не все данные сохранены");
             localStorage.clear();
             return false;
