@@ -30,8 +30,9 @@
     .alert-descr {{ alertBox.G.global.alertDescr }}
     .alert-btns
       .thisAlert
-       section.cart-page
-      button.alert-info.alert-no(fs-click="alertBox.G.global.isAlertInfo = 0", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.OK }}
+        section.cart-page
+      button.alert-info.alert-yes(fs-click="alertBox.checkForAddElem(); alertBox.setTabFromAlert(4)", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.OK }}
+      button.alert-info.alert-no(ng-click="alertBox.G.global.isAlertInfo = 0", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.BUTTON_N }}
 
 .alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isSyncAlert")
   .alert-block

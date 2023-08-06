@@ -94,6 +94,7 @@
       }
 
       function selectSet(sets) {
+        console.log(sets, 'sets')
         const setToAply = sets.set[0];
         GlobalStor.global.activeSet = setToAply;
         ProfileServ.selectProfile(setToAply.profile_systems_id);

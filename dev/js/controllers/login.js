@@ -151,6 +151,14 @@
         thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
 
         thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
+        var db = localforage.createInstance({
+            driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+            name: 'bauvoice',
+            version: 2.0,
+            size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+            storeName: 'bauvoice', // Should be alphanumeric, with underscores.
+            description: 'some description'
+        });
         /** reload room img */
 
         //$("<img />").attr("src", "img/room/1.png");

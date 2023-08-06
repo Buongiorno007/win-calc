@@ -39,7 +39,7 @@
     "LETTER_M": "m",
     "COUNT": "Amount",
     "SAVED_KONSTRUCTION": "The construction with this set of parameters is saved.",
-    "SAVED_KONSTRUCTION_ATTENTION": "First, save the construction. Press \"Add to cart\" button",
+    "SAVED_KONSTRUCTION_ATTENTION": "Do you want add construction to cart?",
     "SAVE_OR_NO": "Do you want to save the current construction?",
 
     "DOOR_NAME": "S400 door with T-leaf",

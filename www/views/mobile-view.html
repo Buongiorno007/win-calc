@@ -1458,7 +1458,8 @@
         <div class="thisAlert">
           <section class="cart-page"></section>
         </div>
-        <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
+        <button fs-click="alertBox.checkForAddElem(); alertBox.setTabFromAlert(4)" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-yes">{{ ::alertBox.OK }}</button>
+        <button ng-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.BUTTON_N }}</button>
       </div>
     </div>
   </div>
