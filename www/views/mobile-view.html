@@ -675,12 +675,12 @@
       </div>
     </div>
     <div class="profiles-list">
-      <div ng-repeat="setCategory in mobilePage.G.global.setsCategories track by $index" class="profile-block">
+      <div ng-repeat="setCategory in mobilePage.G.global.setsCategories track by setCategory.id" class="profile-block">
         <div class="producer">
           <div class="title">{{setCategory.title}}</div>
         </div>
         <div class="profile-box">
-          <div ng-repeat="sets in setCategory.setsForCategory track by $index" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}" class="profile-info">
+          <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}" class="profile-info">
             <div ng-click="profilesPanel.selectSet(sets)" class="profile-info-item"><img src="{{ sets.img }}" alt="" class="profile-img">
               <div class="name">{{ sets.title }}</div>
               <h3>{{sets.description}}</h3>

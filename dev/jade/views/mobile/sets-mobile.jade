@@ -1,11 +1,11 @@
 .mobile-profiles.mobile-common-panel(ng-controller="ProfilesCtrl as profilesPanel" ng-if="mobilePage.G.global.activePanel === 7")
     include accept-container
     .profiles-list
-        .profile-block(ng-repeat="setCategory in mobilePage.G.global.setsCategories track by $index")
+        .profile-block(ng-repeat="setCategory in mobilePage.G.global.setsCategories track by setCategory.id")
             .producer
                 .title {{setCategory.title}}
             .profile-box
-                .profile-info(ng-repeat="sets in setCategory.setsForCategory track by $index" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}")
+                .profile-info(ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}")
                     .profile-info-item(ng-click="profilesPanel.selectSet(sets)" )
                         img.profile-img(src="{{ sets.img }}", alt="")
                         .name {{ sets.title }}

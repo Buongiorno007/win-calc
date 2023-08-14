@@ -3409,12 +3409,18 @@ let portrait = false;
 
         //Simple autologin for rehau landing, sorry have no time to do it better
         if (window.location.href === "https://okoshko.ua/dark-calc/#/") {
-          setTimeout(() => {
-            GlobalStor.global.isLoader = 1;
-            thisCtrl.user.phone = 'okna';
-            thisCtrl.user.password = 'jryf';
-            document.querySelector('.login-submit').click();
-          }, 2500);
+          var keys = []
+          for (var i = 0; i < localStorage.length; i++){
+              keys.push(localStorage.key(i))
+          }
+          if (!keys.includes('DesignStor', 'UserStor', 'OrderStor', 'GlobalStor', 'ProductStor', 'AuxStor')) {
+            setTimeout(() => {
+              GlobalStor.global.isLoader = 1;
+              thisCtrl.user.phone = 'okna';
+              thisCtrl.user.password = 'jryf';
+              document.querySelector('.login-submit').click();
+            }, 2000);
+          }
         }
 
         function fastEnter(url) {
@@ -4730,13 +4736,11 @@ let portrait = false;
                     return
                 }
                 if (newTab === 4) {
-                    if (!OrderStor.order.products.length) {
-                        GeneralServ.infoAlert(
-                            $filter('translate')('natification.ATENTION'),
-                            $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
-                        );
-                        return
-                    }
+                    GeneralServ.infoAlert(
+                        $filter('translate')('natification.ATENTION'),
+                        $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
+                    );
+                    return
                 }
                 if (GlobalStor.global.MobileTabActive === newTab) {
                     GlobalStor.global.MobileTabActive = 0;
@@ -26433,10 +26437,20 @@ function ErrorResult(code, message) {
           .selectLocalDB('categories_sets')
           .then(function (setsCategories) {
             GlobalStor.global.setsCategories = setsCategories;
+            for (let i = 0; i < GlobalStor.global.setsCategories.length; i++) {
+              GlobalStor.global.setsCategories[i].setsForCategory = []
+            }
             return localDB.selectLocalDB('sets');
           })
           .then(function (sets) {
-            GlobalStor.global.setsCategories[0].setsForCategory = sets;
+            for (let i = 0; i < GlobalStor.global.setsCategories.length; i++) {
+              for (let j = 0; j < sets.length; j++) {
+                if (GlobalStor.global.setsCategories[i].id === sets[j].categories_sets_id) {
+                  GlobalStor.global.setsCategories[i].setsForCategory.push(sets[j]);
+                  GlobalStor.global.setsCategories[i].setsForCategory.sort((a, b) => a.id - b.id)
+                }
+              }
+            }
             return localDB.selectLocalDB('set_data');
           })
           .then(function (set) {

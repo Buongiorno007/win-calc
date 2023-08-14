@@ -103,10 +103,20 @@
           .selectLocalDB('categories_sets')
           .then(function (setsCategories) {
             GlobalStor.global.setsCategories = setsCategories;
+            for (let i = 0; i < GlobalStor.global.setsCategories.length; i++) {
+              GlobalStor.global.setsCategories[i].setsForCategory = []
+            }
             return localDB.selectLocalDB('sets');
           })
           .then(function (sets) {
-            GlobalStor.global.setsCategories[0].setsForCategory = sets;
+            for (let i = 0; i < GlobalStor.global.setsCategories.length; i++) {
+              for (let j = 0; j < sets.length; j++) {
+                if (GlobalStor.global.setsCategories[i].id === sets[j].categories_sets_id) {
+                  GlobalStor.global.setsCategories[i].setsForCategory.push(sets[j]);
+                  GlobalStor.global.setsCategories[i].setsForCategory.sort((a, b) => a.id - b.id)
+                }
+              }
+            }
             return localDB.selectLocalDB('set_data');
           })
           .then(function (set) {

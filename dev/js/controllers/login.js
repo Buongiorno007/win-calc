@@ -1040,12 +1040,18 @@
 
         //Simple autologin for rehau landing, sorry have no time to do it better
         if (window.location.href === "https://okoshko.ua/dark-calc/#/") {
-          setTimeout(() => {
-            GlobalStor.global.isLoader = 1;
-            thisCtrl.user.phone = 'okna';
-            thisCtrl.user.password = 'jryf';
-            document.querySelector('.login-submit').click();
-          }, 2500);
+          var keys = []
+          for (var i = 0; i < localStorage.length; i++){
+              keys.push(localStorage.key(i))
+          }
+          if (!keys.includes('DesignStor', 'UserStor', 'OrderStor', 'GlobalStor', 'ProductStor', 'AuxStor')) {
+            setTimeout(() => {
+              GlobalStor.global.isLoader = 1;
+              thisCtrl.user.phone = 'okna';
+              thisCtrl.user.password = 'jryf';
+              document.querySelector('.login-submit').click();
+            }, 2000);
+          }
         }
 
         function fastEnter(url) {
