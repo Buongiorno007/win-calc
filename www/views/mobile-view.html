@@ -103,7 +103,6 @@
           <div ng-click="designPage.positionAxis()" class="edit-btn constr-shape-position">{{::designPage.BY_AXIS}}</div>
           <div ng-click="designPage.positionGlass()" class="edit-btn constr-shape-position">{{::designPage.BY_GLASS}}</div>
         </div>
-        <div class="scroll-arrow-sm"></div>
       </div>
     </div>
   </div>
@@ -594,7 +593,6 @@
               </div>
             </div>
           </div>
-          <div ng-if="producer.length &gt;= 3" class="scroll-arrow"></div>
         </div>
       </div>
     </div>
@@ -683,11 +681,10 @@
           <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}" class="profile-info">
             <div ng-click="profilesPanel.selectSet(sets)" class="profile-info-item"><img src="{{ sets.img }}" alt="" class="profile-img">
               <div class="name">{{ sets.title }}</div>
-              <h3>{{sets.description}}</h3>
+              <h3 class="sets-text">{{sets.description}}</h3>
             </div>
           </div>
         </div>
-        <div ng-if="mobilePage.G.global.setsCategories.length &gt;= 3" class="scroll-arrow"></div>
       </div>
     </div>
   </div>
@@ -981,7 +978,6 @@
               </div>
             </div>
           </div>
-          <div ng-if="producer.length &gt;= 3" class="scroll-arrow"></div>
         </div>
       </div>
     </div>

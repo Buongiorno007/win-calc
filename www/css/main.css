@@ -12625,7 +12625,7 @@ body {
 .mobile .mobile-profiles .profiles-list {
   display: inline-flex;
   flex-direction: column;
-  height: calc(100% + 300px);
+  height: calc(100% + 1000px);
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -12711,7 +12711,7 @@ body {
 }
 /* line 1240, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .profile-info-item h3 {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   padding: 0 8px 0 8px;
 }
@@ -12731,6 +12731,10 @@ body {
   object-fit: contain;
 }
 /* line 1259, ../../dev/sass/pages/mobile.scss */
+.mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .sets-text {
+  white-space: pre-line;
+}
+/* line 1262, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .info-container {
   display: inline-flex;
   align-items: center;
@@ -12738,7 +12742,7 @@ body {
   height: 19.87vw;
   width: 100%;
 }
-/* line 1266, ../../dev/sass/pages/mobile.scss */
+/* line 1269, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .common-info {
   display: inline-flex;
   flex-direction: column;
@@ -12747,12 +12751,12 @@ body {
   height: 15.48vw;
   width: 100%;
 }
-/* line 1273, ../../dev/sass/pages/mobile.scss */
+/* line 1276, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .common-info p {
   font: normal 3.5vw/1.42857 roboto-regular, sans-serif, icons;
   text-overflow: clip;
 }
-/* line 1278, ../../dev/sass/pages/mobile.scss */
+/* line 1281, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .profile-box .profile-info .information {
   display: inline-flex;
   align-items: center;
@@ -12761,7 +12765,7 @@ body {
   border-radius: 25px;
   font: normal 5vw/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1290, ../../dev/sass/pages/mobile.scss */
+/* line 1293, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .scroll-arrow {
   /* Position the arrow at the right edge of the container, with a little margin */
   position: absolute;
@@ -12782,7 +12786,7 @@ body {
   /* Add a pointer cursor to indicate the area is scrollable */
   cursor: pointer;
 }
-/* line 1313, ../../dev/sass/pages/mobile.scss */
+/* line 1316, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box {
   width: auto;
   display: flex;
@@ -12794,7 +12798,7 @@ body {
   flex: 0 0 auto;
   padding-left: 10px;
 }
-/* line 1323, ../../dev/sass/pages/mobile.scss */
+/* line 1326, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info {
   flex: 0 0 auto;
   position: relative;
@@ -12809,7 +12813,7 @@ body {
   background-color: #fff;
   margin-right: 10px;
 }
-/* line 1336, ../../dev/sass/pages/mobile.scss */
+/* line 1339, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-info-item {
   display: inline-flex;
   flex-direction: column;
@@ -12818,13 +12822,13 @@ body {
   min-height: 100%;
   height: 235px;
 }
-/* line 1343, ../../dev/sass/pages/mobile.scss */
+/* line 1346, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-info-item img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-/* line 1348, ../../dev/sass/pages/mobile.scss */
+/* line 1351, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-info-item .name {
   font: normal 4vw/1.42857 roboto-bold, sans-serif, icons;
   text-align: center;
@@ -12834,7 +12838,7 @@ body {
   height: 7.74vw;
   width: 100%;
 }
-/* line 1356, ../../dev/sass/pages/mobile.scss */
+/* line 1359, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-info-item .name p {
   margin: 0;
   width: 90%;
@@ -12843,17 +12847,17 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 1365, ../../dev/sass/pages/mobile.scss */
+/* line 1368, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-info-item h3 {
   padding: 0 18px 0 18px;
 }
-/* line 1369, ../../dev/sass/pages/mobile.scss */
+/* line 1372, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info.selected {
   outline: none;
   border: 4px solid;
   animation: border-pulse 2.5s infinite;
 }
-/* line 1374, ../../dev/sass/pages/mobile.scss */
+/* line 1377, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .profile-img {
   display: inline-flex;
   align-items: center;
@@ -12862,7 +12866,7 @@ body {
   height: 135px;
   object-fit: contain;
 }
-/* line 1382, ../../dev/sass/pages/mobile.scss */
+/* line 1385, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .info-container {
   display: inline-flex;
   align-items: center;
@@ -12870,7 +12874,7 @@ body {
   height: 19.87vw;
   width: 100%;
 }
-/* line 1389, ../../dev/sass/pages/mobile.scss */
+/* line 1392, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .common-info {
   display: inline-flex;
   flex-direction: column;
@@ -12879,12 +12883,12 @@ body {
   height: 15.48vw;
   width: 100%;
 }
-/* line 1396, ../../dev/sass/pages/mobile.scss */
+/* line 1399, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .common-info p {
   font: normal 3.5vw/1.42857 roboto-regular, sans-serif, icons;
   text-overflow: clip;
 }
-/* line 1401, ../../dev/sass/pages/mobile.scss */
+/* line 1404, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-profiles .profiles-list .profile-block .set-box .profile-info .information {
   display: inline-flex;
   align-items: center;
@@ -12893,7 +12897,7 @@ body {
   border-radius: 25px;
   font: normal 5vw/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1417, ../../dev/sass/pages/mobile.scss */
+/* line 1420, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container {
   position: absolute;
   top: 75px;
@@ -12902,7 +12906,7 @@ body {
   overflow-y: auto;
   background: #1b1e23;
 }
-/* line 1424, ../../dev/sass/pages/mobile.scss */
+/* line 1427, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block {
   all: unset;
   position: relative;
@@ -12913,7 +12917,7 @@ body {
   flex-direction: column;
   flex: 0 0 auto;
 }
-/* line 1433, ../../dev/sass/pages/mobile.scss */
+/* line 1436, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button, .mobile .mobile-glass .glass-container .glass-block .ghost-button, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn, .mobile .mobile-glass .glass-container .glass-block .big-button, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn, .mobile .mobile-glass .glass-container .glass-block .login-submit, .mobile .mobile-glass .glass-container .glass-block .middle-button, .mobile .mobile-glass .glass-container .glass-block .alert-btns button, .alert-btns .mobile .mobile-glass .glass-container .glass-block button, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn, .mobile .mobile-glass .glass-container .glass-block .settings .save, .settings .mobile .mobile-glass .glass-container .glass-block .save, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default, .mobile .mobile-glass .glass-container .glass-block .small-button, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool,
@@ -12939,7 +12943,7 @@ body {
   margin-top: 15px;
   text-transform: uppercase;
 }
-/* line 1447, ../../dev/sass/pages/mobile.scss */
+/* line 1450, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .ghost-button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but .dropdown-icon, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but .dropdown-icon, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but .dropdown-icon, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but .dropdown-icon, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but .dropdown-icon, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but .dropdown-icon, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc .dropdown-icon, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn .dropdown-icon, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .big-button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn .dropdown-icon, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn .dropdown-icon, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn .dropdown-icon, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn .dropdown-icon, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn .dropdown-icon, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn .dropdown-icon, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn .dropdown-icon, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn .dropdown-icon, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .login-submit .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .middle-button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .alert-btns button .dropdown-icon, .alert-btns .mobile .mobile-glass .glass-container .glass-block button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn .dropdown-icon, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn .dropdown-icon, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .dropdown-icon, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .dropdown-icon, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .settings .save .dropdown-icon, .settings .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn .dropdown-icon, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search .dropdown-icon, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save .dropdown-icon, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool .dropdown-icon, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool .dropdown-icon,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default .dropdown-icon, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .small-button .dropdown-icon, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool .dropdown-icon, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool .dropdown-icon,
@@ -12954,7 +12958,7 @@ body {
   transition: all .3s ease-in-out;
   transform: rotate(-90deg);
 }
-/* line 1448, ../../dev/sass/pages/mobile.scss */
+/* line 1451, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .ghost-button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but .dropdown-icon img, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but .dropdown-icon img, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but .dropdown-icon img, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but .dropdown-icon img, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but .dropdown-icon img, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but .dropdown-icon img, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc .dropdown-icon img, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn .dropdown-icon img, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .big-button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn .dropdown-icon img, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn .dropdown-icon img, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn .dropdown-icon img, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn .dropdown-icon img, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn .dropdown-icon img, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn .dropdown-icon img, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn .dropdown-icon img, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn .dropdown-icon img, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .login-submit .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .middle-button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .alert-btns button .dropdown-icon img, .alert-btns .mobile .mobile-glass .glass-container .glass-block button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn .dropdown-icon img, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn .dropdown-icon img, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .dropdown-icon img, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .dropdown-icon img, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .settings .save .dropdown-icon img, .settings .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn .dropdown-icon img, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search .dropdown-icon img, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save .dropdown-icon img, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool .dropdown-icon img, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon img,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool .dropdown-icon img,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default .dropdown-icon img, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .small-button .dropdown-icon img, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool .dropdown-icon img, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool .dropdown-icon img,
@@ -12969,7 +12973,7 @@ body {
   width: 11px;
   height: 20px;
 }
-/* line 1454, ../../dev/sass/pages/mobile.scss */
+/* line 1457, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .ghost-button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but .dropdown-icon.active, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but .dropdown-icon.active, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but .dropdown-icon.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but .dropdown-icon.active, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but .dropdown-icon.active, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but .dropdown-icon.active, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc .dropdown-icon.active, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn .dropdown-icon.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .big-button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn .dropdown-icon.active, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn .dropdown-icon.active, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn .dropdown-icon.active, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn .dropdown-icon.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn .dropdown-icon.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn .dropdown-icon.active, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn .dropdown-icon.active, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn .dropdown-icon.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .login-submit .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .middle-button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns button .dropdown-icon.active, .alert-btns .mobile .mobile-glass .glass-container .glass-block button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn .dropdown-icon.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn .dropdown-icon.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .dropdown-icon.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .dropdown-icon.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .settings .save .dropdown-icon.active, .settings .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn .dropdown-icon.active, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search .dropdown-icon.active, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save .dropdown-icon.active, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool .dropdown-icon.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon.active,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool .dropdown-icon.active,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default .dropdown-icon.active, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .small-button .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool .dropdown-icon.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool .dropdown-icon.active,
@@ -12983,7 +12987,7 @@ body {
 .light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .door-config-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info .dropdown-icon.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab .dropdown-icon.active, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell .dropdown-icon.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell .dropdown-icon.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell .dropdown-icon.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit .dropdown-icon.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit .dropdown-icon.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit .dropdown-icon.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight .dropdown-icon.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight .dropdown-icon.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight .dropdown-icon.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn .dropdown-icon.active, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info .dropdown-icon.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element .dropdown-icon.active, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element .dropdown-icon.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements .dropdown-icon.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements .dropdown-icon.active {
   transform: rotate(90deg);
 }
-/* line 1458, ../../dev/sass/pages/mobile.scss */
+/* line 1461, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button.active, .mobile .mobile-glass .glass-container .glass-block .active.ghost-button, .mobile .mobile-glass .glass-container .glass-block .active.aux-choose-but, .mobile .mobile-glass .glass-container .glass-block .parameters-block .active.aux-params-but, .parameters-block .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .active.aux-params-but, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.aux-params-but, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .active.aux-params-but, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .active.aux-params-but, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .active.aux-params-but, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .active.aux-params-but, .mobile .mobile-glass .glass-container .glass-block .nav-menu .active.new-calc, .nav-menu .mobile .mobile-glass .glass-container .glass-block .active.new-calc, .mobile .mobile-glass .glass-container .glass-block .cart-menu .active.measure-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .active.measure-btn, .mobile .mobile-glass .glass-container .glass-block .active.big-button, .mobile .mobile-glass .glass-container .glass-block .active.orange-big-btn, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .active.cart-btn, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .order-path .active.cart-btn, .order-path .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .config-menu .active.cart-btn, .config-menu .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.cart-btn, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .cart-menu .active.cart-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .active.cart-btn, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .active.cart-btn, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .active.cart-btn, .mobile .mobile-glass .glass-container .glass-block .cart-menu .active.order-btn, .cart-menu .mobile .mobile-glass .glass-container .glass-block .active.order-btn, .mobile .mobile-glass .glass-container .glass-block .active.login-submit, .mobile .mobile-glass .glass-container .glass-block .active.middle-button, .mobile .mobile-glass .glass-container .glass-block .alert-btns button.active, .alert-btns .mobile .mobile-glass .glass-container .glass-block button.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .active.door-config-finish-btn, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .active.door-config-finish-btn, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .active.door-config-finish-btn, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .active.door-config-finish-btn, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .active.door-config-finish-save-btn, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .active.door-config-finish-save-btn, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .active.door-config-finish-save-btn, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .active.door-config-finish-save-btn, .mobile .mobile-glass .glass-container .glass-block .settings .active.save, .settings .mobile .mobile-glass .glass-container .glass-block .active.save, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .active.set-grid-all-btn, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-grid-all-btn, .mobile .mobile-glass .glass-container .glass-block .search-block .active.cancel-search, .search-block .mobile .mobile-glass .glass-container .glass-block .active.cancel-search, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .active.save, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .active.save, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.cart-tool, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.cart-tool,
 .mobile .mobile-glass .glass-container .glass-block .light-v .active.cart-tool,
 .light-v .mobile .mobile-glass .glass-container .glass-block .active.cart-tool, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .active.project-default, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .active.project-default, .mobile .mobile-glass .glass-container .glass-block .active.small-button, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.order-tool, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.order-tool,
@@ -12997,7 +13001,7 @@ body {
 .light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .active.door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .active.frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .active.frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .active.set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .active.search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .active.search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.close-alladdelements {
   color: #75B9BE;
 }
-/* line 1461, ../../dev/sass/pages/mobile.scss */
+/* line 1464, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button p, .mobile .mobile-glass .glass-container .glass-block .ghost-button p, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but p, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but p, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but p, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but p, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but p, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but p, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but p, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but p, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc p, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc p, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn p, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn p, .mobile .mobile-glass .glass-container .glass-block .big-button p, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn p, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn p, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn p, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn p, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn p, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn p, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn p, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn p, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn p, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p, .mobile .mobile-glass .glass-container .glass-block .login-submit p, .mobile .mobile-glass .glass-container .glass-block .middle-button p, .mobile .mobile-glass .glass-container .glass-block .alert-btns button p, .alert-btns .mobile .mobile-glass .glass-container .glass-block button p, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn p, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn p, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn p, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn p, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p, .mobile .mobile-glass .glass-container .glass-block .settings .save p, .settings .mobile .mobile-glass .glass-container .glass-block .save p, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn p, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn p, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search p, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search p, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save p, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save p, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool p, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool p,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool p,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool p, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default p, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default p, .mobile .mobile-glass .glass-container .glass-block .small-button p, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool p, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool p,
@@ -13017,7 +13021,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 1469, ../../dev/sass/pages/mobile.scss */
+/* line 1472, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .button p.active, .mobile .mobile-glass .glass-container .glass-block .ghost-button p.active, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but p.active, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but p.active, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but p.active, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but p.active, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but p.active, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but p.active, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc p.active, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn p.active, .mobile .mobile-glass .glass-container .glass-block .big-button p.active, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn p.active, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn p.active, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn p.active, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn p.active, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn p.active, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .login-submit p.active, .mobile .mobile-glass .glass-container .glass-block .middle-button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns button p.active, .alert-btns .mobile .mobile-glass .glass-container .glass-block button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .settings .save p.active, .settings .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn p.active, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn p.active, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search p.active, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search p.active, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save p.active, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool p.active,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool p.active,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool p.active, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default p.active, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default p.active, .mobile .mobile-glass .glass-container .glass-block .small-button p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool p.active,
@@ -13031,7 +13035,7 @@ body {
 .light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p.active, .mobile .mobile-glass .glass-container .glass-block .door-config-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab p.active, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn p.active, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element p.active, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements p.active {
   color: #20695d;
 }
-/* line 1474, ../../dev/sass/pages/mobile.scss */
+/* line 1477, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder {
   position: relative;
   width: 100%;
@@ -13041,7 +13045,7 @@ body {
   transition: 5s linear;
   padding: 10px 0 10px 0;
 }
-/* line 1482, ../../dev/sass/pages/mobile.scss */
+/* line 1485, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item {
   position: relative;
   display: inline-flex;
@@ -13055,20 +13059,20 @@ body {
   margin: 5px 0 5px 0;
   padding: 10px;
 }
-/* line 1494, ../../dev/sass/pages/mobile.scss */
+/* line 1497, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .info {
   height: 25px;
   width: 25px;
   background: url("../img/calc/info-button.svg") no-repeat;
   background-size: contain;
 }
-/* line 1500, ../../dev/sass/pages/mobile.scss */
+/* line 1503, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item.selected {
   border: 2px solid #20695d;
   color: #fff;
   background-color: #bebebe;
 }
-/* line 1505, ../../dev/sass/pages/mobile.scss */
+/* line 1508, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .title {
   width: calc(100% - 34px);
   display: inline-flex;
@@ -13079,28 +13083,28 @@ body {
   color: #fff;
   z-index: 1;
 }
-/* line 1514, ../../dev/sass/pages/mobile.scss */
+/* line 1517, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .title.selected {
   color: #1b1e23;
   border: none;
 }
-/* line 1519, ../../dev/sass/pages/mobile.scss */
+/* line 1522, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p {
   color: #fff;
   border: none;
 }
-/* line 1524, ../../dev/sass/pages/mobile.scss */
+/* line 1527, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p.selected {
   color: #1b1e23;
 }
-/* line 1530, ../../dev/sass/pages/mobile.scss */
+/* line 1533, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-glass .glass-container .glass-block img {
   position: relative;
   top: 0;
   width: 70vw;
   height: 70vw;
 }
-/* line 1539, ../../dev/sass/pages/mobile.scss */
+/* line 1542, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog {
   all: unset;
   position: absolute;
@@ -13114,14 +13118,14 @@ body {
   overflow: hidden !important;
   padding-top: 15px;
 }
-/* line 1551, ../../dev/sass/pages/mobile.scss */
+/* line 1554, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog #tamlateGlassSVG {
   all: unset;
   position: relative;
   left: 1rem;
   top: 2rem;
 }
-/* line 1557, ../../dev/sass/pages/mobile.scss */
+/* line 1560, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-inner {
   position: relative;
   height: 80vh;
@@ -13130,7 +13134,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1565, ../../dev/sass/pages/mobile.scss */
+/* line 1568, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog.active {
   position: fixed;
   display: inline-block;
@@ -13142,7 +13146,7 @@ body {
   z-index: 100;
   overflow: hidden;
 }
-/* line 1576, ../../dev/sass/pages/mobile.scss */
+/* line 1579, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title {
   position: relative;
   width: 100%;
@@ -13152,11 +13156,11 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1584, ../../dev/sass/pages/mobile.scss */
+/* line 1587, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title .apply-title {
   width: 100%;
 }
-/* line 1586, ../../dev/sass/pages/mobile.scss */
+/* line 1589, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title .apply-title p {
   width: 100%;
   display: inline-flex;
@@ -13166,7 +13170,7 @@ body {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1596, ../../dev/sass/pages/mobile.scss */
+/* line 1599, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title .glass-title {
   width: 100%;
   display: inline-flex;
@@ -13174,20 +13178,20 @@ body {
   justify-content: center;
   flex-direction: row;
 }
-/* line 1602, ../../dev/sass/pages/mobile.scss */
+/* line 1605, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title .glass-title.column {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-/* line 1609, ../../dev/sass/pages/mobile.scss */
+/* line 1612, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .dialog-title .glass-title .curr-glass-value p {
   font: normal 17px/1.42857 roboto-light, sans-serif, icons;
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1617, ../../dev/sass/pages/mobile.scss */
+/* line 1620, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons {
   display: inline-flex;
   align-items: center;
@@ -13197,7 +13201,7 @@ body {
   position: absolute;
   z-index: 2;
 }
-/* line 1625, ../../dev/sass/pages/mobile.scss */
+/* line 1628, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons div {
   width: 45%;
   height: 40px;
@@ -13209,26 +13213,26 @@ body {
   top: 0;
   right: 0;
 }
-/* line 1635, ../../dev/sass/pages/mobile.scss */
+/* line 1638, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons div p {
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1639, ../../dev/sass/pages/mobile.scss */
+/* line 1642, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons .set-glass-btn {
   background: white;
   border-radius: 4px;
 }
-/* line 1647, ../../dev/sass/pages/mobile.scss */
+/* line 1650, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons .set-glass-all-btn {
   background-color: #20695d;
   border-radius: 4px;
 }
-/* line 1650, ../../dev/sass/pages/mobile.scss */
+/* line 1653, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .buttons .set-glass-all-btn p {
   color: white;
   -webkit-text-fill-color: white;
 }
-/* line 1656, ../../dev/sass/pages/mobile.scss */
+/* line 1659, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .heat-coef-block-mobile {
   position: absolute;
   bottom: 65px;
@@ -13238,33 +13242,33 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1664, ../../dev/sass/pages/mobile.scss */
+/* line 1667, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .heat-coef-block-mobile .product-u-coeff {
   display: inline-flex;
   align-items: flex-end;
   white-space: nowrap;
   margin: 5px;
 }
-/* line 1670, ../../dev/sass/pages/mobile.scss */
+/* line 1673, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .heat-coef-block-mobile .title {
   display: inline-flex;
   align-items: flex-end;
   margin: 5px;
 }
-/* line 1674, ../../dev/sass/pages/mobile.scss */
+/* line 1677, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-selector-dialog .heat-coef-block-mobile .title p {
   color: #333;
   -webkit-text-fill-color: #333;
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1683, ../../dev/sass/pages/mobile.scss */
+/* line 1686, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-filter {
   margin-top: 75px;
   height: calc(100% + 300px);
   overflow: auto;
   background-color: #1b1e23;
 }
-/* line 1689, ../../dev/sass/pages/mobile.scss */
+/* line 1692, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box {
   width: 100%;
   display: inline-flex;
@@ -13272,7 +13276,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1695, ../../dev/sass/pages/mobile.scss */
+/* line 1698, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-row {
   position: relative;
   display: inline-flex;
@@ -13284,20 +13288,20 @@ body {
   border: 1px solid #20695d;
   margin: 5px 0 5px 0;
 }
-/* line 1705, ../../dev/sass/pages/mobile.scss */
+/* line 1708, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-row.active {
   border: 2px solid #20695d;
   color: #fff;
   background-color: #bebebe;
 }
-/* line 1711, ../../dev/sass/pages/mobile.scss */
+/* line 1714, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-row-descr {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 1717, ../../dev/sass/pages/mobile.scss */
+/* line 1720, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label-button {
   position: relative;
   top: 20px;
@@ -13315,20 +13319,20 @@ body {
   z-index: 1;
   text-transform: uppercase;
 }
-/* line 1733, ../../dev/sass/pages/mobile.scss */
+/* line 1736, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label-button.active {
   border: 2px solid #20695d;
   color: #1b1e23;
   background-color: #bebebe;
 }
-/* line 1738, ../../dev/sass/pages/mobile.scss */
+/* line 1741, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label-button p {
   width: 90%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 1745, ../../dev/sass/pages/mobile.scss */
+/* line 1748, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label {
   width: auto;
   display: inline-flex;
@@ -13340,18 +13344,18 @@ body {
   z-index: 1;
   margin: 5px;
 }
-/* line 1755, ../../dev/sass/pages/mobile.scss */
+/* line 1758, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label p {
   width: 90%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 1761, ../../dev/sass/pages/mobile.scss */
+/* line 1764, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-label.active {
   color: #1b1e23;
 }
-/* line 1765, ../../dev/sass/pages/mobile.scss */
+/* line 1768, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-box .laminat-folder {
   width: 100%;
   display: inline-flex;
@@ -13359,18 +13363,18 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1773, ../../dev/sass/pages/mobile.scss */
+/* line 1776, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-img {
   margin-bottom: 15px;
 }
-/* line 1774, ../../dev/sass/pages/mobile.scss */
+/* line 1777, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-lamination .laminat-img img {
   position: relative;
   top: 0;
   width: 70vw;
   height: 70vw;
 }
-/* line 1783, ../../dev/sass/pages/mobile.scss */
+/* line 1786, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile {
   display: inline-block;
   height: 100%;
@@ -13379,7 +13383,7 @@ body {
   background-color: #1b1e23;
   color: #fff;
 }
-/* line 1790, ../../dev/sass/pages/mobile.scss */
+/* line 1793, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container {
   padding-top: 77px;
   display: inline-flex;
@@ -13388,7 +13392,7 @@ body {
   height: 140%;
   overflow: auto;
 }
-/* line 1797, ../../dev/sass/pages/mobile.scss */
+/* line 1800, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders {
   display: inline-flex;
   flex-direction: column;
@@ -13399,30 +13403,30 @@ body {
   border-bottom: .5px solid gray;
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1805, ../../dev/sass/pages/mobile.scss */
+/* line 1808, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .add-elems-add-new {
   font-size: 10px;
   padding: 6px;
   border: 1px solid #FFD166;
   border-radius: 4px;
 }
-/* line 1811, ../../dev/sass/pages/mobile.scss */
+/* line 1814, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .folders-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-/* line 1817, ../../dev/sass/pages/mobile.scss */
+/* line 1820, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .folders-header .dropdown-icon {
   transition: all .3s ease-in-out;
   transform: rotate(-90deg);
 }
-/* line 1820, ../../dev/sass/pages/mobile.scss */
+/* line 1823, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .folders-header .dropdown-icon.active {
   transform: rotate(90deg);
 }
-/* line 1825, ../../dev/sass/pages/mobile.scss */
+/* line 1828, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .folders-name {
   display: inline-flex;
   align-items: center;
@@ -13433,18 +13437,18 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 1834, ../../dev/sass/pages/mobile.scss */
+/* line 1837, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .folders-name.active {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1840, ../../dev/sass/pages/mobile.scss */
+/* line 1843, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
-/* line 1845, ../../dev/sass/pages/mobile.scss */
+/* line 1848, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name {
   position: relative;
   width: 90%;
@@ -13459,31 +13463,31 @@ body {
   margin: 10px 0 10px 0;
   padding-left: 15px;
 }
-/* line 1858, ../../dev/sass/pages/mobile.scss */
+/* line 1861, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name.active {
   border: 2px solid #20695d;
   color: #000;
   background-color: #bebebe;
 }
-/* line 1863, ../../dev/sass/pages/mobile.scss */
+/* line 1866, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name p {
   width: 80%;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1867, ../../dev/sass/pages/mobile.scss */
+/* line 1870, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name .info {
   position: relative;
   height: 23px;
   width: 22px;
 }
-/* line 1873, ../../dev/sass/pages/mobile.scss */
+/* line 1876, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-image {
   position: relative;
   top: -10px;
   width: 70vw;
   height: 70vw;
 }
-/* line 1879, ../../dev/sass/pages/mobile.scss */
+/* line 1882, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .items {
   position: relative;
   display: inline-flex;
@@ -13496,25 +13500,25 @@ body {
   margin: 5px 0 5px 0;
   padding-left: 15px;
 }
-/* line 1890, ../../dev/sass/pages/mobile.scss */
+/* line 1893, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .items p {
   width: calc(100% - 30px);
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 1894, ../../dev/sass/pages/mobile.scss */
+/* line 1897, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .subfolders .items .info {
   position: relative;
   height: 22px;
   width: 23px;
 }
-/* line 1901, ../../dev/sass/pages/mobile.scss */
+/* line 1904, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem {
   position: relative;
   display: inline-flex;
   flex-direction: column;
   width: 100%;
 }
-/* line 1906, ../../dev/sass/pages/mobile.scss */
+/* line 1909, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header {
   display: inline-flex;
   align-items: center;
@@ -13523,7 +13527,7 @@ body {
   padding-right: 20px;
   margin-bottom: 10px;
 }
-/* line 1913, ../../dev/sass/pages/mobile.scss */
+/* line 1916, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header .close-dialog {
   position: relative;
   top: 0;
@@ -13531,26 +13535,26 @@ body {
   height: 20px;
   width: 20px;
 }
-/* line 1920, ../../dev/sass/pages/mobile.scss */
+/* line 1923, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header .name {
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
   margin: 5px 0;
 }
-/* line 1926, ../../dev/sass/pages/mobile.scss */
+/* line 1929, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row {
   display: inline-flex;
   align-items: center;
   justify-content: space-around;
   margin-bottom: 15px;
 }
-/* line 1931, ../../dev/sass/pages/mobile.scss */
+/* line 1934, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row .item {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1936, ../../dev/sass/pages/mobile.scss */
+/* line 1939, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row .item .val {
   font: normal 12px/1.42857 roboto-light, sans-serif, icons;
   min-width: 30px;
@@ -13563,7 +13567,7 @@ body {
   padding: 0 10px;
   box-sizing: content-box;
 }
-/* line 1953, ../../dev/sass/pages/mobile.scss */
+/* line 1956, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem {
   position: fixed;
   top: 0px;
@@ -13577,12 +13581,12 @@ body {
   z-index: 3;
   background: #1b1e23;
 }
-/* line 1965, ../../dev/sass/pages/mobile.scss */
+/* line 1968, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .name {
   font: normal 22px/1.42857 roboto-regular, sans-serif, icons;
   margin: 20px 0;
 }
-/* line 1969, ../../dev/sass/pages/mobile.scss */
+/* line 1972, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .item {
   display: inline-flex;
   width: 100%;
@@ -13591,7 +13595,7 @@ body {
   padding: 0 15px;
   margin: 20px 0;
 }
-/* line 1976, ../../dev/sass/pages/mobile.scss */
+/* line 1979, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .item .item-val {
   display: inline-flex;
   align-items: center;
@@ -13605,12 +13609,12 @@ body {
   justify-content: flex-end;
   font: normal 18px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1989, ../../dev/sass/pages/mobile.scss */
+/* line 1992, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .item .item-name {
   text-transform: capitalize;
   font: normal 18px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1994, ../../dev/sass/pages/mobile.scss */
+/* line 1997, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .add-elem-price {
   display: inline-flex;
   align-items: center;
@@ -13621,11 +13625,11 @@ body {
   border-top: 1px solid #d0d0d0;
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2003, ../../dev/sass/pages/mobile.scss */
+/* line 2006, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .add-elem-price .curr {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2007, ../../dev/sass/pages/mobile.scss */
+/* line 2010, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .controls {
   display: inline-flex;
   width: 100%;
@@ -13633,7 +13637,7 @@ body {
   justify-content: space-between;
   padding: 0 15px;
 }
-/* line 2013, ../../dev/sass/pages/mobile.scss */
+/* line 2016, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .controls div {
   display: inline-flex;
   align-items: center;
@@ -13643,20 +13647,20 @@ body {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
   margin: 20px 0;
 }
-/* line 2023, ../../dev/sass/pages/mobile.scss */
+/* line 2026, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .confirm-add-elem .info {
   position: absolute;
   top: 15px;
   left: 15px;
 }
-/* line 2029, ../../dev/sass/pages/mobile.scss */
+/* line 2032, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .mob-qty-calculator {
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 3;
 }
-/* line 2036, ../../dev/sass/pages/mobile.scss */
+/* line 2039, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog {
   all: unset;
   position: absolute;
@@ -13668,12 +13672,12 @@ body {
   background-size: contain;
   z-index: 2;
 }
-/* line 2046, ../../dev/sass/pages/mobile.scss */
+/* line 2049, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog:after {
   all: unset;
   content: '';
 }
-/* line 2051, ../../dev/sass/pages/mobile.scss */
+/* line 2054, ../../dev/sass/pages/mobile.scss */
 .mobile .product-u-coeff {
   display: inline-flex;
   flex-direction: row;
@@ -13682,13 +13686,13 @@ body {
   font: normal 14px/1.42857 roboto-regular, sans-serif, icons;
   color: #75B9BE;
 }
-/* line 2063, ../../dev/sass/pages/mobile.scss */
+/* line 2066, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile {
   background-color: #1b1e23;
   display: inline-flex;
   flex-direction: column;
 }
-/* line 2067, ../../dev/sass/pages/mobile.scss */
+/* line 2070, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-header {
   margin-top: 10px;
   display: inline-flex;
@@ -13697,7 +13701,7 @@ body {
   height: 70px;
   width: 100%;
 }
-/* line 2074, ../../dev/sass/pages/mobile.scss */
+/* line 2077, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-header .header-buttons {
   display: inline-flex;
   flex-direction: column;
@@ -13709,7 +13713,7 @@ body {
   font: normal 13px/1.42857 roboto-regular, sans-serif, icons;
   text-align: center;
 }
-/* line 2086, ../../dev/sass/pages/mobile.scss */
+/* line 2089, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container {
   display: inline-flex;
   flex-direction: column;
@@ -13720,7 +13724,7 @@ body {
   overflow-x: hidden;
   padding: 0 0 10px 0;
 }
-/* line 2095, ../../dev/sass/pages/mobile.scss */
+/* line 2098, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .add-product {
   display: inline-flex;
   align-items: center;
@@ -13728,7 +13732,7 @@ body {
   min-height: 50px;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2102, ../../dev/sass/pages/mobile.scss */
+/* line 2105, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product {
   position: relative;
   display: inline-flex;
@@ -13741,31 +13745,31 @@ body {
   padding: 15px 10px 10px 10px;
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2115, ../../dev/sass/pages/mobile.scss */
+/* line 2118, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col {
   display: inline-flex;
   flex-direction: column;
   width: 50%;
   height: 100%;
 }
-/* line 2120, ../../dev/sass/pages/mobile.scss */
+/* line 2123, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col svg-template {
   all: unset;
   position: relative;
 }
-/* line 2123, ../../dev/sass/pages/mobile.scss */
+/* line 2126, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col svg-template div {
   all: unset;
   position: relative;
 }
-/* line 2128, ../../dev/sass/pages/mobile.scss */
+/* line 2131, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-template {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 2134, ../../dev/sass/pages/mobile.scss */
+/* line 2137, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-heat-coef {
   width: 100%;
   display: inline-flex;
@@ -13774,7 +13778,7 @@ body {
   position: relative;
   top: 20px;
 }
-/* line 2141, ../../dev/sass/pages/mobile.scss */
+/* line 2144, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-heat-coef .order-u-coeff {
   width: 100%;
   display: inline-flex;
@@ -13782,7 +13786,7 @@ body {
   justify-content: center;
   color: #6ed44a;
 }
-/* line 2152, ../../dev/sass/pages/mobile.scss */
+/* line 2155, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-count {
   display: inline-flex;
   width: 45%;
@@ -13791,7 +13795,7 @@ body {
   position: absolute;
   bottom: 10px;
 }
-/* line 2159, ../../dev/sass/pages/mobile.scss */
+/* line 2162, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-count .count-button {
   display: inline-flex;
   align-items: center;
@@ -13802,13 +13806,13 @@ body {
   border-radius: 4px;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2168, ../../dev/sass/pages/mobile.scss */
+/* line 2171, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-count .count-button label {
   position: relative;
   top: -1px;
   left: 0px;
 }
-/* line 2175, ../../dev/sass/pages/mobile.scss */
+/* line 2178, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .prod-price {
   display: inline-flex;
   width: 100%;
@@ -13818,11 +13822,11 @@ body {
   position: relative;
   top: 50px;
 }
-/* line 2184, ../../dev/sass/pages/mobile.scss */
+/* line 2187, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .order-item {
   margin: 5px 0;
 }
-/* line 2186, ../../dev/sass/pages/mobile.scss */
+/* line 2189, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .order-item .order-value, .mobile .cart-mobile .product-container .product .col .order-item .cart-page .product-value, .cart-page .mobile .cart-mobile .product-container .product .col .order-item .product-value,
 .mobile .cart-mobile .product-container .product .col .order-item .light-v .product-value,
 .light-v .mobile .cart-mobile .product-container .product .col .order-item .product-value, .mobile .cart-mobile .product-container .product .col .order-item .cart-page .addelement-value, .cart-page .mobile .cart-mobile .product-container .product .col .order-item .addelement-value,
@@ -13834,7 +13838,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 2193, ../../dev/sass/pages/mobile.scss */
+/* line 2196, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .order-item .order-label, .mobile .cart-mobile .product-container .product .col .order-item .cart-page .product-icon-label, .cart-page .mobile .cart-mobile .product-container .product .col .order-item .product-icon-label,
 .mobile .cart-mobile .product-container .product .col .order-item .cart-page .product-label,
 .cart-page .mobile .cart-mobile .product-container .product .col .order-item .product-label,
@@ -13847,7 +13851,7 @@ body {
   font: normal 10px/1.42857 roboto-light, sans-serif, icons;
   border-bottom: 1px solid #d0d0d0;
 }
-/* line 2198, ../../dev/sass/pages/mobile.scss */
+/* line 2201, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .product .col .order-edit {
   margin: 5px 0 0 0;
   min-height: 40px;
@@ -13858,14 +13862,14 @@ body {
   bottom: 10px;
   width: 45%;
 }
-/* line 2210, ../../dev/sass/pages/mobile.scss */
+/* line 2213, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .product-container .empty {
   display: inline-flex;
   width: 100%;
   height: 100px;
   flex: 0 0 auto;
 }
-/* line 2217, ../../dev/sass/pages/mobile.scss */
+/* line 2220, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer-container {
   display: inline-flex;
   align-items: center;
@@ -13874,7 +13878,7 @@ body {
   padding: 0px 10px;
   margin: 7.5px 0 15px 0;
 }
-/* line 2225, ../../dev/sass/pages/mobile.scss */
+/* line 2228, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer {
   position: relative;
   display: inline-flex;
@@ -13885,20 +13889,20 @@ body {
   border: 0.5px solid #FFD166;
   box-sizing: content-box;
 }
-/* line 2234, ../../dev/sass/pages/mobile.scss */
+/* line 2237, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .price {
   color: #fff;
   margin-left: -1rem;
 }
-/* line 2238, ../../dev/sass/pages/mobile.scss */
+/* line 2241, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .price .price-value {
   color: #fff;
 }
-/* line 2241, ../../dev/sass/pages/mobile.scss */
+/* line 2244, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .price .price-currency {
   color: #fff;
 }
-/* line 2245, ../../dev/sass/pages/mobile.scss */
+/* line 2248, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .spesification {
   display: inline-flex;
   align-items: center;
@@ -13912,7 +13916,7 @@ body {
   font: normal 18px/1.42857 roboto-regular, sans-serif, icons;
   color: #000;
 }
-/* line 2259, ../../dev/sass/pages/mobile.scss */
+/* line 2262, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .order-delete {
   position: absolute;
   top: 0;
@@ -13922,7 +13926,7 @@ body {
   background: url("../img/calc/close-calculator-hover.svg") no-repeat;
   background-size: contain;
 }
-/* line 2268, ../../dev/sass/pages/mobile.scss */
+/* line 2271, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window {
   position: absolute;
   top: 15%;
@@ -13936,13 +13940,13 @@ body {
   background: white;
   border-radius: 15px;
 }
-/* line 2280, ../../dev/sass/pages/mobile.scss */
+/* line 2283, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window .order-delete {
   top: 10px;
   right: 10px;
   z-index: 1;
 }
-/* line 2285, ../../dev/sass/pages/mobile.scss */
+/* line 2288, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window .order-edit {
   margin: 0;
   height: 25px;
@@ -13956,13 +13960,13 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   z-index: 1;
 }
-/* line 2298, ../../dev/sass/pages/mobile.scss */
+/* line 2301, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window #tamlateGlassSVG {
   padding: 10px 0 0 0;
   position: relative;
   top: 30px;
 }
-/* line 2304, ../../dev/sass/pages/mobile.scss */
+/* line 2307, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .addelements-detail {
   position: absolute;
   width: 100%;
@@ -13970,7 +13974,7 @@ body {
   background: white;
   z-index: 1;
 }
-/* line 2311, ../../dev/sass/pages/mobile.scss */
+/* line 2314, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery {
   position: absolute;
   top: 0;
@@ -13979,7 +13983,7 @@ body {
   height: 100%;
   background-color: #1b1e23;
 }
-/* line 2318, ../../dev/sass/pages/mobile.scss */
+/* line 2321, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-title {
   display: inline-flex;
   align-items: center;
@@ -13987,24 +13991,24 @@ body {
   width: 100%;
   height: 40px;
 }
-/* line 2324, ../../dev/sass/pages/mobile.scss */
+/* line 2327, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-title label {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   color: #fff;
 }
-/* line 2329, ../../dev/sass/pages/mobile.scss */
+/* line 2332, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-value,
 .mobile .cart-mobile .mount-delivery .mobile-delivery-price {
   display: inline-flex;
   font: normal 5vw/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2334, ../../dev/sass/pages/mobile.scss */
+/* line 2337, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-items {
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
   color: #fff;
   padding: 0px 15px;
 }
-/* line 2339, ../../dev/sass/pages/mobile.scss */
+/* line 2342, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery {
   align-items: center;
   justify-content: center;
@@ -14015,7 +14019,7 @@ body {
   padding: 10px 0;
   flex: 0 0 auto;
 }
-/* line 2349, ../../dev/sass/pages/mobile.scss */
+/* line 2352, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container {
   display: inline-flex;
   flex-direction: column;
@@ -14025,7 +14029,7 @@ body {
   overflow-x: hidden;
   color: #fff;
 }
-/* line 2357, ../../dev/sass/pages/mobile.scss */
+/* line 2360, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .mobile-delivery-selected {
   width: 100%;
   display: inline-flex;
@@ -14035,19 +14039,19 @@ body {
   margin: 5px 0;
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2365, ../../dev/sass/pages/mobile.scss */
+/* line 2368, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .mobile-delivery-selected input {
   width: 60px;
   border-radius: 5px;
   border: 1px solid #363636;
   text-align: center;
 }
-/* line 2372, ../../dev/sass/pages/mobile.scss */
+/* line 2375, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .selected {
   border-radius: 4px;
   border: 1px solid #20695d;
 }
-/* line 2376, ../../dev/sass/pages/mobile.scss */
+/* line 2379, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .dropdown-items-list {
   width: 100%;
   display: inline-flex;
@@ -14055,14 +14059,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 2383, ../../dev/sass/pages/mobile.scss */
+/* line 2386, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .dropdown-item {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 2391, ../../dev/sass/pages/mobile.scss */
+/* line 2394, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile {
   position: absolute;
   display: inline-flex;
@@ -14071,7 +14075,7 @@ body {
   height: 0;
   overflow: hidden;
 }
-/* line 2399, ../../dev/sass/pages/mobile.scss */
+/* line 2402, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile.active {
   width: 100%;
   height: 100%;
@@ -14080,11 +14084,11 @@ body {
   background: #1b1e23;
   z-index: 1;
 }
-/* line 2407, ../../dev/sass/pages/mobile.scss */
+/* line 2410, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-header-mobile {
   flex: 0 0 auto;
 }
-/* line 2409, ../../dev/sass/pages/mobile.scss */
+/* line 2412, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-header-mobile .add-elem-price {
   display: inline-flex;
   align-items: center;
@@ -14092,7 +14096,7 @@ body {
   width: calc(96% - 50px);
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2418, ../../dev/sass/pages/mobile.scss */
+/* line 2421, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elems-scroll {
   display: inline-flex;
   flex-direction: column;
@@ -14101,16 +14105,16 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 2426, ../../dev/sass/pages/mobile.scss */
+/* line 2429, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item {
   position: relative;
   flex: 0 0 auto;
 }
-/* line 2429, ../../dev/sass/pages/mobile.scss */
+/* line 2432, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current {
   position: relative;
 }
-/* line 2431, ../../dev/sass/pages/mobile.scss */
+/* line 2434, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-title {
   display: inline-flex;
   align-items: center;
@@ -14120,13 +14124,13 @@ body {
   font: normal 25px/1.42857 roboto-regular, sans-serif, icons;
   text-transform: capitalize;
 }
-/* line 2440, ../../dev/sass/pages/mobile.scss */
+/* line 2443, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row {
   display: inline-flex;
   flex-direction: column;
   width: 100%;
 }
-/* line 2444, ../../dev/sass/pages/mobile.scss */
+/* line 2447, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title {
   position: relative;
   display: inline-flex;
@@ -14137,22 +14141,22 @@ body {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
   padding: 0px 0px 0px 15px;
 }
-/* line 2453, ../../dev/sass/pages/mobile.scss */
+/* line 2456, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title label {
   width: 80%;
 }
-/* line 2456, ../../dev/sass/pages/mobile.scss */
+/* line 2459, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title .order-delete {
   position: relative;
   right: 8%;
 }
-/* line 2461, ../../dev/sass/pages/mobile.scss */
+/* line 2464, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-info {
   padding: 0px 0px 0px 15px;
   display: inline-flex;
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2465, ../../dev/sass/pages/mobile.scss */
+/* line 2468, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-info .add-elem-row {
   display: inline-flex;
   justify-content: center;
@@ -14161,25 +14165,25 @@ body {
   height: 30px;
   border-right: 1px solid white;
 }
-/* line 2478, ../../dev/sass/pages/mobile.scss */
+/* line 2481, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .backDarkView, .mobile .cart-mobile .alert-overlay, .mobile .cart-mobile .box-menu, .mobile .cart-mobile .box-menu11 {
   z-index: 0;
 }
-/* line 2482, ../../dev/sass/pages/mobile.scss */
+/* line 2485, ../../dev/sass/pages/mobile.scss */
 .mobile .splice, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 2488, ../../dev/sass/pages/mobile.scss */
+/* line 2491, ../../dev/sass/pages/mobile.scss */
 .mobile .splice-comment {
   width: 80vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 2494, ../../dev/sass/pages/mobile.scss */
+/* line 2497, ../../dev/sass/pages/mobile.scss */
 .mobile .info_box {
   all: unset;
   position: absolute;
@@ -14191,25 +14195,25 @@ body {
   margin: 0;
   background: white;
 }
-/* line 2508, ../../dev/sass/pages/mobile.scss */
+/* line 2511, ../../dev/sass/pages/mobile.scss */
 .mobile .info_box_inner {
   background: white;
 }
-/* line 2511, ../../dev/sass/pages/mobile.scss */
+/* line 2514, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-no,
 .mobile .alert-yes {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 2517, ../../dev/sass/pages/mobile.scss */
+/* line 2520, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-no {
   color: #fff;
   border: 1px solid #20695d;
   border-radius: 4px;
   margin: 15px 5px 15px 5px;
 }
-/* line 2523, ../../dev/sass/pages/mobile.scss */
+/* line 2526, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-yes {
   background: #20695d;
   color: white;
@@ -14217,14 +14221,14 @@ body {
   border-radius: 4px;
   margin: 15px;
 }
-/* line 2530, ../../dev/sass/pages/mobile.scss */
+/* line 2533, ../../dev/sass/pages/mobile.scss */
 .mobile .isApply {
   background: #20695d;
   color: white;
   -webkit-text-fill-color: white;
   border-radius: 4px;
 }
-/* line 2536, ../../dev/sass/pages/mobile.scss */
+/* line 2539, ../../dev/sass/pages/mobile.scss */
 .mobile .size-line {
   stroke-width: 1.2px !important;
   stroke: #fff !important;
@@ -14259,7 +14263,7 @@ body {
     background: #75B9BE;
   }
 }
-/* line 2573, ../../dev/sass/pages/mobile.scss */
+/* line 2576, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile {
   position: absolute;
   bottom: 65px;
@@ -14269,26 +14273,26 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 2581, ../../dev/sass/pages/mobile.scss */
+/* line 2584, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .product-u-coeff {
   display: inline-flex;
   align-items: flex-end;
   white-space: nowrap;
   margin: 5px;
 }
-/* line 2587, ../../dev/sass/pages/mobile.scss */
+/* line 2590, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .title {
   display: inline-flex;
   align-items: flex-end;
   margin: 5px;
 }
-/* line 2591, ../../dev/sass/pages/mobile.scss */
+/* line 2594, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .title p {
   color: #333;
   -webkit-text-fill-color: #333;
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2598, ../../dev/sass/pages/mobile.scss */
+/* line 2601, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block {
   position: absolute;
   top: 0;
@@ -14297,7 +14301,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/* line 2606, ../../dev/sass/pages/mobile.scss */
+/* line 2609, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner {
   background-color: #75B9BE;
   position: absolute;
@@ -14313,7 +14317,7 @@ body {
   text-align: center;
   z-index: 2;
 }
-/* line 2620, ../../dev/sass/pages/mobile.scss */
+/* line 2623, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .coeff-max {
   display: inline-flex;
   width: 100%;
@@ -14324,42 +14328,42 @@ body {
   -webkit-text-fill-color: white;
   font: normal 90px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2629, ../../dev/sass/pages/mobile.scss */
+/* line 2632, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .coeff-max .heat-transfer {
   display: inline-flex;
   font: normal 30px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2634, ../../dev/sass/pages/mobile.scss */
+/* line 2637, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info_hr {
   color: white;
   -webkit-text-fill-color: white;
   font: normal 24px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2639, ../../dev/sass/pages/mobile.scss */
+/* line 2642, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info_hr2 {
   color: white;
   -webkit-text-fill-color: white;
   font: normal 12px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2644, ../../dev/sass/pages/mobile.scss */
+/* line 2647, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body {
   background: white;
   padding: 3px;
 }
-/* line 2647, ../../dev/sass/pages/mobile.scss */
+/* line 2650, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border {
   padding: 5px;
   border: 2px solid #75B9BE;
   text-align: left;
 }
-/* line 2651, ../../dev/sass/pages/mobile.scss */
+/* line 2654, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border .heat-transfer-info {
   margin-bottom: 5px;
   color: #333;
   -webkit-text-fill-color: #333;
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2657, ../../dev/sass/pages/mobile.scss */
+/* line 2660, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border .heat-transfer-info2 {
   margin-bottom: 5px;
   color: #00219e;
@@ -14367,7 +14371,7 @@ body {
   text-decoration: underline;
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2667, ../../dev/sass/pages/mobile.scss */
+/* line 2670, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body {
   position: relative;
   width: 60%;
@@ -14378,23 +14382,23 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* line 2676, ../../dev/sass/pages/mobile.scss */
+/* line 2679, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body .close-dialog-text {
   margin-left: -15px;
   font: normal 23px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 2680, ../../dev/sass/pages/mobile.scss */
+/* line 2683, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body .close-dialog {
   top: 3px;
   right: 2px;
 }
-/* line 2685, ../../dev/sass/pages/mobile.scss */
+/* line 2688, ../../dev/sass/pages/mobile.scss */
 .mobile .sash_mark {
   fill: none;
   stroke: #75B9BE;
   stroke-width: 6;
 }
-/* line 2690, ../../dev/sass/pages/mobile.scss */
+/* line 2693, ../../dev/sass/pages/mobile.scss */
 .mobile .info {
   margin: 2px;
   height: 25px;
@@ -14405,7 +14409,7 @@ body {
   background: url("../img/calc/info-button.svg") no-repeat;
   background-size: contain;
 }
-/* line 2701, ../../dev/sass/pages/mobile.scss */
+/* line 2704, ../../dev/sass/pages/mobile.scss */
 .mobile .attantion-block .close-dialog {
   right: 15px;
   top: 15px;
@@ -14414,12 +14418,12 @@ body {
   background: url("../img/calc/error.svg") no-repeat;
   background-size: contain;
 }
-/* line 2710, ../../dev/sass/pages/mobile.scss */
+/* line 2713, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert {
   background: #fff;
   z-index: 2;
 }
-/* line 2713, ../../dev/sass/pages/mobile.scss */
+/* line 2716, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .continued-proc {
   all: unset;
   display: inline-flex;
@@ -14433,7 +14437,7 @@ body {
   border-radius: 25px;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2727, ../../dev/sass/pages/mobile.scss */
+/* line 2730, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .close-danger-alert {
   all: unset;
   position: absolute;
@@ -14445,11 +14449,11 @@ body {
   background-size: contain;
   z-index: 2;
 }
-/* line 2737, ../../dev/sass/pages/mobile.scss */
+/* line 2740, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .close-danger-alert:after {
   content: '';
 }
-/* line 2742, ../../dev/sass/pages/mobile.scss */
+/* line 2745, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion {
   all: unset;
   padding: 10px;
@@ -14466,14 +14470,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* line 2757, ../../dev/sass/pages/mobile.scss */
+/* line 2760, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .attention {
   font: normal 35px/1.42857 roboto-regular, sans-serif, icons;
   color: white;
   -webkit-text-fill-color: white;
   margin-bottom: 25px;
 }
-/* line 2763, ../../dev/sass/pages/mobile.scss */
+/* line 2766, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .glass-list {
   width: 100%;
   display: inline-flex;
@@ -14486,7 +14490,7 @@ body {
   margin: 50px 0 25px 0;
   height: auto;
 }
-/* line 2775, ../../dev/sass/pages/mobile.scss */
+/* line 2778, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .extra-glass,
 .mobile .glass-attantion span {
   width: 100%;
@@ -14496,7 +14500,7 @@ body {
   align-items: center;
   text-align: center;
 }
-/* line 2784, ../../dev/sass/pages/mobile.scss */
+/* line 2787, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button {
   position: relative;
   width: 60%;
@@ -14508,18 +14512,18 @@ body {
   align-items: center;
   margin-top: 35px;
 }
-/* line 2794, ../../dev/sass/pages/mobile.scss */
+/* line 2797, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button .close-dialog-title {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2797, ../../dev/sass/pages/mobile.scss */
+/* line 2800, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button .close-dialog {
   right: 1px;
   top: 1px;
   width: 43px;
   height: 43px;
 }
-/* line 2805, ../../dev/sass/pages/mobile.scss */
+/* line 2808, ../../dev/sass/pages/mobile.scss */
 .mobile .burger {
   display: none;
   position: absolute;
@@ -14531,12 +14535,12 @@ body {
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
 }
-/* line 2815, ../../dev/sass/pages/mobile.scss */
+/* line 2818, ../../dev/sass/pages/mobile.scss */
 .mobile .burger.active {
   transition: 2s linear;
   opacity: 0;
 }
-/* line 2821, ../../dev/sass/pages/mobile.scss */
+/* line 2824, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu {
   position: absolute;
   display: inline-flex;
@@ -14551,7 +14555,7 @@ body {
   z-index: 2;
   border-right: 1px solid #bebebe;
 }
-/* line 2834, ../../dev/sass/pages/mobile.scss */
+/* line 2837, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container {
   position: relative;
   display: inline-flex;
@@ -14562,29 +14566,29 @@ body {
   -webkit-box-shadow: #bebebe 0 2px 10px -2px;
   box-shadow: #bebebe 0 2px 10px -2px;
 }
-/* line 2841, ../../dev/sass/pages/mobile.scss */
+/* line 2844, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-info-block {
   position: absolute;
   bottom: 12px;
   right: 10px;
 }
-/* line 2846, ../../dev/sass/pages/mobile.scss */
+/* line 2849, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-location,
 .mobile .mobile-left-menu .user-info-container .user-name {
   text-align: left;
 }
-/* line 2850, ../../dev/sass/pages/mobile.scss */
+/* line 2853, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-foto {
   width: 80px;
   height: 80px;
 }
-/* line 2855, ../../dev/sass/pages/mobile.scss */
+/* line 2858, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu.opened {
   left: 0;
   transition: 0.5s linear;
   box-shadow: 0px 0px 100px 20vw rgba(78, 77, 77, 0.5);
 }
-/* line 2860, ../../dev/sass/pages/mobile.scss */
+/* line 2863, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner {
   position: absolute;
   top: 15px;
@@ -14595,14 +14599,14 @@ body {
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 2869, ../../dev/sass/pages/mobile.scss */
+/* line 2872, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner.active {
   transform: rotate(90deg);
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 2876, ../../dev/sass/pages/mobile.scss */
+/* line 2879, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list {
   height: calc(100% - 200px);
   display: inline-flex;
@@ -14611,7 +14615,7 @@ body {
   justify-content: flex-start;
   padding: 10px 0 10px 10px;
 }
-/* line 2883, ../../dev/sass/pages/mobile.scss */
+/* line 2886, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button, .mobile .mobile-left-menu .buttons-list .ghost-button, .mobile .mobile-left-menu .buttons-list .aux-choose-but, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn, .mobile .mobile-left-menu .buttons-list .big-button, .mobile .mobile-left-menu .buttons-list .orange-big-btn, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn, .mobile .mobile-left-menu .buttons-list .login-submit, .mobile .mobile-left-menu .buttons-list .middle-button, .mobile .mobile-left-menu .buttons-list .alert-btns button, .alert-btns .mobile .mobile-left-menu .buttons-list button, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .settings .save, .settings .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default, .mobile .mobile-left-menu .buttons-list .small-button, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool,
@@ -14625,7 +14629,7 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close, .mobile .mobile-left-menu .buttons-list .door-config-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab, .mobile .mobile-left-menu .buttons-list .calculator .cell, .calculator .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements {
   margin: 5px 0 5px 0;
 }
-/* line 2885, ../../dev/sass/pages/mobile.scss */
+/* line 2888, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button p, .mobile .mobile-left-menu .buttons-list .ghost-button p, .mobile .mobile-left-menu .buttons-list .aux-choose-but p, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but p, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but p, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but p, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but p, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but p, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc p, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc p, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn p, .mobile .mobile-left-menu .buttons-list .big-button p, .mobile .mobile-left-menu .buttons-list .orange-big-btn p, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn p, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn p, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn p, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn p, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn p, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn p, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn p, .mobile .mobile-left-menu .buttons-list .login-submit p, .mobile .mobile-left-menu .buttons-list .middle-button p, .mobile .mobile-left-menu .buttons-list .alert-btns button p, .alert-btns .mobile .mobile-left-menu .buttons-list button p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .settings .save p, .settings .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn p, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn p, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search p, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search p, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save p, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool p,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool p,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool p, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default p, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default p, .mobile .mobile-left-menu .buttons-list .small-button p, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool p,
@@ -14639,11 +14643,11 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close p, .mobile .mobile-left-menu .buttons-list .door-config-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info p, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info p, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab p, .mobile .mobile-left-menu .buttons-list .calculator .cell p, .calculator .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info p, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element p, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element p, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements p, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2889, ../../dev/sass/pages/mobile.scss */
+/* line 2892, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .add_elems {
   color: #75B9BE;
 }
-/* line 2893, ../../dev/sass/pages/mobile.scss */
+/* line 2896, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer {
   display: inline-flex;
   flex-direction: column;
@@ -14655,7 +14659,7 @@ body {
   width: 100%;
   background: #d0d0d0;
 }
-/* line 2903, ../../dev/sass/pages/mobile.scss */
+/* line 2906, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index {
   display: inline-flex;
   justify-content: center;
@@ -14665,15 +14669,15 @@ body {
   background: white;
   border-radius: 25px;
 }
-/* line 2913, ../../dev/sass/pages/mobile.scss */
+/* line 2916, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2919, ../../dev/sass/pages/mobile.scss */
+/* line 2922, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .title p {
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2926, ../../dev/sass/pages/mobile.scss */
+/* line 2929, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms {
   position: absolute;
   top: 0;
@@ -14685,7 +14689,7 @@ body {
   z-index: 2;
   overflow: hidden;
 }
-/* line 2936, ../../dev/sass/pages/mobile.scss */
+/* line 2939, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile {
   position: absolute;
   top: 0;
@@ -14697,7 +14701,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-/* line 2946, ../../dev/sass/pages/mobile.scss */
+/* line 2949, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header {
   display: inline-flex;
   width: 100%;
@@ -14706,12 +14710,12 @@ body {
   justify-content: space-between;
   color: #75B9BE;
 }
-/* line 2953, ../../dev/sass/pages/mobile.scss */
+/* line 2956, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .col {
   display: inline-flex;
   align-items: center;
 }
-/* line 2957, ../../dev/sass/pages/mobile.scss */
+/* line 2960, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .back-button {
   background: url("../img/calc/back_red.svg") no-repeat;
   background-size: contain;
@@ -14719,33 +14723,33 @@ body {
   height: 25px;
   margin: 0 10px;
 }
-/* line 2964, ../../dev/sass/pages/mobile.scss */
+/* line 2967, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-title {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2968, ../../dev/sass/pages/mobile.scss */
+/* line 2971, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-label {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2972, ../../dev/sass/pages/mobile.scss */
+/* line 2975, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 65%;
 }
-/* line 2977, ../../dev/sass/pages/mobile.scss */
+/* line 2980, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .cart-dialog-label {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   text-align: center;
   margin: 5px 0;
   color: #fff;
 }
-/* line 2983, ../../dev/sass/pages/mobile.scss */
+/* line 2986, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .bold {
   font: normal 22px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2987, ../../dev/sass/pages/mobile.scss */
+/* line 2990, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .save {
   background: #20695d;
   color: white;
@@ -14757,7 +14761,7 @@ body {
   border: none;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2998, ../../dev/sass/pages/mobile.scss */
+/* line 3001, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .location-list-tooltip {
   position: absolute;
   background: white;
@@ -14769,7 +14773,7 @@ body {
   -webkit-box-shadow: #bebebe 0px 1px 10px 0px;
   box-shadow: #bebebe 0px 1px 10px 0px;
 }
-/* line 3007, ../../dev/sass/pages/mobile.scss */
+/* line 3010, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .input-field-mobile {
   position: relative;
   display: inline-flex;
@@ -14777,7 +14781,7 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 3014, ../../dev/sass/pages/mobile.scss */
+/* line 3017, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .user-field, .mobile .mobile-order-forms .order-dialog-mobile .user-select-field {
   border-radius: 4px;
   background: white;
@@ -14786,42 +14790,42 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   padding-left: 15px;
 }
-/* line 3023, ../../dev/sass/pages/mobile.scss */
+/* line 3026, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error {
   all: unset;
   position: absolute;
   right: 5px;
   font: normal 40px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 3029, ../../dev/sass/pages/mobile.scss */
+/* line 3032, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip:before, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error:before, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error:before {
   all: unset;
 }
-/* line 3033, ../../dev/sass/pages/mobile.scss */
+/* line 3036, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field {
   border-radius: 4px;
   background: #fff;
   color: white;
 }
-/* line 3037, ../../dev/sass/pages/mobile.scss */
+/* line 3040, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: white;
 }
-/* line 3041, ../../dev/sass/pages/mobile.scss */
+/* line 3044, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-moz-placeholder {
   /* Firefox 19+ */
   color: white;
 }
-/* line 3046, ../../dev/sass/pages/mobile.scss */
+/* line 3049, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .street {
   width: 100%;
 }
-/* line 3049, ../../dev/sass/pages/mobile.scss */
+/* line 3052, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .small {
   flex: 0.3;
 }
-/* line 3054, ../../dev/sass/pages/mobile.scss */
+/* line 3057, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container {
   display: -webkit-flex;
   display: flex;
@@ -14838,7 +14842,7 @@ body {
   background-color: #fff;
   overflow-y: auto;
 }
-/* line 3068, ../../dev/sass/pages/mobile.scss */
+/* line 3071, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 {
   -moz-user-select: text;
   -ms-user-select: text;
@@ -14847,15 +14851,15 @@ body {
   width: 100%;
   height: 50%;
 }
-/* line 3072, ../../dev/sass/pages/mobile.scss */
+/* line 3075, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 table {
   width: 100%;
 }
-/* line 3075, ../../dev/sass/pages/mobile.scss */
+/* line 3078, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 th {
   background-color: #c2c2c2;
 }
-/* line 3079, ../../dev/sass/pages/mobile.scss */
+/* line 3082, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-elem {
   text-align: center;
   vertical-align: middle;
@@ -14864,7 +14868,7 @@ body {
   font-size: 10px;
   max-width: 16vw;
 }
-/* line 3087, ../../dev/sass/pages/mobile.scss */
+/* line 3090, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-price-total {
   font: normal 1.875rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1rem;
@@ -14872,7 +14876,7 @@ body {
   background-color: #c2c2c2;
   text-align: right;
 }
-/* line 3094, ../../dev/sass/pages/mobile.scss */
+/* line 3097, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu {
   width: 100%;
   height: auto;
@@ -14880,7 +14884,7 @@ body {
   display: inline-flex;
   flex-wrap: wrap;
 }
-/* line 3100, ../../dev/sass/pages/mobile.scss */
+/* line 3103, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .back-button-report {
   display: inline-flex;
   height: 45px;
@@ -14891,7 +14895,7 @@ body {
   position: relative;
   margin: 5px;
 }
-/* line 3110, ../../dev/sass/pages/mobile.scss */
+/* line 3113, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item {
   width: 30%;
   height: 45px;
@@ -14906,11 +14910,11 @@ body {
   background-color: white;
   cursor: pointer;
 }
-/* line 3127, ../../dev/sass/pages/mobile.scss */
+/* line 3130, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item.activeAll {
   width: calc(15% - 5px);
 }
-/* line 3130, ../../dev/sass/pages/mobile.scss */
+/* line 3133, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item span {
   width: 90%;
   white-space: nowrap;
@@ -14918,7 +14922,7 @@ body {
   text-overflow: ellipsis;
   text-align: center;
 }
-/* line 3140, ../../dev/sass/pages/mobile.scss */
+/* line 3143, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header {
   display: inline-flex;
   align-items: center;
@@ -14927,14 +14931,14 @@ body {
   height: 80px;
   flex: 0 0 auto;
 }
-/* line 3147, ../../dev/sass/pages/mobile.scss */
+/* line 3150, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header .header-buttons {
   display: inline-flex;
   width: 40%;
   height: 40px;
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 3154, ../../dev/sass/pages/mobile.scss */
+/* line 3157, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-title {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   display: inline-flex;
@@ -14943,7 +14947,7 @@ body {
   width: 100%;
   height: 40px;
 }
-/* line 3162, ../../dev/sass/pages/mobile.scss */
+/* line 3165, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item,
 .mobile .door-config-selected {
   font: normal 18px/1.42857 roboto-light, sans-serif, icons;
@@ -14954,12 +14958,12 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 3172, ../../dev/sass/pages/mobile.scss */
+/* line 3175, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item label,
 .mobile .door-config-selected label {
   width: 90%;
 }
-/* line 3176, ../../dev/sass/pages/mobile.scss */
+/* line 3179, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile {
   position: absolute;
   top: 0;
@@ -14971,7 +14975,7 @@ body {
   background: white;
   z-index: 2;
 }
-/* line 3186, ../../dev/sass/pages/mobile.scss */
+/* line 3189, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-congig-scroll {
   position: relative;
   display: inline-flex;
@@ -14981,22 +14985,22 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 3195, ../../dev/sass/pages/mobile.scss */
+/* line 3198, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-config {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
   padding: 10px 15px;
   flex: 0 0 auto;
 }
-/* line 3202, ../../dev/sass/pages/mobile.scss */
+/* line 3205, ../../dev/sass/pages/mobile.scss */
 .mobile .selected {
   border-radius: 25px;
 }
-/* line 3206, ../../dev/sass/pages/mobile.scss */
+/* line 3209, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history {
   z-index: 1;
 }
-/* line 3208, ../../dev/sass/pages/mobile.scss */
+/* line 3211, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .mobile-order-history-title {
   font: normal 7vw/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
@@ -15005,15 +15009,15 @@ body {
   justify-content: center;
   height: 30px;
 }
-/* line 3216, ../../dev/sass/pages/mobile.scss */
+/* line 3219, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .tool-btn {
   font: normal 3.75rem/1 icons, sans-serif;
 }
-/* line 3222, ../../dev/sass/pages/mobile.scss */
+/* line 3225, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .config:after {
   content: "";
 }
-/* line 3226, ../../dev/sass/pages/mobile.scss */
+/* line 3229, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order {
   width: 100%;
   display: inline-flex;
@@ -15024,15 +15028,15 @@ body {
   -webkit-box-shadow: #333 0 3px 10px -5px;
   box-shadow: #333 0 3px 10px -5px;
 }
-/* line 3233, ../../dev/sass/pages/mobile.scss */
+/* line 3236, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search {
   position: relative;
 }
-/* line 3236, ../../dev/sass/pages/mobile.scss */
+/* line 3239, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .lupa:after {
   content: "";
 }
-/* line 3240, ../../dev/sass/pages/mobile.scss */
+/* line 3243, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search {
   position: absolute;
   width: 0px;
@@ -15046,18 +15050,18 @@ body {
   overflow: hidden;
   transition: 1s;
 }
-/* line 3252, ../../dev/sass/pages/mobile.scss */
+/* line 3255, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search.active {
   width: 90vw;
   transition: 1s;
   border-radius: 50px;
 }
-/* line 3260, ../../dev/sass/pages/mobile.scss */
+/* line 3263, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .close-dialog {
   top: 2px;
   right: 2px;
 }
-/* line 3264, ../../dev/sass/pages/mobile.scss */
+/* line 3267, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .delete-search {
   position: absolute;
   width: 0px;
@@ -15069,7 +15073,7 @@ body {
   background: url(../img/calc/back_red.svg) no-repeat;
   background-size: contain;
 }
-/* line 3275, ../../dev/sass/pages/mobile.scss */
+/* line 3278, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .search-input {
   margin-left: 5px;
   display: inline-flex;
@@ -15078,14 +15082,14 @@ body {
   font: normal 16px/1.42857 roboto-light, sans-serif, icons;
   border: none;
 }
-/* line 3285, ../../dev/sass/pages/mobile.scss */
+/* line 3288, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings {
   position: relative;
   display: inline-flex;
   height: 35px;
   width: 32px;
 }
-/* line 3290, ../../dev/sass/pages/mobile.scss */
+/* line 3293, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block {
   position: absolute;
   top: 14px;
@@ -15101,7 +15105,7 @@ body {
   padding: 0px;
   transition: 1s;
 }
-/* line 3304, ../../dev/sass/pages/mobile.scss */
+/* line 3307, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block.active {
   top: 50px;
   right: -5px;
@@ -15112,23 +15116,23 @@ body {
   padding: 10px;
   transition: 1s;
 }
-/* line 3317, ../../dev/sass/pages/mobile.scss */
+/* line 3320, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-divider {
   font: normal 17px/1.42857 roboto-light, sans-serif, icons;
   margin: 5px 0;
   text-align: center;
 }
-/* line 3322, ../../dev/sass/pages/mobile.scss */
+/* line 3325, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-item {
   font: normal 16px/1.42857 roboto-regular, sans-serif, icons;
   padding: 5px 0 5px 10px;
 }
-/* line 3328, ../../dev/sass/pages/mobile.scss */
+/* line 3331, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit {
   position: relative;
   width: 40vw;
 }
-/* line 3331, ../../dev/sass/pages/mobile.scss */
+/* line 3334, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order select, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product select, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product select, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit select, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit select {
   background: transparent;
   border-radius: 25px;
@@ -15142,7 +15146,7 @@ body {
   /* Safari and Chrome */
   appearance: none;
 }
-/* line 3346, ../../dev/sass/pages/mobile.scss */
+/* line 3349, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product .arrow-down, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit .arrow-down, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit .arrow-down {
   display: inline-flex;
   position: absolute;
@@ -15155,7 +15159,7 @@ body {
   transform: rotate(270deg);
   z-index: -1;
 }
-/* line 3360, ../../dev/sass/pages/mobile.scss */
+/* line 3363, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block {
   display: inline-flex;
   flex-direction: column;
@@ -15165,7 +15169,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 3368, ../../dev/sass/pages/mobile.scss */
+/* line 3371, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card {
   position: relative;
   display: inline-flex;
@@ -15177,7 +15181,7 @@ body {
   border-radius: 15px;
   padding: 10px;
 }
-/* line 3379, ../../dev/sass/pages/mobile.scss */
+/* line 3382, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row {
   display: inline-flex;
   width: 100%;
@@ -15185,20 +15189,20 @@ body {
   margin: 5px 0 0 0;
   flex: 0 0 auto;
 }
-/* line 3385, ../../dev/sass/pages/mobile.scss */
+/* line 3388, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item {
   display: inline-flex;
   flex-direction: column;
 }
-/* line 3388, ../../dev/sass/pages/mobile.scss */
+/* line 3391, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item label {
   font: normal 18px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 3391, ../../dev/sass/pages/mobile.scss */
+/* line 3394, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item span {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 3397, ../../dev/sass/pages/mobile.scss */
+/* line 3400, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .row-id {
   width: 100%;
   display: inline-flex;
@@ -15206,7 +15210,7 @@ body {
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 3404, ../../dev/sass/pages/mobile.scss */
+/* line 3407, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row-price {
   margin: 10px 0 0 0;
   display: inline-flex;
@@ -15216,7 +15220,7 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 3414, ../../dev/sass/pages/mobile.scss */
+/* line 3417, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions {
   position: absolute;
   display: inline-flex;
@@ -15235,7 +15239,7 @@ body {
   padding: 0;
   border: 1px solid transparent;
 }
-/* line 3431, ../../dev/sass/pages/mobile.scss */
+/* line 3434, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions.active {
   padding: 5px 10px;
   width: 80%;
@@ -15246,7 +15250,7 @@ body {
   transition: 1s;
   box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5);
 }
-/* line 3442, ../../dev/sass/pages/mobile.scss */
+/* line 3445, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .btn {
   display: inline-flex;
   align-items: center;
@@ -15258,13 +15262,13 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   margin: 5px 0;
 }
-/* line 3454, ../../dev/sass/pages/mobile.scss */
+/* line 3457, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .delete {
   color: white;
   -webkit-text-fill-color: white;
   background: #75B9BE;
 }
-/* line 3459, ../../dev/sass/pages/mobile.scss */
+/* line 3462, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .order-delete {
   position: absolute;
   top: 10px;
@@ -15274,12 +15278,12 @@ body {
   background: url("../img/calc/close-calculator-hover.svg") no-repeat;
   background-size: contain;
 }
-/* line 3470, ../../dev/sass/pages/mobile.scss */
+/* line 3473, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done {
   border: 1px solid #bebebe;
   background: #f3f3f3;
 }
-/* line 3473, ../../dev/sass/pages/mobile.scss */
+/* line 3476, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-row-price {
   display: inline-flex;
   width: 100%;
@@ -15289,26 +15293,26 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 3482, ../../dev/sass/pages/mobile.scss */
+/* line 3485, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions {
   justify-content: flex-start;
   background: #f3f3f3;
 }
-/* line 3485, ../../dev/sass/pages/mobile.scss */
+/* line 3488, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions .btn {
   border: 1px solid #bebebe;
 }
-/* line 3488, ../../dev/sass/pages/mobile.scss */
+/* line 3491, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions.active {
   background: #f3f3f3;
   border: 1px solid #363636;
 }
-/* line 3493, ../../dev/sass/pages/mobile.scss */
+/* line 3496, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .tool-btn {
   color: black;
   -webkit-text-fill-color: black;
 }
-/* line 3500, ../../dev/sass/pages/mobile.scss */
+/* line 3503, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount {
   display: inline-flex;
   flex-direction: column;
@@ -15316,7 +15320,7 @@ body {
   align-items: center;
   padding: 25px 0;
 }
-/* line 3506, ../../dev/sass/pages/mobile.scss */
+/* line 3509, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row {
   display: inline-flex;
   width: 85%;
@@ -15329,15 +15333,15 @@ body {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
   text-transform: capitalize;
 }
-/* line 3517, ../../dev/sass/pages/mobile.scss */
+/* line 3520, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-label {
   font: normal 10px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 3520, ../../dev/sass/pages/mobile.scss */
+/* line 3523, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-box {
   width: 50%;
 }
-/* line 3524, ../../dev/sass/pages/mobile.scss */
+/* line 3527, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col {
   display: inline-flex;
   flex-direction: column;
@@ -15348,12 +15352,12 @@ body {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 3533, ../../dev/sass/pages/mobile.scss */
+/* line 3536, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-price-box {
   display: inline-flex;
   flex: 0 0 auto;
 }
-/* line 3537, ../../dev/sass/pages/mobile.scss */
+/* line 3540, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box {
   position: relative;
   display: inline-flex;
@@ -15366,15 +15370,15 @@ body {
   text-align: right;
   padding-left: 5px;
 }
-/* line 3548, ../../dev/sass/pages/mobile.scss */
+/* line 3551, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-label {
   margin-left: 10px;
 }
-/* line 3554, ../../dev/sass/pages/mobile.scss */
+/* line 3557, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discount-data {
   width: 70px;
 }
-/* line 3557, ../../dev/sass/pages/mobile.scss */
+/* line 3560, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-down {
   position: absolute;
   right: 10px;
@@ -15386,7 +15390,7 @@ body {
   display: inline-block;
   transform: rotate(270deg);
 }
-/* line 3568, ../../dev/sass/pages/mobile.scss */
+/* line 3571, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-up {
   position: absolute;
   right: 10px;
@@ -15398,23 +15402,23 @@ body {
   display: inline-block;
   transform: rotate(90deg);
 }
-/* line 3580, ../../dev/sass/pages/mobile.scss */
+/* line 3583, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col #disc-input-main {
   width: 30px;
 }
-/* line 3583, ../../dev/sass/pages/mobile.scss */
+/* line 3586, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc-input {
   width: 50px;
   border: none;
   text-align: right;
   margin-right: 4px;
 }
-/* line 3589, ../../dev/sass/pages/mobile.scss */
+/* line 3592, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 3594, ../../dev/sass/pages/mobile.scss */
+/* line 3597, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .delete {
   height: 40px;
   color: white;

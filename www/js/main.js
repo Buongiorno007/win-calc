@@ -26454,21 +26454,15 @@ function ErrorResult(code, message) {
             return localDB.selectLocalDB('set_data');
           })
           .then(function (set) {
-            for (
-              let i = 0;
-              i < GlobalStor.global.setsCategories[0].setsForCategory.length;
-              i++
-            ) {
-              GlobalStor.global.setsCategories[0].setsForCategory[i].set = [];
-              for (let j = 0; j < set.length; j++) {
-                if (
-                  GlobalStor.global.setsCategories[0].setsForCategory[i].id ===
-                  set[j].sets_id
-                ) {
-                  GlobalStor.global.setsCategories[0].setsForCategory[
-                    i
-                  ].set.push(set[j]);
-                }
+            for (let k = 0; k < GlobalStor.global.setsCategories.length; k++) {
+              let currentCategory = GlobalStor.global.setsCategories[k];
+              for (let i = 0; i < currentCategory.setsForCategory.length; i++) {
+                  currentCategory.setsForCategory[i].set = [];
+                  for (let j = 0; j < set.length; j++) {
+                      if (currentCategory.setsForCategory[i].id === set[j].sets_id) {
+                        currentCategory.setsForCategory[i].set.push(set[j]);
+                      }
+                  }
               }
             }
             deff.resolve(1);
