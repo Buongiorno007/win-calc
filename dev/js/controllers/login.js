@@ -1039,7 +1039,7 @@
         }
 
         //Simple autologin for rehau landing, sorry have no time to do it better
-        if (window.location.href === "https://okoshko.ua/dark-calc/#/") {
+        if (window.location.href === "https://okoshko.ua/pro-user/#/") {
           var keys = []
           for (var i = 0; i < localStorage.length; i++){
               keys.push(localStorage.key(i))
