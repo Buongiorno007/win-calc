@@ -35,33 +35,6 @@
   </div>
   <div ng-if="mobilePage.isSet(2)" class="karkas-styles">
     <div ng-controller="DesignCtrl as designPage" class="karkas-content">
-      <div ng-class="{'gray': designPage.D.design.activeMenuItem }" class="common-scroll-container figure-lists">
-        <div ng-click="designPage.selectMenuItem(3)" ng-class="{'selected': designPage.D.design.activeMenuItem == 3}" class="figure-item">
-          <div class="figure-icon impost-shape-a"></div>
-          <div class="figure-icon impost-shape-b"></div>
-          <div data-output="{{ ::designPage.IMPOST_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-        </div>
-        <div ng-click="designPage.selectMenuItem(1)" ng-class="{'selected': designPage.D.design.activeMenuItem == 1}" class="figure-item">
-          <div class="figure-icon sash-shape-a"></div>
-          <div class="figure-icon sash-shape-b"></div>
-          <div data-output="{{ ::designPage.SASH_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-        </div>
-        <div ng-click="designPage.selectMenuItem(2)" ng-class="{'selected': designPage.D.design.activeMenuItem == 2}" class="figure-item">
-          <div class="figure-icon angel-shape-a"></div>
-          <div class="figure-icon angel-shape-b"></div>
-          <div data-output="{{ ::designPage.ANGEL_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-        </div>
-        <div ng-click="designPage.selectMenuItem(4)" ng-class="{'selected': designPage.D.design.activeMenuItem == 4}" class="figure-item">
-          <div class="figure-icon arch-shape-a"></div>
-          <div class="figure-icon arch-shape-b"></div>
-          <div data-output="{{ ::designPage.ARCH_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-        </div>
-        <div ng-click="designPage.selectMenuItem(5)" ng-class="{'selected': designPage.D.design.activeMenuItem == 5}" class="figure-item">
-          <div class="figure-icon position-shape-a"></div>
-          <div class="figure-icon position-shape-b"></div>
-          <div data-output="{{ ::designPage.POSITION_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-        </div>
-      </div>
       <div ng-if="designPage.D.design.activeMenuItem" class="edit-submenu-list">
         <div ng-if="designPage.D.design.activeSubMenuItem == 3" class="edit-submenu">
           <div class="submenu-subtitle">{{mobilePage.CHOOSE_PLACE}}</div>
@@ -164,7 +137,7 @@
                   <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
                   <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
                 </div>
-                <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+                <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
               </div>
               <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
                 <div class="accept-container-header">
@@ -253,7 +226,7 @@
                 <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
                 <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
               </div>
-              <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+              <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
             </div>
             <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
               <div class="accept-container-header">
@@ -276,19 +249,7 @@
         <div class="configs-list">
           <div fs-click="configMenu.selectConfigPanel(7)" ng-class="{active : configMenu.G.global.activePanel===7}" class="conf-item">
             <div class="conf-item-text">{{ mobilePage.CONFIGMENU_SET }}</div>
-            <div class="conf-item-text-sm">{{ configMenu.P.product.currentSet || mobilePage.SET_IS_NOT_SELECTED }}</div>
-          </div>
-          <div fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item">
-            <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_PROFILE }}</div>
-            <div class="conf-item-text-sm">{{ configMenu.P.product.profile.name }}</div>
-          </div>
-          <div fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}" class="conf-item">
-            <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_GLASS }}</div>
-            <div class="conf-item-text-sm">{{ mobilePage.P.product.glass[0].sku }}</div>
-          </div>
-          <div fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}" class="conf-item">
-            <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_HARDWARE }}</div>
-            <div class="conf-item-text-sm">{{ mobilePage.P.product.hardware.name }}</div>
+            <div class="conf-item-text-sm">{{ configMenu.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item">
             <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_LAMINATION }}</div>
@@ -305,7 +266,7 @@
     </div>
     <div ng-click="mobilePage.setTab(2)" ng-class="{ active: mobilePage.isSet(2) &amp;&amp; mobilePage.G.global.activePanel !== 6 }" class="hammer config control-button">
       <div class="img-common hammer"></div>
-      <p>{{mobilePage.CORRECTION}}</p>
+      <p>{{mobilePage.SIZES}}</p>
     </div>
     <div ng-click="mobilePage.setTab(3)" ng-class="{ active: mobilePage.isSet(3) &amp;&amp; mobilePage.G.global.activePanel !== 6 }" class="config control-button">
       <div class="img-common config-img"></div>
@@ -519,7 +480,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">
@@ -652,7 +613,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">
@@ -678,7 +639,7 @@
           <div class="title">{{setCategory.title}}</div>
         </div>
         <div class="profile-box">
-          <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}" class="profile-info">
+          <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet.id === sets.id}" class="profile-info">
             <div ng-click="profilesPanel.selectSet(sets)" class="profile-info-item"><img src="{{ sets.img }}" alt="" class="profile-img">
               <div class="name">{{ sets.title }}</div>
               <h3 class="sets-text">{{sets.description}}</h3>
@@ -743,7 +704,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">
@@ -906,7 +867,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">
@@ -1037,7 +998,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">
@@ -1140,7 +1101,7 @@
             <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
             <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
           </div>
-          <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+          <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
         </div>
         <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
           <div class="accept-container-header">

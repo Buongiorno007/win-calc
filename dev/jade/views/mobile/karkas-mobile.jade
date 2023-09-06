@@ -1,25 +1,25 @@
 .karkas-content(ng-controller="DesignCtrl as designPage")
-  .common-scroll-container.figure-lists(ng-class="{'gray': designPage.D.design.activeMenuItem }")
-    .figure-item(ng-click="designPage.selectMenuItem(3)" ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
-        .figure-icon.impost-shape-a
-        .figure-icon.impost-shape-b
-        .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-    .figure-item(ng-click="designPage.selectMenuItem(1)" ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
-        .figure-icon.sash-shape-a
-        .figure-icon.sash-shape-b
-        .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-    .figure-item(ng-click="designPage.selectMenuItem(2)" ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
-        .figure-icon.angel-shape-a
-        .figure-icon.angel-shape-b
-        .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-    .figure-item(ng-click="designPage.selectMenuItem(4)" ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
-        .figure-icon.arch-shape-a
-        .figure-icon.arch-shape-b
-        .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-    .figure-item(ng-click="designPage.selectMenuItem(5)" ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
-        .figure-icon.position-shape-a
-        .figure-icon.position-shape-b
-        .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+  //- .common-scroll-container.figure-lists(ng-class="{'gray': designPage.D.design.activeMenuItem }")
+  //-   .figure-item(ng-click="designPage.selectMenuItem(3)" ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
+  //-       .figure-icon.impost-shape-a
+  //-       .figure-icon.impost-shape-b
+  //-       .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+  //-   .figure-item(ng-click="designPage.selectMenuItem(1)" ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
+  //-       .figure-icon.sash-shape-a
+  //-       .figure-icon.sash-shape-b
+  //-       .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+  //-   .figure-item(ng-click="designPage.selectMenuItem(2)" ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
+  //-       .figure-icon.angel-shape-a
+  //-       .figure-icon.angel-shape-b
+  //-       .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+  //-   .figure-item(ng-click="designPage.selectMenuItem(4)" ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
+  //-       .figure-icon.arch-shape-a
+  //-       .figure-icon.arch-shape-b
+  //-       .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+  //-   .figure-item(ng-click="designPage.selectMenuItem(5)" ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
+  //-       .figure-icon.position-shape-a
+  //-       .figure-icon.position-shape-b
+  //-       .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
   .edit-submenu-list(ng-if="designPage.D.design.activeMenuItem")
     .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 3")

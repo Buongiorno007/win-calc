@@ -94,7 +94,6 @@
       }
 
       function selectSet(sets) {
-        console.log(sets, 'sets')
         const setToAply = sets.set[0];
         GlobalStor.global.activeSet = setToAply;
         ProfileServ.selectProfile(setToAply.profile_systems_id);
@@ -107,7 +106,7 @@
             HardwareServ.selectHardware(setToAply.window_hardware_groups_id);
             GlassesServ.selectGlass(setToAply.list_id);
             resolve();
-            ProductStor.product.currentSet = sets.title;
+            ProductStor.product.currentSet = sets;
           }, 1);
         });
       }

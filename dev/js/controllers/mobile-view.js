@@ -8,7 +8,9 @@
             $timeout,
             $scope,
             $window,
+            globalConstants,
             SVGServ,
+            DesignServ,
             GeneralServ,
             MainServ,
             NavMenuServ,
@@ -36,6 +38,7 @@
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");
             thisCtrl.CORRECTION = $filter("translate")("mainpage.CORRECTION");
+            thisCtrl.SIZES = $filter("translate")("mainpage.SIZES");
             thisCtrl.CONFIGURATION = $filter("translate")("mainpage.CONFIGURATION");
             thisCtrl.CONFIGURATION_SUBTITLE = $filter("translate")("mainpage.CONFIGURATION_SUBTITLE");
             thisCtrl.CONFIGMENU_GLASS = $filter("translate")("mainpage.CONFIGMENU_GLASS");
@@ -112,11 +115,30 @@
 
             function setTab(newTab) {
                 GlobalStor.global.activePanel = 0;
-                // Additional elements
+                if (newTab === 2) {
+                    GlobalStor.global.MobileTabActive = 0;
+                    $('.size-box').css({
+                        'transition': 'all 0.2s ease-in-out',
+                        'transform': 'scale(1.15)',
+                        'transform-origin': 'center center'
+                    });
+                    setTimeout(() => {
+                        $('.size-box').css({
+                            'transform': 'scale(0.9)',
+                            'transform-origin': 'center center'
+                        });
+                    }, 400);
+                    setTimeout(() => {
+                        $('.size-box').css({
+                            'transform': 'scale(1)',
+                            'transform-origin': 'center center'
+                        });
+                    }, 600);
+                    return
+                }
                 if (newTab === 6) {
                     GlobalStor.global.MobileTabActive = 3;
                     ConfigMenuServ.selectConfigPanel(newTab)
-                    console.log(GlobalStor.global.activePanel, 'activePanel')
                     return
                 }
                 if (newTab === 4) {

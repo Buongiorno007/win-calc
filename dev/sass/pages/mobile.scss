@@ -74,6 +74,23 @@
   }
 }
 
+
+.size-box.wiggle-animation {
+  animation: wiggle 2s ease infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+      transform: translateX(0) scale(1);
+  }
+  25% {
+      transform: translateX(-10px) scale(1.05);
+  }
+  75% {
+      transform: translateX(10px) scale(1.05);
+  }
+}
+
 @keyframes ball2 {
   0% {
     box-shadow: 30px 0 0 #000;
@@ -1225,7 +1242,6 @@ body {
               width: 43vw;
               .name {
                 @include roboto-bd(4vw);
-                height: 7.74vw;
                 width: 100%;
                 text-align: center;
                 p {
@@ -1238,7 +1254,10 @@ body {
                 }
               }
               h3 {
-                font-size: 11px;
+                font-family: 'roboto-bold';
+                margin-bottom: 0;
+                margin-top: 0;
+                font-size: 10px;
                 font-weight: bold;
                 padding: 0 8px 0 8px;
               }
@@ -1354,7 +1373,6 @@ body {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                height: 7.74vw;
                 width: 100%;
                 p {
                   margin: 0;

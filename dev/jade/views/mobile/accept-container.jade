@@ -47,7 +47,7 @@
                 .header-title {{mobilePage.CONFIGMENU_SET}}
                 .close-icon
                     img(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg", alt="red cross")
-            .accept-container-item {{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}
+            .accept-container-item {{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}
         .selected-profile(ng-if="mobilePage.G.global.activePanel === 6")
             .accept-container-header
                 .header-title {{mobilePage.ACCESORIES}}

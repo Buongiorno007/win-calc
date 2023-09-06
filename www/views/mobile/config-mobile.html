@@ -54,7 +54,7 @@
           <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
           <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
         </div>
-        <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+        <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
       </div>
       <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
         <div class="accept-container-header">
@@ -77,19 +77,7 @@
   <div class="configs-list">
     <div fs-click="configMenu.selectConfigPanel(7)" ng-class="{active : configMenu.G.global.activePanel===7}" class="conf-item">
       <div class="conf-item-text">{{ mobilePage.CONFIGMENU_SET }}</div>
-      <div class="conf-item-text-sm">{{ configMenu.P.product.currentSet || mobilePage.SET_IS_NOT_SELECTED }}</div>
-    </div>
-    <div fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item">
-      <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_PROFILE }}</div>
-      <div class="conf-item-text-sm">{{ configMenu.P.product.profile.name }}</div>
-    </div>
-    <div fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}" class="conf-item">
-      <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_GLASS }}</div>
-      <div class="conf-item-text-sm">{{ mobilePage.P.product.glass[0].sku }}</div>
-    </div>
-    <div fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}" class="conf-item">
-      <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_HARDWARE }}</div>
-      <div class="conf-item-text-sm">{{ mobilePage.P.product.hardware.name }}</div>
+      <div class="conf-item-text-sm">{{ configMenu.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
     </div>
     <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item">
       <div class="conf-item-text">{{ ::configMenu.CONFIGMENU_LAMINATION }}</div>

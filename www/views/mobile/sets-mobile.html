@@ -54,7 +54,7 @@
           <div class="header-title">{{mobilePage.CONFIGMENU_SET}}</div>
           <div class="close-icon"><img ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(3)" src="img/black-cross.svg" alt="red cross"></div>
         </div>
-        <div class="accept-container-item">{{mobilePage.CONFIGMENU_SET}} {{ mobilePage.P.product.currentSet }}</div>
+        <div class="accept-container-item">{{ mobilePage.P.product.currentSet.title || mobilePage.SET_IS_NOT_SELECTED }}</div>
       </div>
       <div ng-if="mobilePage.G.global.activePanel === 6" class="selected-profile">
         <div class="accept-container-header">
@@ -80,7 +80,7 @@
         <div class="title">{{setCategory.title}}</div>
       </div>
       <div class="profile-box">
-        <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}" class="profile-info">
+        <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet.id === sets.id}" class="profile-info">
           <div ng-click="profilesPanel.selectSet(sets)" class="profile-info-item"><img src="{{ sets.img }}" alt="" class="profile-img">
             <div class="name">{{ sets.title }}</div>
             <h3 class="sets-text">{{sets.description}}</h3>

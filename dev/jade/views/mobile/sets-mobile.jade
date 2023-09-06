@@ -5,7 +5,7 @@
             .producer
                 .title {{setCategory.title}}
             .profile-box
-                .profile-info(ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet === sets.title}")
+                .profile-info(ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet.id === sets.id}")
                     .profile-info-item(ng-click="profilesPanel.selectSet(sets)" )
                         img.profile-img(src="{{ sets.img }}", alt="")
                         .name {{ sets.title }}
