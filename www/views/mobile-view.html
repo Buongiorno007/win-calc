@@ -642,7 +642,7 @@
           <div ng-repeat="sets in setCategory.setsForCategory track by sets.id" ng-class="{selected: mobilePage.P.product.currentSet.id === sets.id}" class="profile-info">
             <div ng-click="profilesPanel.selectSet(sets)" class="profile-info-item"><img src="{{ sets.img }}" alt="" class="profile-img">
               <div class="name">{{ sets.title }}</div>
-              <h3 class="sets-text">{{sets.description}}</h3>
+              <p class="sets-text">{{sets.description}}</p>
             </div>
           </div>
         </div>

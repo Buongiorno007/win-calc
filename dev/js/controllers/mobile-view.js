@@ -118,19 +118,19 @@
                 if (newTab === 2) {
                     GlobalStor.global.MobileTabActive = 0;
                     $('.size-box').css({
-                        'transition': 'all 0.2s ease-in-out',
-                        'transform': 'scale(1.15)',
+                        'transition': 'all .2s ease-in-out',
+                        'transform': 'translateX(80px)',
                         'transform-origin': 'center center'
                     });
                     setTimeout(() => {
                         $('.size-box').css({
-                            'transform': 'scale(0.9)',
+                            'transform': 'translateX(-80px)',
                             'transform-origin': 'center center'
                         });
                     }, 400);
                     setTimeout(() => {
                         $('.size-box').css({
-                            'transform': 'scale(1)',
+                            'transform': 'translateX(0px)',
                             'transform-origin': 'center center'
                         });
                     }, 600);
