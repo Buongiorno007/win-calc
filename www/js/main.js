@@ -1428,6 +1428,7 @@ let portrait = false;
                 /**++++++++++ position by Glasses ++++++++*/
 
                 function positionGlass() {
+                    console.log('check')
                     GlobalStor.global.isChangedTemplate = 1;
                     deactivMenu();
                     DesignServ.positionGlasses();
@@ -15597,7 +15598,7 @@ function ErrorResult(code, message) {
         }
 
         function closeSizeCaclulator(prom, save) {
-          positionAxises();
+          // positionAxises();
           var deff = $q.defer();
           if (DesignStor.design.tempSize.length) {
             if (UserStor.userInfo.factory_id === 1966) {
