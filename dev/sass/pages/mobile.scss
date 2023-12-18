@@ -214,7 +214,12 @@ body {
   }
   p {
     margin: 0;
-    text-align: center;
+
+  }
+  .sets-text {
+    display: flex;
+    align-self: flex-start;
+    padding: 0 12px;
   }
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile),
